@@ -1,0 +1,16 @@
+[book]
+authors = ["Simon Johnston <johnstonskj@gmail.com>"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Datalog Specifications"
+
+[rust]
+edition = "2018"
+
+[output.html]
+git-repository-url = "https://datalog-specs.info"
+additional-css = ["specs.css"]
+additional-js = ["datalog.js", "specs.js"]
+curly-quotes = true
+mathjax-support = false

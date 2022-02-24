@@ -1,0 +1,90 @@
+
+table {
+    font-size: small;
+}
+
+table.plain tbody tr:nth-child(2n) {
+    background: var(--bg);
+}
+
+table.plain tbody td {
+    vertical-align: top;
+}
+
+main img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    filter: var(--img-filter);
+}
+
+.navy, .ayu, .coal {
+    --img-filter: invert(90%);
+}
+
+main .caption {
+    display: block;
+    text-align: center;
+    font-size: small;
+}
+
+main .caption.figure::before {
+    content: "Figure\a0";
+    font-weight: bold;
+}
+
+main .caption.table::before {
+    content: "Table\a0";
+    font-weight: bold;
+}
+
+main .bibref {
+    font-size: smaller;
+    vertical-align: super;
+}
+
+main .inline {
+    font-size: unset;
+    vertical-align: unset;
+}
+
+main .bibref::before {
+    content: "[";
+}
+
+main .bibref::after {
+    content: "]";
+}
+
+main .biblio ol {
+    list-style-position: inside;
+    list-style-type: none;
+}
+
+main .biblio ol li {
+    display: block;
+    margin-left: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+main .biblio ol li .bibkey {
+    margin-left: -2.5em;
+}
+
+main .biblio ol li .bibkey::before {
+    content: "[";
+}
+
+main .biblio ol li .bibkey::after {
+    content: "]\a";
+    white-space: pre;
+}
+
+main .footnote-reference::before {
+    content: "[";
+}
+
+main .footnote-reference::after {
+    content: "]";
+}
+

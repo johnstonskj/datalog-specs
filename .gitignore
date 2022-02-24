@@ -1,4 +1,6 @@
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+/book/_site/
+/book/.sass-cache/
+/book/.jekyll-cache/
+/book/.jekyll-metadata
+
+/.idea
