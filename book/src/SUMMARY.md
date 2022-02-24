@@ -9,6 +9,7 @@
    6. [Appendix: EBNF](vnd_datalog_text/x_ebnf.md)
    7. [Appendix: International Considerations](vnd_datalog_text/x_international.md)
    8. [Appendix: IANA Considerations](vnd_datalog_text/x_iana.md)
+      1. [Dialect Identifiers](vnd_datalog_text/dialects.md)
    9. [Appendix: References](vnd_datalog_text/x_references.md)
 
 -----

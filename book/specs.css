@@ -88,3 +88,10 @@ main .footnote-reference::after {
     content: "]";
 }
 
+main dl dt {
+    font-weight: bold;
+}
+
+main dl dd {
+    margin-bottom: .5em;
+}

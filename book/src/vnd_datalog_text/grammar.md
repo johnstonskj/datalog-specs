@@ -21,10 +21,10 @@ A program consists of a set of facts that comprise the extensional database, a l
 ![program](images/program.png)
 
 ```ebnf
-program ::= pragma* ( fact | rule | query )* ;
+program ::= processing-instruction* ( fact | rule | query )* ;
 ```
 
-A program consists of a single file containing facts, rules, and queries as well as any additional files referenced via _pragmas_.
+A program consists of a single file containing facts, rules, and queries as well as any additional files referenced via _processing instructions_.
 
 ## Facts
 
@@ -420,20 +420,20 @@ The results of this query would not include the age column:
      ...
 ```
 
-## Pragmas
+## Processing Instructions
 
-Pragmas are declarative statements meant for the parser and runtime tooling, they do not affect
+Processing Instructions are declarative statements meant for the parser and runtime tooling, they do not affect
 the meaning of the program itself.
 
 ![pragma](images/pragma.png)
 
 ```ebnf
-pragma  ::= "." ( feature | assert | infer | fd | input | output ) "." ;
+processing-instruction  ::= "." ( feature | assert | infer | fd | input | output ) "." ;
 ```
 
-### pragma feature
+### Processing Instruction feature
 
-The `feature` pragma determines which Datalog language is in use. Use of syntax not supported by the
+The `feature` processing instruction determines which Datalog language is in use. Use of syntax not supported by the
 selected language feature will result in errors.
 
 ![feature](images/feature.png)
@@ -460,10 +460,10 @@ feature-id
 .feature(comparisons, disjunction).
 ```
 
-### pragma assert
+### Processing Instruction assert
 
-The `assert` pragma describes a new relation in the extensional database. The parser can determine
-the schema for facts from their types in the database. The use of this pragma is therefore optional,
+The `assert` processing instruction describes a new relation in the extensional database. The parser can determine
+the schema for facts from their types in the database. The use of this processing instruction is therefore optional,
 but recommended.
 
 ![assert](images/assert.png)
@@ -485,10 +485,10 @@ attribute-decl
 .assert human(name: string).
 ```
 
-### pragma infer
+### Processing Instruction infer
 
-The `infer` pragma describes a new relation in the intensional database. Typically the parser
-can determine the schema for relational literals from their context, The use of this pragma
+The `infer` processing instruction describes a new relation in the intensional database. Typically the parser
+can determine the schema for relational literals from their context, The use of this processing instruction
 is therefore optional, but recommended. The alternate form is more explicit in that it defines
 an intensional relation in terms of a previously defined extensional relation.
 
@@ -513,14 +513,14 @@ Alternatively the short-cut form is often more convenient.
 .infer mortal from human.
 ```
 
-### pragma fd
+### Processing Instruction fd
 
-The `fd` pragma, short for _functional dependency_, introduces a relationship between one or more attributes on the
+The `fd` processing instruction, short for _functional dependency_, introduces a relationship between one or more attributes on the
 left-hand (determinant) side and one or more attributes on the right-hand (dependent) side. This relationship denotes
 that for a relationship $\small R$ with attributes $\small a_1, \cdots, a_n$, every valid combination of determinant
 values uniquely determines the value of the dependent values.
 
-Note that this pragma is only valid if the corresponding language feature is enabled.
+Note that this processing instruction is only valid if the corresponding language feature is enabled.
 
 ![input](images/fd.png)
 
@@ -568,11 +568,11 @@ following are equivalent. Note that the implementation will ignore such duplicat
 .fd employee: 1 ⟶ 2.
 ```
 
-### pragma input
+### Processing Instruction input
 
-The `input` pragma instructs the parser to load facts for the named extensional relation from an
-external file. This pragma **requires** that the relation be previously defined via the `assert`
-pragma.
+The `input` processing instruction instructs the parser to load facts for the named extensional relation from an
+external file. This processing instruction **requires** that the relation be previously defined via the `assert`
+processing instruction.
 
 ![input](images/input.png)
 
@@ -594,11 +594,11 @@ io-details
 .input(human, "data/humans.csv", "csv").
 ```
 
-### pragma output
+### Processing Instruction output
 
-The `output` pragma instructs the parser to write facts from the named intensional relation to an
-external file. This pragma **requires** that the relation be previously defined via the `infer`
-pragma.
+The `output` processing instruction instructs the parser to write facts from the named intensional relation to an
+external file. This processing instruction **requires** that the relation be previously defined via the `infer`
+processing instruction.
 
 ![output](images/output.png)
 
