@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="vnd_datalog_text/abstract.html"><strong aria-hidden="true">1.</strong> Datalog Text Representation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vnd_datalog_text/introduction.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/conformance.html"><strong aria-hidden="true">1.2.</strong> Conformance</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/basic_concepts.html"><strong aria-hidden="true">1.3.</strong> Basic Concepts</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/grammar.html"><strong aria-hidden="true">1.4.</strong> Datalog Document Grammar</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/datasets.html"><strong aria-hidden="true">1.5.</strong> Dataset Processing</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/x_ebnf.html"><strong aria-hidden="true">1.6.</strong> Appendix: EBNF</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/x_international.html"><strong aria-hidden="true">1.7.</strong> Appendix: International Considerations</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/x_iana.html"><strong aria-hidden="true">1.8.</strong> Appendix: IANA Considerations</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/x_references.html"><strong aria-hidden="true">1.9.</strong> Appendix: References</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="vnd_datalog_text/z_errata.html"><strong aria-hidden="true">2.</strong> Datalog Text Representation Errata</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/z_translations.html"><strong aria-hidden="true">3.</strong> Datalog Text Representation Translations</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="vnd_datalog_text/abstract.html"><strong aria-hidden="true">1.</strong> Datalog Text Representation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vnd_datalog_text/introduction.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/conformance.html"><strong aria-hidden="true">1.2.</strong> Conformance</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/basic_concepts.html"><strong aria-hidden="true">1.3.</strong> Basic Concepts</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/grammar.html"><strong aria-hidden="true">1.4.</strong> Datalog Document Grammar</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/datasets.html"><strong aria-hidden="true">1.5.</strong> Dataset Processing</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/x_ebnf.html"><strong aria-hidden="true">1.6.</strong> Appendix: EBNF</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/x_international.html"><strong aria-hidden="true">1.7.</strong> Appendix: International Considerations</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/x_iana.html"><strong aria-hidden="true">1.8.</strong> Appendix: IANA Considerations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vnd_datalog_text/dialects.html"><strong aria-hidden="true">1.8.1.</strong> Dialect Identifiers</a></li></ol></li><li class="chapter-item expanded "><a href="vnd_datalog_text/x_references.html"><strong aria-hidden="true">1.9.</strong> Appendix: References</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="vnd_datalog_text/z_errata.html"><strong aria-hidden="true">2.</strong> Datalog Text Representation Errata</a></li><li class="chapter-item expanded "><a href="vnd_datalog_text/z_translations.html"><strong aria-hidden="true">3.</strong> Datalog Text Representation Translations</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -191,13 +191,18 @@ document.addEventListener("DOMContentLoaded", function() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="conformance"><a class="header" href="#conformance">Conformance</a></h1>
 <p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p>
 <p>The keywords <em>MAY</em>, <em>MUST</em>, <em>MUST NOT</em>, <em>RECOMMENDED</em>, <em>SHOULD</em>, and <em>SHOULD NOT</em> in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/bcp14">BCP 14</a> <span class="bibref inline"><a href="vnd_datalog_text/x_references.html#RFC2119">RFC2119</a></span> <span class="bibref inline"><a href="vnd_datalog_text/x_references.html#RFC8174">RFC8174</a></span> when, and only when, they appear in all capitals, as shown here.</p>
+<h2 id="processing-instructions"><a class="header" href="#processing-instructions">Processing Instructions</a></h2>
 <h2 id="media-type-and-content-encoding"><a class="header" href="#media-type-and-content-encoding">Media Type and Content Encoding</a></h2>
 <p>The media type of Datalog text document is <code>application/vnd.datalog+text</code>. The content encoding of a Datalog text document is always UTF-8.</p>
-<p>The optional “features” parameter allows the transport to identify language features used within the representation. The value of this parameter is a comma-separated list of feature identifiers supported by this specification.</p>
+<h3 id="features-parameter"><a class="header" href="#features-parameter">Features Parameter</a></h3>
+<p>The optional “features” parameter allows the transport to identify language features used within the representation. The value of this parameter is a comma-separated list of feature identifiers supported by this specification. If this parameter is specified more than once it’s values MUST be aggregated into a set, removing duplicates.</p>
 <p>Therefore, the type <code>application/vnd.datalog+text;features=negation</code> denotes a document with the following processing instruction.</p>
 <pre><code class="language-datalog">.features(negation).
 </code></pre>
 <p>The purpose of this parameter is to save a client from having to parse a document if the features identified in the parameter are unsupported by them.</p>
+<h3 id="dialect-parameter"><a class="header" href="#dialect-parameter">Dialect Parameter</a></h3>
+<p>The “dialect” parameter identifies the tool which generated the document, there are some existing tools with extensive usage that deviate from this core specification. An initial set of identifiers is included in the <em>non-normative</em> section <a href="vnd_datalog_text/dialects.html">1.8.1 Dialect Identifiers</a>.</p>
+<p>If this parameter is specified more than once, the first value MUST be used and any subsequent value MUST be discarded.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-concepts"><a class="header" href="#basic-concepts">Basic Concepts</a></h1>
 <p>A Datalog <strong>Program</strong> $\small P$ is a tuple comprising the <strong>Extensional</strong> database, EDB, or  $\small D_{E}$, the
 <strong>Intensional</strong> database, IDB, or  $\small D_{I}$, and a set of queries $\small Q$.</p>
@@ -227,9 +232,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="programs"><a class="header" href="#programs">Programs</a></h2>
 <p>A program consists of a set of facts that comprise the extensional database, a list of rules that comprise the intensional database, and possibly a set of queries to interrogate the result of any reasoning performed over the program.</p>
 <p><img src="vnd_datalog_text/images/program.png" alt="program" /></p>
-<pre><code class="language-ebnf">program ::= pragma* ( fact | rule | query )* ;
+<pre><code class="language-ebnf">program ::= processing-instruction* ( fact | rule | query )* ;
 </code></pre>
-<p>A program consists of a single file containing facts, rules, and queries as well as any additional files referenced via <em>pragmas</em>.</p>
+<p>A program consists of a single file containing facts, rules, and queries as well as any additional files referenced via <em>processing instructions</em>.</p>
 <h2 id="facts"><a class="header" href="#facts">Facts</a></h2>
 <p>Facts <strong>must</strong> be expressed in the form of ground atoms and so they have a specific rule rather than a constrained form of the <code>atom</code> rule.</p>
 <p><img src="vnd_datalog_text/images/fact.png" alt="fact" /></p>
@@ -489,14 +494,14 @@ car(&quot;ford&quot;, X, _)?
 +------------+
      ...
 </code></pre>
-<h2 id="pragmas"><a class="header" href="#pragmas">Pragmas</a></h2>
-<p>Pragmas are declarative statements meant for the parser and runtime tooling, they do not affect
+<h2 id="processing-instructions-1"><a class="header" href="#processing-instructions-1">Processing Instructions</a></h2>
+<p>Processing Instructions are declarative statements meant for the parser and runtime tooling, they do not affect
 the meaning of the program itself.</p>
 <p><img src="vnd_datalog_text/images/pragma.png" alt="pragma" /></p>
-<pre><code class="language-ebnf">pragma  ::= &quot;.&quot; ( feature | assert | infer | fd | input | output ) &quot;.&quot; ;
+<pre><code class="language-ebnf">processing-instruction  ::= &quot;.&quot; ( feature | assert | infer | fd | input | output ) &quot;.&quot; ;
 </code></pre>
-<h3 id="pragma-feature"><a class="header" href="#pragma-feature">pragma feature</a></h3>
-<p>The <code>feature</code> pragma determines which Datalog language is in use. Use of syntax not supported by the
+<h3 id="processing-instruction-feature"><a class="header" href="#processing-instruction-feature">Processing Instruction feature</a></h3>
+<p>The <code>feature</code> processing instruction determines which Datalog language is in use. Use of syntax not supported by the
 selected language feature will result in errors.</p>
 <p><img src="vnd_datalog_text/images/feature.png" alt="feature" /></p>
 <pre><code class="language-ebnf">feature ::= &quot;feature&quot; &quot;(&quot; feature-id ( &quot;,&quot; feature-id )* &quot;)&quot; ;
@@ -513,9 +518,9 @@ selected language feature will result in errors.</p>
 <pre><code class="language-datalog">.feature(negation).
 .feature(comparisons, disjunction).
 </code></pre>
-<h3 id="pragma-assert"><a class="header" href="#pragma-assert">pragma assert</a></h3>
-<p>The <code>assert</code> pragma describes a new relation in the extensional database. The parser can determine
-the schema for facts from their types in the database. The use of this pragma is therefore optional,
+<h3 id="processing-instruction-assert"><a class="header" href="#processing-instruction-assert">Processing Instruction assert</a></h3>
+<p>The <code>assert</code> processing instruction describes a new relation in the extensional database. The parser can determine
+the schema for facts from their types in the database. The use of this processing instruction is therefore optional,
 but recommended.</p>
 <p><img src="vnd_datalog_text/images/assert.png" alt="assert" /></p>
 <pre><code class="language-ebnf">assert  ::= &quot;assert&quot; predicate &quot;(&quot; attribute-decl ( &quot;,&quot; attribute-decl )* &quot;)&quot; ;
@@ -527,9 +532,9 @@ but recommended.</p>
 <p><strong>Example</strong></p>
 <pre><code class="language-datalog">.assert human(name: string).
 </code></pre>
-<h3 id="pragma-infer"><a class="header" href="#pragma-infer">pragma infer</a></h3>
-<p>The <code>infer</code> pragma describes a new relation in the intensional database. Typically the parser
-can determine the schema for relational literals from their context, The use of this pragma
+<h3 id="processing-instruction-infer"><a class="header" href="#processing-instruction-infer">Processing Instruction infer</a></h3>
+<p>The <code>infer</code> processing instruction describes a new relation in the intensional database. Typically the parser
+can determine the schema for relational literals from their context, The use of this processing instruction
 is therefore optional, but recommended. The alternate form is more explicit in that it defines
 an intensional relation in terms of a previously defined extensional relation.</p>
 <p><img src="vnd_datalog_text/images/infer.png" alt="infer" /></p>
@@ -544,12 +549,12 @@ an intensional relation in terms of a previously defined extensional relation.</
 <pre><code class="language-datalog">.assert human(name: string).
 .infer mortal from human.
 </code></pre>
-<h3 id="pragma-fd"><a class="header" href="#pragma-fd">pragma fd</a></h3>
-<p>The <code>fd</code> pragma, short for <em>functional dependency</em>, introduces a relationship between one or more attributes on the
+<h3 id="processing-instruction-fd"><a class="header" href="#processing-instruction-fd">Processing Instruction fd</a></h3>
+<p>The <code>fd</code> processing instruction, short for <em>functional dependency</em>, introduces a relationship between one or more attributes on the
 left-hand (determinant) side and one or more attributes on the right-hand (dependent) side. This relationship denotes
 that for a relationship $\small R$ with attributes $\small a_1, \cdots, a_n$, every valid combination of determinant
 values uniquely determines the value of the dependent values.</p>
-<p>Note that this pragma is only valid if the corresponding language feature is enabled.</p>
+<p>Note that this processing instruction is only valid if the corresponding language feature is enabled.</p>
 <p><img src="vnd_datalog_text/images/fd.png" alt="input" /></p>
 <pre><code class="language-ebnf">fd      ::= ( &quot;fd&quot; | &quot;functional_dependency&quot; ) 
             predicate &quot;:&quot;
@@ -583,10 +588,10 @@ following are equivalent. Note that the implementation will ignore such duplicat
 .fd employee: id --&gt; name.
 .fd employee: 1 ⟶ 2.
 </code></pre>
-<h3 id="pragma-input"><a class="header" href="#pragma-input">pragma input</a></h3>
-<p>The <code>input</code> pragma instructs the parser to load facts for the named extensional relation from an
-external file. This pragma <strong>requires</strong> that the relation be previously defined via the <code>assert</code>
-pragma.</p>
+<h3 id="processing-instruction-input"><a class="header" href="#processing-instruction-input">Processing Instruction input</a></h3>
+<p>The <code>input</code> processing instruction instructs the parser to load facts for the named extensional relation from an
+external file. This processing instruction <strong>requires</strong> that the relation be previously defined via the <code>assert</code>
+processing instruction.</p>
 <p><img src="vnd_datalog_text/images/input.png" alt="input" /></p>
 <pre><code class="language-ebnf">input   ::= &quot;input&quot; io-details &quot;.&quot;
 </code></pre>
@@ -598,10 +603,10 @@ pragma.</p>
 <pre><code class="language-datalog">.assert human(name: string).
 .input(human, &quot;data/humans.csv&quot;, &quot;csv&quot;).
 </code></pre>
-<h3 id="pragma-output"><a class="header" href="#pragma-output">pragma output</a></h3>
-<p>The <code>output</code> pragma instructs the parser to write facts from the named intensional relation to an
-external file. This pragma <strong>requires</strong> that the relation be previously defined via the <code>infer</code>
-pragma.</p>
+<h3 id="processing-instruction-output"><a class="header" href="#processing-instruction-output">Processing Instruction output</a></h3>
+<p>The <code>output</code> processing instruction instructs the parser to write facts from the named intensional relation to an
+external file. This processing instruction <strong>requires</strong> that the relation be previously defined via the <code>infer</code>
+processing instruction.</p>
 <p><img src="vnd_datalog_text/images/output.png" alt="output" /></p>
 <pre><code class="language-ebnf">output  ::= &quot;output&quot; io-details &quot;.&quot; ;
 </code></pre>
@@ -792,6 +797,71 @@ DIGIT   ::= ? corresponds to the Unicode category 'Nd' (decimal number) ? ;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-international-considerations"><a class="header" href="#appendix-international-considerations">Appendix: International Considerations</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-iana-considerations"><a class="header" href="#appendix-iana-considerations">Appendix: IANA Considerations</a></h1>
+<p>This section has been submitted to the Internet Engineering Steering Group (IESG) for review, approval, and registration with IANA.</p>
+<h2 id="applicationvnddatalogtext"><a class="header" href="#applicationvnddatalogtext">application/vnd.datalog+text</a></h2>
+<dl>
+    <dt>Type name:</dt>
+    <dd>application</dd>
+    <dt>Subtype name:</dt>
+    <dd>vnd.datalog+text</dd>
+    <dt>Required parameters:</dt>
+    <dd>None.</dd>
+    <dt>Optional parameters:</dt>
+    <dd>
+<p><code>features</code></p>
+<p>This parameter allows the transport to identify language features used within the representation. The value of this parameter is a comma-separated list of feature identifiers supported by the specification.</p>
+<p><code>dialect</code></p>
+<p>This parameter identifies the tool which generated the document, there are some existing tools with extensive usage that deviate from this core specification.
+</dd>
+<dt>Encoding considerations:</dt>
+<dd>The content encoding of a Datalog text document is always UTF-8.</dd>
+<dt>Security considerations:</dt>
+<dd>None.</dd>
+<dt>Interoperability considerations:</dt>
+<dd>
+A number of vendors have extended Datalog with additional syntax, this has been
+a general problem for some years. The introduction of a common standard, and
+support for the “dialect” parameter will help clients understand the potential
+parsing issues of a specific document.
+&lt;/&gt;
+<dt>Intended usage:</dt>
+<dd>Common – For the interchange of Datalog programs</dd>
+<dt>Applications which use this media:</dt>
+<dd>Applications that need to upload, download, or transfer Datalog programs.</dd>
+<dt>Fragment identifier considerations:</dt>
+<dd>None.</dd>
+<dt>Restrictions on usage:</dt>
+<dd>None.</dd>
+<dt>Published specification:</dt>
+<dd><a href="https://datalog-specs.info/vnd_datalog_text/abstract.html">https://datalog-specs.info/vnd_datalog_text/abstract.html</a> (not yet complete)</dd>
+<dt>Additional information:</dt>
+<dd>
+<dl>
+<dt>Magic number(s):</dt>
+<dd>None.</dd>
+<dt>File extension(s):</dt>
+<dd>dl</dd>
+<dt>Macintosh file type code:</dt>
+<dd>TEXT</dd>
+</dl>
+</dd>
+<dt>General Comments:</dt>
+<dd>None.</dd>
+<dt>Provisional registration? (standards tree only):</dt>
+<dd>N/A</dd>
+<dt>Author/Change controller:</dt>
+<dd>N/A</dd></p>
+</dl>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dialect-identifiers"><a class="header" href="#dialect-identifiers">Dialect Identifiers</a></h1>
+<p><em>This section is non-normative.</em></p>
+<table><thead><tr><th>Identifier</th><th>Tool(s)</th><th>Source</th><th>Normative?</th><th>Date</th></tr></thead><tbody>
+<tr><td><code>core</code></td><td>N/A</td><td>This specification</td><td>Yes</td><td>XX March 2022</td></tr>
+<tr><td><code>souffle</code></td><td><a href="https://souffle-lang.github.io/">Soufflé</a></td><td></td><td>No</td><td>XX March 2022</td></tr>
+</tbody></table>
+<p>Note that the absence of the <code>dialect</code> parameter on the MIME type is the same as using the value <code>core</code>. The following values are therefore equivalent.</p>
+<pre><code class="language-text">application/vnd.datalog+text
+application/vnd.datalog+text;dialect=core
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-references"><a class="header" href="#appendix-references">Appendix: References</a></h1>
 <div class="biblio">
 <ol>

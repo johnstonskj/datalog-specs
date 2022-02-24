@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../vnd_datalog_text/abstract.html"><strong aria-hidden="true">1.</strong> Datalog Text Representation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/introduction.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/conformance.html"><strong aria-hidden="true">1.2.</strong> Conformance</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/basic_concepts.html"><strong aria-hidden="true">1.3.</strong> Basic Concepts</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar.html"><strong aria-hidden="true">1.4.</strong> Datalog Document Grammar</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/datasets.html"><strong aria-hidden="true">1.5.</strong> Dataset Processing</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_ebnf.html"><strong aria-hidden="true">1.6.</strong> Appendix: EBNF</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_international.html"><strong aria-hidden="true">1.7.</strong> Appendix: International Considerations</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_iana.html" class="active"><strong aria-hidden="true">1.8.</strong> Appendix: IANA Considerations</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_references.html"><strong aria-hidden="true">1.9.</strong> Appendix: References</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_errata.html"><strong aria-hidden="true">2.</strong> Datalog Text Representation Errata</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_translations.html"><strong aria-hidden="true">3.</strong> Datalog Text Representation Translations</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../vnd_datalog_text/abstract.html"><strong aria-hidden="true">1.</strong> Datalog Text Representation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/introduction.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/conformance.html"><strong aria-hidden="true">1.2.</strong> Conformance</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/basic_concepts.html"><strong aria-hidden="true">1.3.</strong> Basic Concepts</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar.html"><strong aria-hidden="true">1.4.</strong> Datalog Document Grammar</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/datasets.html"><strong aria-hidden="true">1.5.</strong> Dataset Processing</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_ebnf.html"><strong aria-hidden="true">1.6.</strong> Appendix: EBNF</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_international.html"><strong aria-hidden="true">1.7.</strong> Appendix: International Considerations</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_iana.html" class="active"><strong aria-hidden="true">1.8.</strong> Appendix: IANA Considerations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/dialects.html"><strong aria-hidden="true">1.8.1.</strong> Dialect Identifiers</a></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_references.html"><strong aria-hidden="true">1.9.</strong> Appendix: References</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_errata.html"><strong aria-hidden="true">2.</strong> Datalog Text Representation Errata</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_translations.html"><strong aria-hidden="true">3.</strong> Datalog Text Representation Translations</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -165,6 +165,61 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div id="content" class="content">
                     <main>
                         <h1 id="appendix-iana-considerations"><a class="header" href="#appendix-iana-considerations">Appendix: IANA Considerations</a></h1>
+<p>This section has been submitted to the Internet Engineering Steering Group (IESG) for review, approval, and registration with IANA.</p>
+<h2 id="applicationvnddatalogtext"><a class="header" href="#applicationvnddatalogtext">application/vnd.datalog+text</a></h2>
+<dl>
+    <dt>Type name:</dt>
+    <dd>application</dd>
+    <dt>Subtype name:</dt>
+    <dd>vnd.datalog+text</dd>
+    <dt>Required parameters:</dt>
+    <dd>None.</dd>
+    <dt>Optional parameters:</dt>
+    <dd>
+<p><code>features</code></p>
+<p>This parameter allows the transport to identify language features used within the representation. The value of this parameter is a comma-separated list of feature identifiers supported by the specification.</p>
+<p><code>dialect</code></p>
+<p>This parameter identifies the tool which generated the document, there are some existing tools with extensive usage that deviate from this core specification.
+</dd>
+<dt>Encoding considerations:</dt>
+<dd>The content encoding of a Datalog text document is always UTF-8.</dd>
+<dt>Security considerations:</dt>
+<dd>None.</dd>
+<dt>Interoperability considerations:</dt>
+<dd>
+A number of vendors have extended Datalog with additional syntax, this has been
+a general problem for some years. The introduction of a common standard, and
+support for the “dialect” parameter will help clients understand the potential
+parsing issues of a specific document.
+&lt;/&gt;
+<dt>Intended usage:</dt>
+<dd>Common – For the interchange of Datalog programs</dd>
+<dt>Applications which use this media:</dt>
+<dd>Applications that need to upload, download, or transfer Datalog programs.</dd>
+<dt>Fragment identifier considerations:</dt>
+<dd>None.</dd>
+<dt>Restrictions on usage:</dt>
+<dd>None.</dd>
+<dt>Published specification:</dt>
+<dd><a href="https://datalog-specs.info/vnd_datalog_text/abstract.html">https://datalog-specs.info/vnd_datalog_text/abstract.html</a> (not yet complete)</dd>
+<dt>Additional information:</dt>
+<dd>
+<dl>
+<dt>Magic number(s):</dt>
+<dd>None.</dd>
+<dt>File extension(s):</dt>
+<dd>dl</dd>
+<dt>Macintosh file type code:</dt>
+<dd>TEXT</dd>
+</dl>
+</dd>
+<dt>General Comments:</dt>
+<dd>None.</dd>
+<dt>Provisional registration? (standards tree only):</dt>
+<dd>N/A</dd>
+<dt>Author/Change controller:</dt>
+<dd>N/A</dd></p>
+</dl>
 
                     </main>
 
@@ -173,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <a rel="prev" href="../vnd_datalog_text/x_international.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../vnd_datalog_text/x_references.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../vnd_datalog_text/dialects.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -185,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <a rel="prev" href="../vnd_datalog_text/x_international.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../vnd_datalog_text/x_references.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../vnd_datalog_text/dialects.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

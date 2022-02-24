@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../vnd_datalog_text/abstract.html"><strong aria-hidden="true">1.</strong> Datalog Text Representation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/introduction.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/conformance.html"><strong aria-hidden="true">1.2.</strong> Conformance</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/basic_concepts.html"><strong aria-hidden="true">1.3.</strong> Basic Concepts</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar.html" class="active"><strong aria-hidden="true">1.4.</strong> Datalog Document Grammar</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/datasets.html"><strong aria-hidden="true">1.5.</strong> Dataset Processing</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_ebnf.html"><strong aria-hidden="true">1.6.</strong> Appendix: EBNF</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_international.html"><strong aria-hidden="true">1.7.</strong> Appendix: International Considerations</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_iana.html"><strong aria-hidden="true">1.8.</strong> Appendix: IANA Considerations</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_references.html"><strong aria-hidden="true">1.9.</strong> Appendix: References</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_errata.html"><strong aria-hidden="true">2.</strong> Datalog Text Representation Errata</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_translations.html"><strong aria-hidden="true">3.</strong> Datalog Text Representation Translations</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../vnd_datalog_text/abstract.html"><strong aria-hidden="true">1.</strong> Datalog Text Representation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/introduction.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/conformance.html"><strong aria-hidden="true">1.2.</strong> Conformance</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/basic_concepts.html"><strong aria-hidden="true">1.3.</strong> Basic Concepts</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar.html" class="active"><strong aria-hidden="true">1.4.</strong> Datalog Document Grammar</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/datasets.html"><strong aria-hidden="true">1.5.</strong> Dataset Processing</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_ebnf.html"><strong aria-hidden="true">1.6.</strong> Appendix: EBNF</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_international.html"><strong aria-hidden="true">1.7.</strong> Appendix: International Considerations</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_iana.html"><strong aria-hidden="true">1.8.</strong> Appendix: IANA Considerations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/dialects.html"><strong aria-hidden="true">1.8.1.</strong> Dialect Identifiers</a></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_references.html"><strong aria-hidden="true">1.9.</strong> Appendix: References</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_errata.html"><strong aria-hidden="true">2.</strong> Datalog Text Representation Errata</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_translations.html"><strong aria-hidden="true">3.</strong> Datalog Text Representation Translations</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -175,9 +175,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="programs"><a class="header" href="#programs">Programs</a></h2>
 <p>A program consists of a set of facts that comprise the extensional database, a list of rules that comprise the intensional database, and possibly a set of queries to interrogate the result of any reasoning performed over the program.</p>
 <p><img src="images/program.png" alt="program" /></p>
-<pre><code class="language-ebnf">program ::= pragma* ( fact | rule | query )* ;
+<pre><code class="language-ebnf">program ::= processing-instruction* ( fact | rule | query )* ;
 </code></pre>
-<p>A program consists of a single file containing facts, rules, and queries as well as any additional files referenced via <em>pragmas</em>.</p>
+<p>A program consists of a single file containing facts, rules, and queries as well as any additional files referenced via <em>processing instructions</em>.</p>
 <h2 id="facts"><a class="header" href="#facts">Facts</a></h2>
 <p>Facts <strong>must</strong> be expressed in the form of ground atoms and so they have a specific rule rather than a constrained form of the <code>atom</code> rule.</p>
 <p><img src="images/fact.png" alt="fact" /></p>
@@ -437,14 +437,14 @@ car(&quot;ford&quot;, X, _)?
 +------------+
      ...
 </code></pre>
-<h2 id="pragmas"><a class="header" href="#pragmas">Pragmas</a></h2>
-<p>Pragmas are declarative statements meant for the parser and runtime tooling, they do not affect
+<h2 id="processing-instructions"><a class="header" href="#processing-instructions">Processing Instructions</a></h2>
+<p>Processing Instructions are declarative statements meant for the parser and runtime tooling, they do not affect
 the meaning of the program itself.</p>
 <p><img src="images/pragma.png" alt="pragma" /></p>
-<pre><code class="language-ebnf">pragma  ::= &quot;.&quot; ( feature | assert | infer | fd | input | output ) &quot;.&quot; ;
+<pre><code class="language-ebnf">processing-instruction  ::= &quot;.&quot; ( feature | assert | infer | fd | input | output ) &quot;.&quot; ;
 </code></pre>
-<h3 id="pragma-feature"><a class="header" href="#pragma-feature">pragma feature</a></h3>
-<p>The <code>feature</code> pragma determines which Datalog language is in use. Use of syntax not supported by the
+<h3 id="processing-instruction-feature"><a class="header" href="#processing-instruction-feature">Processing Instruction feature</a></h3>
+<p>The <code>feature</code> processing instruction determines which Datalog language is in use. Use of syntax not supported by the
 selected language feature will result in errors.</p>
 <p><img src="images/feature.png" alt="feature" /></p>
 <pre><code class="language-ebnf">feature ::= &quot;feature&quot; &quot;(&quot; feature-id ( &quot;,&quot; feature-id )* &quot;)&quot; ;
@@ -461,9 +461,9 @@ selected language feature will result in errors.</p>
 <pre><code class="language-datalog">.feature(negation).
 .feature(comparisons, disjunction).
 </code></pre>
-<h3 id="pragma-assert"><a class="header" href="#pragma-assert">pragma assert</a></h3>
-<p>The <code>assert</code> pragma describes a new relation in the extensional database. The parser can determine
-the schema for facts from their types in the database. The use of this pragma is therefore optional,
+<h3 id="processing-instruction-assert"><a class="header" href="#processing-instruction-assert">Processing Instruction assert</a></h3>
+<p>The <code>assert</code> processing instruction describes a new relation in the extensional database. The parser can determine
+the schema for facts from their types in the database. The use of this processing instruction is therefore optional,
 but recommended.</p>
 <p><img src="images/assert.png" alt="assert" /></p>
 <pre><code class="language-ebnf">assert  ::= &quot;assert&quot; predicate &quot;(&quot; attribute-decl ( &quot;,&quot; attribute-decl )* &quot;)&quot; ;
@@ -475,9 +475,9 @@ but recommended.</p>
 <p><strong>Example</strong></p>
 <pre><code class="language-datalog">.assert human(name: string).
 </code></pre>
-<h3 id="pragma-infer"><a class="header" href="#pragma-infer">pragma infer</a></h3>
-<p>The <code>infer</code> pragma describes a new relation in the intensional database. Typically the parser
-can determine the schema for relational literals from their context, The use of this pragma
+<h3 id="processing-instruction-infer"><a class="header" href="#processing-instruction-infer">Processing Instruction infer</a></h3>
+<p>The <code>infer</code> processing instruction describes a new relation in the intensional database. Typically the parser
+can determine the schema for relational literals from their context, The use of this processing instruction
 is therefore optional, but recommended. The alternate form is more explicit in that it defines
 an intensional relation in terms of a previously defined extensional relation.</p>
 <p><img src="images/infer.png" alt="infer" /></p>
@@ -492,12 +492,12 @@ an intensional relation in terms of a previously defined extensional relation.</
 <pre><code class="language-datalog">.assert human(name: string).
 .infer mortal from human.
 </code></pre>
-<h3 id="pragma-fd"><a class="header" href="#pragma-fd">pragma fd</a></h3>
-<p>The <code>fd</code> pragma, short for <em>functional dependency</em>, introduces a relationship between one or more attributes on the
+<h3 id="processing-instruction-fd"><a class="header" href="#processing-instruction-fd">Processing Instruction fd</a></h3>
+<p>The <code>fd</code> processing instruction, short for <em>functional dependency</em>, introduces a relationship between one or more attributes on the
 left-hand (determinant) side and one or more attributes on the right-hand (dependent) side. This relationship denotes
 that for a relationship $\small R$ with attributes $\small a_1, \cdots, a_n$, every valid combination of determinant
 values uniquely determines the value of the dependent values.</p>
-<p>Note that this pragma is only valid if the corresponding language feature is enabled.</p>
+<p>Note that this processing instruction is only valid if the corresponding language feature is enabled.</p>
 <p><img src="images/fd.png" alt="input" /></p>
 <pre><code class="language-ebnf">fd      ::= ( &quot;fd&quot; | &quot;functional_dependency&quot; ) 
             predicate &quot;:&quot;
@@ -531,10 +531,10 @@ following are equivalent. Note that the implementation will ignore such duplicat
 .fd employee: id --&gt; name.
 .fd employee: 1 ⟶ 2.
 </code></pre>
-<h3 id="pragma-input"><a class="header" href="#pragma-input">pragma input</a></h3>
-<p>The <code>input</code> pragma instructs the parser to load facts for the named extensional relation from an
-external file. This pragma <strong>requires</strong> that the relation be previously defined via the <code>assert</code>
-pragma.</p>
+<h3 id="processing-instruction-input"><a class="header" href="#processing-instruction-input">Processing Instruction input</a></h3>
+<p>The <code>input</code> processing instruction instructs the parser to load facts for the named extensional relation from an
+external file. This processing instruction <strong>requires</strong> that the relation be previously defined via the <code>assert</code>
+processing instruction.</p>
 <p><img src="images/input.png" alt="input" /></p>
 <pre><code class="language-ebnf">input   ::= &quot;input&quot; io-details &quot;.&quot;
 </code></pre>
@@ -546,10 +546,10 @@ pragma.</p>
 <pre><code class="language-datalog">.assert human(name: string).
 .input(human, &quot;data/humans.csv&quot;, &quot;csv&quot;).
 </code></pre>
-<h3 id="pragma-output"><a class="header" href="#pragma-output">pragma output</a></h3>
-<p>The <code>output</code> pragma instructs the parser to write facts from the named intensional relation to an
-external file. This pragma <strong>requires</strong> that the relation be previously defined via the <code>infer</code>
-pragma.</p>
+<h3 id="processing-instruction-output"><a class="header" href="#processing-instruction-output">Processing Instruction output</a></h3>
+<p>The <code>output</code> processing instruction instructs the parser to write facts from the named intensional relation to an
+external file. This processing instruction <strong>requires</strong> that the relation be previously defined via the <code>infer</code>
+processing instruction.</p>
 <p><img src="images/output.png" alt="output" /></p>
 <pre><code class="language-ebnf">output  ::= &quot;output&quot; io-details &quot;.&quot; ;
 </code></pre>
