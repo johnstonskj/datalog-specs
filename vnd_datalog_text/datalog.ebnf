@@ -1,0 +1,145 @@
+program ::= processing-instruction* ( fact | rule | query )* ;
+
+/* ************************************************************************* */
+
+fact    ::= predicate ( "(" constant ( "," constant )* ")" )? "." ;
+
+predicate
+        ::= LC_ALPHA ( ALPHA | DIGIT | "_" )* ;
+
+/* ************************************************************************* */
+
+constant
+        ::= string | number | boolean ;
+
+string  ::= predicate ( ":" ALPHA ( ALPHA | DIGIT | "_" * )? )
+            | DQUOTE [^#x22]* DQUOTE ;
+
+number  ::= float | decimal | integer ;
+
+integer ::= ( "+" | "-" )? DIGIT+ ;
+
+decimal ::= integer "." DIGIT+ ;
+
+float   ::= decimal ( "e" | "E" ) integer ;
+
+boolean ::= ( "true" | "⊤" ) | ( "false" | "⊥" ) ;
+
+/* ************************************************************************* */
+
+rule    ::= ( head | "⊥" )? ( ":-" | "<-" | "⟵" ) body "." ;
+
+head    ::= ( atom ( ( ";" | "|" | "OR" | "∨" ) atom )* ) ;
+
+body    ::= literal ( ( "," | "&" | "AND" | "∧" ) literal )* ;
+
+
+/* ************************************************************************* */
+
+atom    ::= predicate "(" term ( "," term )* ")" ;
+
+term    ::= variable | constant ;
+
+variable
+        ::= named-variable | anon-variable ;
+
+named-variable
+        ::= UC_ALPHA ( ALPHA | DIGIT | "_" )* ;
+
+anon-variable
+        ::= "_" ;
+
+/* ************************************************************************* */
+
+literal ::= ( "!" | "NOT" | "￢" )? ( atom | comparison ) ;
+
+/* ************************************************************************* */
+
+comparison
+        ::= operand operator operand ;
+
+operand ::= ( named-variable | constant ) ;
+
+operator
+        ::= "="
+            | ("!=" | "/=" | "≠")
+            | "<"
+            | ("<=" | "≤")
+            | ">"
+            | (">=" | "≥")
+            | ("*=" | "≛" | "MATCHES") ;
+
+/* ************************************************************************* */
+
+query   ::= ( "?-" atom "." ) | ( atom "?" ) ;
+
+/* ************************************************************************* */
+
+processing-instruction
+        ::= "."
+            ( pi-feature | pi-assert | pi-infer | pi-fd | pi-input | pi-output )
+            "." ;
+
+pi-feature
+        ::= "feature" "(" feature-id ( "," feature-id )* ")" ;
+
+feature-id
+        ::= "comparisons"
+        | "constraints"
+        | "disjunction"
+        | "negation"
+        | "functional_dependencies" ;
+
+pi-assert
+        ::= "assert" predicate "(" attribute-decl ( "," attribute-decl )* ")" ;
+
+attribute-decl
+        ::= ( predicate ":" )? ( "boolean" | "integer" | "string" ) ;
+
+pi-infer
+        ::= "infer"
+            ( predicate "(" attribute-decl ( "," attribute-decl )* ")"
+            | "from" predicate ) "." ;
+
+pi-fd   ::= ( "fd" | "functional_dependency" )
+            predicate ":"
+            attribute-index-list ( "-->" | "⟶" ) attribute-index-list ;
+
+attribute-index-list
+        ::= attribute-index ( "," attribute-index )* ;
+
+attribute-index
+        ::= integer | predicate ;
+
+pi-input
+        ::= "input" io-details ;
+
+io-details
+        ::= "(" predicate "," quoted-string ( "," quoted-string )? ")" ;
+
+pi-output
+        ::= "output" io-details ;
+
+/* ************************************************************************* */
+
+comment ::= "%" [^\r\n]* EOL
+            | '/*' ( [^*] | '*'+ [^*/] )* '*'* '*/' ;
+
+/* ************************************************************************* */
+
+EOL     ::= "\n" | "\\r\\n" | "\r" ;
+
+WHITESPACE
+        ::= " " | "\t" | EOL ;
+
+DQUOTE  ::= #x22 ;
+
+LC_ALPHA
+        ::= ? corresponds to the Unicode category 'Ll' ? ;
+
+UC_ALPHA
+        ::= ? corresponds to the Unicode category 'Lu' ? ;
+
+ALPHA   ::= LC_ALPHA | UC_ALPHA ;
+
+DIGIT   ::= ? corresponds to the Unicode category 'Nd' (decimal number) ? ;
