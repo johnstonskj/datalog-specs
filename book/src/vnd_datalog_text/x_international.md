@@ -1,5 +1,10 @@
 # Appendix: Internationalization Considerations
 
+Unicode provides a mechanism for signaling direction within a string (see [Unicode Bidirectional Algorithm](https://www.unicode.org/reports/tr9/tr9-42.html) <span class="bibref inline">[UAX9](x_references.md#UAX9)</span>), however, when a string has an overall base direction which cannot be determined by the beginning of the string, an external indicator is required, such as the <span class="bibref inline">[HTML](x_references.md#HTML)</span> `dir` attribute, which currently has no counterpart for Datalog literals.
+
+Until a more comprehensive solution can be addressed in a future version of this specification, programmers should consider this issue when representing strings where the base direction of the string cannot otherwise be correctly inferred based on the content of the string. See <span class="bibref inline">[string-meta](x_references.md#string-meta)</span> for a discussion best practices for identifying language and base direction for strings used on the Web.
+
+
 ## Identifier Characters
 
 The characters allowed in labeling relations, attributes, facts, atoms, and variables are taken from a broad set of Unicode by category rather than by codepoint range. The following are the definitions of the lexical productions, showing their relation to defined categories.
