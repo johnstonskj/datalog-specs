@@ -12,8 +12,18 @@ predicate
 constant
         ::= string | number | boolean ;
 
-string  ::= predicate ( ":" ALPHA ( ALPHA | DIGIT | "_" * )? )
-            | DQUOTE [^#x22]* DQUOTE ;
+string  ::= identifier-string | literal-string ;
+
+identifier-string
+        ::= predicate ( ":" ALPHA ( ALPHA | DIGIT | "_" )* )? ;
+
+literal-string
+        ::= DQUOTE ( string-escape | [^#x22] )* DQUOTE ;
+
+string-escape
+        ::= "\\" ( DQUOTE | [tnr] )
+        | "\u{" HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+              ( HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT )? "}" ;
 
 number  ::= float | decimal | integer ;
 
@@ -33,7 +43,6 @@ head    ::= ( atom ( ( ";" | "|" | "OR" | "∨" ) atom )* ) ;
 
 body    ::= literal ( ( "," | "&" | "AND" | "∧" ) literal )* ;
 
-
 /* ************************************************************************* */
 
 atom    ::= predicate "(" term ( "," term )* ")" ;
@@ -51,11 +60,15 @@ anon-variable
 
 /* ************************************************************************* */
 
-literal ::= ( "!" | "NOT" | "￢" )? ( atom | comparison ) ;
+literal ::= ( "!" | "NOT" | "￢" )?
+            ( relational-literal | arithmetic-literal ) ;
 
 /* ************************************************************************* */
 
-comparison
+relational-literal
+        ::= atom ;
+
+arithmetic-literal
         ::= operand operator operand ;
 
 operand ::= ( named-variable | constant ) ;
@@ -71,35 +84,44 @@ operator
 
 /* ************************************************************************* */
 
-query   ::= ( "?-" atom "." ) | ( atom "?" ) ;
+query   ::= ( "?-" atom "." )
+        |   ( atom "?" ) ;
 
 /* ************************************************************************* */
 
 processing-instruction
         ::= "."
-            ( pi-feature | pi-assert | pi-infer | pi-fd | pi-input | pi-output )
+            ( pi-feature
+            | pi-assert
+            | pi-infer
+            | pi-fd
+            | pi-input
+            | pi-output
+            | pi-pragma )
             "." ;
 
 pi-feature
         ::= "feature" "(" feature-id ( "," feature-id )* ")" ;
 
 feature-id
-        ::= "comparisons"
-        | "constraints"
-        | "disjunction"
-        | "negation"
-        | "functional_dependencies" ;
+        ::= "arithmetic_literals"
+        |   "constraints"
+        |   "disjunction"
+        |   "negation"
+        |   "functional_dependencies" ;
 
 pi-assert
-        ::= "assert" predicate "(" attribute-decl ( "," attribute-decl )* ")" ;
+        ::= "assert" relation-decl ;
+
+relation-decl
+        ::= predicate "(" attribute-decl ( "," attribute-decl )* ")" ;
 
 attribute-decl
-        ::= ( predicate ":" )? ( "boolean" | "integer" | "string" ) ;
+        ::= ( predicate ":" )?
+            ( "boolean" | "float" | "decimal" | "integer" | "string" ) ;
 
 pi-infer
-        ::= "infer"
-            ( predicate "(" attribute-decl ( "," attribute-decl )* ")"
-            | "from" predicate ) "." ;
+        ::= "infer" ( relation-decl | "from" predicate ) ;
 
 pi-fd   ::= ( "fd" | "functional_dependency" )
             predicate ":"
@@ -115,22 +137,44 @@ pi-input
         ::= "input" io-details ;
 
 io-details
-        ::= "(" predicate "," quoted-string ( "," quoted-string )? ")" ;
+        ::= "(" predicate "," quoted-string
+                ( "," format-spec )?
+            ")" ;
+
+format-spec
+        ::= quoted-string ( "," assign-list )? ;
+
+assign-list
+        ::= assignment ( "," assignment )* ;
+
+assignment
+        ::= predicate "=" constant ;
 
 pi-output
         ::= "output" io-details ;
 
-/* ************************************************************************* */
-
-comment ::= "%" [^\r\n]* EOL
-            | '/*' ( [^*] | '*'+ [^*/] )* '*'* '*/' ;
+pi-pragma
+        ::= "pragma" predicate ( "(" assignment-list ")" )? ;
 
 /* ************************************************************************* */
 
-EOL     ::= "\n" | "\\r\\n" | "\r" ;
+comment ::= line-comment | block-comment ;
+
+line-comment
+        ::= "%" [^\r\n]* EOL ;
+
+block-comment
+        ::= '/*' ( [^*] | '*'+ [^*/] )* '*'* '*/' ;
+
+/* ************************************************************************* */
+
+EOL     ::= "\n" | "\r" "\n"? ;
+
+SPACE_SEP
+        ::= ? corresponds to the Unicode category 'Zs' ? ;
 
 WHITESPACE
-        ::= " " | "\t" | EOL ;
+        ::= SPACE_SEP | "\t" | EOL ;
 
 DQUOTE  ::= #x22 ;
 
@@ -140,6 +184,12 @@ LC_ALPHA
 UC_ALPHA
         ::= ? corresponds to the Unicode category 'Lu' ? ;
 
-ALPHA   ::= LC_ALPHA | UC_ALPHA ;
+TC_ALPHA
+        ::= ? corresponds to the Unicode category 'Lt' ? ;
+
+ALPHA   ::= LC_ALPHA | UC_ALPHA | TC_ALPHA ;
 
 DIGIT   ::= ? corresponds to the Unicode category 'Nd' (decimal number) ? ;
+
+HEXDIGIT
+        ::= [0-9a-fA-F] ;
