@@ -1,0 +1,15 @@
+digraph G {
+  graph [fontsize=10  fontname="Verdana" compound=true rankdir="LR"];
+  node [fontsize=10 fontname="Verdana" shape=record];
+
+  application;
+
+  subgraph cluster1 {
+    evaluator [style=dashed];
+    evaluator -> parser [dir=both];
+    parser -> resolver;
+    label = "processor";
+  }
+
+  application -> parser [lhead=cluster1 constraint=false headport=w tailport=e concentrate = true];
+}

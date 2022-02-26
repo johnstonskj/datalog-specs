@@ -95,3 +95,15 @@ main dl dt {
 main dl dd {
     margin-bottom: .5em;
 }
+
+main dl.enum dt {
+    color: #808080;
+    font-weight: lighter;
+    font-family: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace !important;
+}
+
+main dl.enum dd {
+    margin-left: 2em;
+    margin-top: 0.6em;
+    margin-bottom: 1.2em;
+}

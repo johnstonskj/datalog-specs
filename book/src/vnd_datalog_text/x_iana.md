@@ -6,9 +6,9 @@ This section has been submitted to the Internet Engineering Steering Group (IESG
 
 <dl>
     <dt>Type name:</dt>
-    <dd>application</dd>
+    <dd><code>application</code></dd>
     <dt>Subtype name:</dt>
-    <dd>vnd.datalog+text</dd>
+    <dd><code>vnd.datalog+text</code></dd>
     <dt>Required parameters:</dt>
     <dd>None.</dd>
     <dt>Optional parameters:</dt>
@@ -25,7 +25,33 @@ This parameter identifies the tool which generated the document, there are some 
     <dt>Encoding considerations:</dt>
     <dd>The content encoding of a Datalog text document is always UTF-8.</dd>
     <dt>Security considerations:</dt>
-    <dd>None.</dd>
+    <dd><p>This media type does include program code for a Datalog interpreter to
+execute. However, as Datalog is a restricted deductive logic language
+it's execution environment is limited to entailment and query, and not
+capable of general purpose programming.</p>
+<p>The Datalog language does contain references to additional resources
+that may be required to complete a program. For example, an "input"
+processing instruction will add facts from an external resource (using
+IRIs) to an extensional relation whereas the "output" processing
+instruction will be some local resource that may be written to. The
+ability to include malicious data in an input file is limited by the
+supported representations such as CSV. The ability to write to a local
+system may be intercepted by a parser to redirect to safe locations,
+and as such the allowed reference is always relative.</p>
+<p>This media type requires no privacy or integrity services.This media type does include program code for a Datalog interpreter to
+execute. However, as Datalog is a restricted deductive logic language
+it's execution environment is limited to entailment and query, and not
+capable of general purpose programming.</p>
+<p>The Datalog language does contain references to additional resources
+that may be required to complete a program. For example, an "input"
+processing instruction will add facts from an external resource (using
+IRIs) to an extensional relation whereas the "output" processing
+instruction will be some local resource that may be written to. The
+ability to include malicious data in an input file is limited by the
+supported representations such as CSV. The ability to write to a local
+system may be intercepted by a parser to redirect to safe locations,
+and as such the allowed reference is always relative.</p>
+<p>This media type requires no privacy or integrity services.</p></dd>
     <dt>Interoperability considerations:</dt>
     <dd>
 A number of vendors have extended Datalog with additional syntax, this has been
@@ -34,7 +60,7 @@ support for the "dialect" parameter will help clients understand the potential
 parsing issues of a specific document.
 </>
     <dt>Intended usage:</dt>
-    <dd>Common -- For the interchange of Datalog programs</dd>
+    <dd>Common -- For the interchange of Datalog programs.</dd>
     <dt>Applications which use this media:</dt>
     <dd>Applications that need to upload, download, or transfer Datalog programs.</dd>
     <dt>Fragment identifier considerations:</dt>

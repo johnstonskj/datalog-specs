@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Processing Instructions - Datalog Specifications</title>
+
+
+        <!-- Custom HTML head -->
+        <link   rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+        integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs"
+        crossorigin="anonymous">
+<script defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+
+<script defer>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "$", right: "$", display: false},
+            {left: "\\[", right: "\\]", display: true}
+        ]
+    });
+});
+</script>
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../specs.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../vnd_datalog_text/abstract.html"><strong aria-hidden="true">1.</strong> Datalog Text Representation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/introduction.html"><strong aria-hidden="true">1.1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/conformance.html"><strong aria-hidden="true">1.2.</strong> Conformance</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/basic_concepts.html"><strong aria-hidden="true">1.3.</strong> Basic Concepts</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar.html"><strong aria-hidden="true">1.4.</strong> Datalog Text Grammar</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_program.html"><strong aria-hidden="true">1.4.1.</strong> Program</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_facts.html"><strong aria-hidden="true">1.4.2.</strong> Relations &amp; Facts</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_constants.html"><strong aria-hidden="true">1.4.3.</strong> Types &amp; Constants</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_rules.html"><strong aria-hidden="true">1.4.4.</strong> Rules</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_atoms.html"><strong aria-hidden="true">1.4.5.</strong> Atoms &amp; Terms</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_literals.html"><strong aria-hidden="true">1.4.6.</strong> Literals</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_queries.html"><strong aria-hidden="true">1.4.7.</strong> Queries</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_pi.html" class="active"><strong aria-hidden="true">1.4.8.</strong> Processing Instructions</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_comments.html"><strong aria-hidden="true">1.4.9.</strong> Comments</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/grammar_lexical.html"><strong aria-hidden="true">1.4.10.</strong> Terminal/Lexical</a></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/resolvers.html"><strong aria-hidden="true">1.5.</strong> Resolvers</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/errors.html"><strong aria-hidden="true">1.6.</strong> Errors</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_security.html"><strong aria-hidden="true">1.7.</strong> Security Considerations</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_international.html"><strong aria-hidden="true">1.8.</strong> Internationalization Considerations</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_ebnf.html"><strong aria-hidden="true">1.9.</strong> Appendix: EBNF</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_iana.html"><strong aria-hidden="true">1.10.</strong> Appendix: IANA Considerations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vnd_datalog_text/dialects.html"><strong aria-hidden="true">1.10.1.</strong> Dialect Identifiers</a></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/x_references.html"><strong aria-hidden="true">1.11.</strong> Appendix: References</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_errata.html"><strong aria-hidden="true">2.</strong> Datalog Text Representation Errata</a></li><li class="chapter-item expanded "><a href="../vnd_datalog_text/z_translations.html"><strong aria-hidden="true">3.</strong> Datalog Text Representation Translations</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Datalog Specifications</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/johnstonskj/datalog-specs" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="processing-instructions"><a class="header" href="#processing-instructions">Processing Instructions</a></h1>
+<p>Processing Instructions are declarative statements meant for the parser and runtime tooling, they do not affect
+the meaning of the program itself.</p>
+<p><img src="images/processing-instruction.png" alt="processing-instruction" /></p>
+<pre><code class="language-ebnf">processing-instruction  
+      ::= &quot;.&quot; 
+          ( pi-feature 
+          | pi-assert | pi-infer 
+          | pi-fd 
+          | pi-input | pi-output 
+          | pi-pragma ) 
+          &quot;.&quot; ;
+</code></pre>
+<h2 id="processing-instruction-feature"><a class="header" href="#processing-instruction-feature">Processing Instruction <code>feature</code></a></h2>
+<p>The <code>feature</code> processing instruction determines which Datalog language is in use. Use of syntax not supported by the
+selected language feature will result in errors.</p>
+<p><img src="images/pi-feature.png" alt="pi-feature" /></p>
+<pre><code class="language-ebnf">pi-feature ::= &quot;feature&quot; &quot;(&quot; feature-id ( &quot;,&quot; feature-id )* &quot;)&quot; ;
+</code></pre>
+<p><img src="images/feature-id.png" alt="feature-id" /></p>
+<pre><code class="language-ebnf">feature-id
+        ::= &quot;comparisons&quot;
+        | &quot;constraints&quot;
+        | &quot;disjunction&quot;
+        | &quot;negation&quot;
+        | &quot;functional_dependencies&quot;
+</code></pre>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<pre><code class="language-datalog">.feature(negation).
+.feature(comparisons, disjunction).
+</code></pre>
+<h2 id="processing-instruction-assert"><a class="header" href="#processing-instruction-assert">Processing Instruction <code>assert</code></a></h2>
+<p>The <code>assert</code> processing instruction describes a new relation in the extensional database. The parser can determine
+the schema for facts from their types in the database. The use of this processing instruction is therefore optional,
+but recommended.</p>
+<p><img src="images/pi-assert.png" alt="pi-assert" /></p>
+<pre><code class="language-ebnf">pi-assert
+        ::= &quot;assert&quot; relation-decl ;
+</code></pre>
+<p><img src="images/relation-decl.png" alt="relation-decl" /></p>
+<pre><code class="language-ebnf">relation-decl
+        ::= predicate &quot;(&quot; attribute-decl ( &quot;,&quot; attribute-decl )* &quot;)&quot; ;
+</code></pre>
+<p><img src="images/attribute-decl.png" alt="attribute-decl" /></p>
+<pre><code class="language-ebnf">attribute-decl
+        ::= ( predicate &quot;:&quot; )?
+            ( &quot;boolean&quot; | &quot;float&quot; | &quot;decimal&quot; | &quot;integer&quot; | &quot;string&quot; ) ;
+</code></pre>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<pre><code class="language-datalog">.assert human(name: string).
+</code></pre>
+<h2 id="processing-instruction-infer"><a class="header" href="#processing-instruction-infer">Processing Instruction <code>infer</code></a></h2>
+<p>The <code>infer</code> processing instruction describes a new relation in the intensional database. Typically the parser
+can determine the schema for relational literals from their context, The use of this processing instruction
+is therefore optional, but recommended. The alternate form is more explicit in that it defines
+an intensional relation in terms of a previously defined extensional relation.</p>
+<p><img src="images/pi-infer.png" alt="pi-infer" /></p>
+<pre><code class="language-ebnf">pi-infer
+        ::= &quot;infer&quot; ( relation-decl | &quot;from&quot; predicate ) ;
+</code></pre>
+<h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
+<pre><code class="language-datalog">.infer mortal(name: string).
+</code></pre>
+<p>Alternatively the short-cut form is often more convenient.</p>
+<pre><code class="language-datalog">.assert human(name: string).
+.infer mortal from human.
+</code></pre>
+<h2 id="processing-instruction-fd"><a class="header" href="#processing-instruction-fd">Processing Instruction <code>fd</code></a></h2>
+<p>The <code>fd</code> processing instruction, short for <em>functional dependency</em>, introduces a relationship between one or more attributes on the
+left-hand (determinant) side and one or more attributes on the right-hand (dependent) side. This relationship denotes
+that for a relationship $\small R$ with attributes $\small a_1, \cdots, a_n$, every valid combination of determinant
+values uniquely determines the value of the dependent values.</p>
+<p>Note that this processing instruction is only valid if the corresponding language feature is enabled.</p>
+<p><img src="images/pi-fd.png" alt="pi-fd" /></p>
+<pre><code class="language-ebnf">pi-fd      ::= ( &quot;fd&quot; | &quot;functional_dependency&quot; ) 
+            predicate &quot;:&quot;
+            attribute-index-list ( &quot;--&gt;&quot; | &quot;⟶&quot; ) attribute-index-list
+</code></pre>
+<p><img src="images/attribute-index-list.png" alt="attribute-index-list" /></p>
+<pre><code class="language-ebnf">attribute-index-list
+        ::= attribute-index ( &quot;,&quot; attribute-index )*
+</code></pre>
+<p>An attribute index is <em>either</em> an attribute label, if one has been declared for the relation, or an integer $\small i \in [1,|schema(R)|]$.</p>
+<p><img src="images/attribute-index.png" alt="attribute-index" /></p>
+<pre><code class="language-ebnf">attribute-index
+        ::= integer | predicate
+</code></pre>
+<p><strong>Constraints</strong> – given the notational form $\small R: \alpha \rightarrow \Beta$;</p>
+<ol>
+<li>the initial predicate <strong>must</strong> be the label of an extensional relation:
+$$\small R \in D_I \land label(R)$$</li>
+<li>the set of attribute identifiers comprising the set $\small \alpha$ <strong>must</strong> be in $\small R$:
+$$\small \forall a \in \alpha (a \in schema(R))$$</li>
+<li>the set of attribute identifiers comprising the set $\small \Beta$ <strong>must</strong> be in $\small R$:
+$$\small \forall a \in \Beta (a \in schema(R))$$</li>
+<li>the same attribute identifier <strong>must not</strong> appear in both determinant and dependent:
+$$\small \alpha \cap \Beta = \emptyset$$</li>
+</ol>
+<h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
+<p>Given the extensional relation <em>employee</em> the two functional dependencies in the
+following are equivalent. Note that the implementation will ignore such duplicate declarations.</p>
+<pre><code class="language-datalog">.feature(functional_dependencies).
+.assert employee(id:integer, name:string).
+
+.fd employee: id --&gt; name.
+.fd employee: 1 ⟶ 2.
+</code></pre>
+<h2 id="processing-instruction-input"><a class="header" href="#processing-instruction-input">Processing Instruction <code>input</code></a></h2>
+<p>The <code>input</code> processing instruction instructs the parser to load facts for the named extensional relation from an
+external file. This processing instruction <strong>requires</strong> that the relation be previously defined via the <code>assert</code>
+processing instruction.</p>
+<p><img src="images/pi-input.png" alt="pi-input" /></p>
+<pre><code class="language-ebnf">pi-input   ::= &quot;input&quot; io-details &quot;.&quot;
+</code></pre>
+<p><img src="images/io-details.png" alt="io-details" /></p>
+<pre><code class="language-ebnf">io-details
+        ::= &quot;(&quot; predicate &quot;,&quot; quoted-string
+                ( &quot;,&quot; format-spec )?
+            &quot;)&quot; ;
+</code></pre>
+<p><img src="images/format-spec.png" alt="format-spec" /></p>
+<pre><code class="language-ebnf">format-spec
+        ::= quoted-string ( &quot;,&quot; assign-list )? ;
+</code></pre>
+<p><img src="images/assign-list.png" alt="assign-list" /></p>
+<pre><code class="language-ebnf">assign-list
+        ::= assignment ( &quot;,&quot; assignment )* ;
+</code></pre>
+<p><img src="images/assignment.png" alt="assignment" /></p>
+<pre><code class="language-ebnf">assignment
+        ::= predicate &quot;=&quot; constant ;
+</code></pre>
+<p>the first quoted string is the type and </p>
+<p>For a detailed discussion of media type handling, see <a href="resolvers.html#media-types">Dataset Processing</a>.</p>
+<h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
+<pre><code class="language-datalog">.assert human(name: string).
+.input(human, &quot;data/humans.csv&quot;, &quot;csv&quot;).
+</code></pre>
+<h2 id="processing-instruction-output"><a class="header" href="#processing-instruction-output">Processing Instruction <code>output</code></a></h2>
+<p>The <code>output</code> processing instruction instructs the parser to write facts from the named intensional relation to an
+external file. This processing instruction <strong>requires</strong> that the relation be previously defined via the <code>infer</code>
+processing instruction.</p>
+<p><img src="images/pi-output.png" alt="pi-output" /></p>
+<pre><code class="language-ebnf">pi-output  ::= &quot;output&quot; io-details &quot;.&quot; ;
+</code></pre>
+<h3 id="example-5"><a class="header" href="#example-5">Example</a></h3>
+<pre><code class="language-datalog">.infer mortal(name: string).
+.output(mortal, &quot;data/mortals.txt&quot;).
+</code></pre>
+<pre><code class="language-datalog">.infer mortal(name: string).
+.output(mortal, &quot;data/mortals.txt&quot;, &quot;csv&quot;, separator=&quot;;&quot;, header=present).
+</code></pre>
+<h2 id="processing-instruction-pragma"><a class="header" href="#processing-instruction-pragma">Processing Instruction <code>pragma</code></a></h2>
+<p><img src="images/pi-pragma.png" alt="pi-pragma" /></p>
+<pre><code class="language-ebnf">pi-pragma
+        ::= &quot;pragma&quot; predicate ( &quot;(&quot; assignment-list &quot;)&quot; )? ;
+</code></pre>
+<h3 id="defined-pragmas-and-keys"><a class="header" href="#defined-pragmas-and-keys">Defined Pragmas and Keys</a></h3>
+<table><thead><tr><th>Pragma</th><th>Key</th><th>Value Type</th><th>Description</th></tr></thead><tbody>
+<tr><td>base</td><td>iri</td><td>string</td><td>Interpreted as an absolute IRI, all other references are relative to this value.</td></tr>
+</tbody></table>
+<p><strong>Notes</strong></p>
+<ol>
+<li>If the <code>base</code> pragma is not specified then any references in the subject resource are relative to the resource location if known by the parser, or relative to the process performing the parsing.</li>
+</ol>
+<h3 id="example-6"><a class="header" href="#example-6">Example</a></h3>
+<p>In the following case the base IRI is <em>implicit</em> and is determined by the parser to dereference the relative value “data/humans.csv”.</p>
+<pre><code class="language-datalog">.assert human(string).
+.input(human, &quot;data/humans.csv&quot;, &quot;csv&quot;).
+</code></pre>
+<p>In the following case the base IRI is <em>explicitly</em> declared and so the input for <code>human</code> is clearly “https://example.com/datalog/data/humans.csv”.</p>
+<pre><code class="language-datalog">.pragma base(iri=&quot;https://example.com/datalog/&quot;).
+.assert human(string).
+.input(human, &quot;data/humans.csv&quot;, &quot;csv&quot;).
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../vnd_datalog_text/grammar_queries.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../vnd_datalog_text/grammar_comments.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../vnd_datalog_text/grammar_queries.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../vnd_datalog_text/grammar_comments.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../datalog.js"></script>
+        <script type="text/javascript" src="../specs.js"></script>
+
+
+    </body>
+</html>

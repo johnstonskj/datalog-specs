@@ -9,7 +9,7 @@ title = "Datalog Specifications"
 edition = "2018"
 
 [output.html]
-git-repository-url = "https://datalog-specs.info"
+git-repository-url = "https://github.com/johnstonskj/datalog-specs"
 additional-css = ["specs.css"]
 additional-js = ["datalog.js", "specs.js"]
 curly-quotes = true
