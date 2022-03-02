@@ -32,6 +32,17 @@ identifier-string
         ::= predicate ( ":" ALPHA ( ALPHA | DIGIT | "_" )* )? ;
 ```
 
+### Example
+
+The following is a perfectly valid version of the Socratic syllogism from the example in [Program](grammar_program.md).
+
+```datalog
+ανθρώπινο("Σωκράτης").
+
+θνητός(Χ) :- ανθρώπινο(Χ).
+
+?- θνητός("Σωκράτης").
+```
 ## Numerical Values
 
 Numerical values use the following lexical production that allows a number of language representations of the digits 0 to 9. For example, "123", "١٢٣" (Arabic-Indic), or "१२३" (Devangari).
@@ -46,6 +57,7 @@ The only exception to this broad inclusive approach is the definition of the `HE
 HEXDIGIT
         ::= [0-9a-fA-F] ;
 ```
+
 
 ## Unicode Operators
 
@@ -70,13 +82,13 @@ The following operators, or syntax symbols, are defined in this specification. W
 | String match           | `*=`    | `MATCH`   | `≛`     | U+E2899B  | STAR EQUALS              |
 | Functional dependency  | `-->`   |           | `⟶`     | U+E29FB6  | LONG RIGHTWARDS ARROW    |
 
-The following table describes the symbols introduced by different Datalog languages. Note that only material implication, conjunction, true, and false, are required by the initial language $\small\text{Datalog}$.
+The following table describes the symbols introduced by different Datalog languages. Note that only the symbols material implication, conjunction, true, and false, are required by the core language $\small\text{Datalog}$.
 
 | Language                             | Introduces                                   | Symbols                                                  |
 |--------------------------------------|----------------------------------------------|----------------------------------------------------------|
 | $\small\text{Datalog}^{\lnot}$       | negation of literals in rule bodies          | `!`, `NOT`, `￢`                                          |
 | $\small\text{Datalog}^{\lor}$        | disjunction in rule heads                    | `;`, <code>&#124;</code>, `OR`, `∨`                      |
-| $\small\text{Datalog}^{\bot}$        | rules as constraints, i.e. no body           | `⊤`                                                      |
+| $\small\text{Datalog}^{\Leftarrow}$  | rules as constraints, i.e. no body           | `⊤`                                                      |
 | $\small\text{Datalog}^{\Gamma}$      | typed attributes for relations               | N/A                                                      |
 | $\small\text{Datalog}^{\theta}$      | arithmetic literals in rule bodies           | `=`, `!=`, `≠`, <`, `<=`, `≤`, `>`, `>=`, `≥`, `*=`, `≛` |
 | $\small\text{Datalog}^{\rightarrow}$ | functional dependency processing instruction | `-->`, `⟶`                                               |

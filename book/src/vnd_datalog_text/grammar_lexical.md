@@ -1,17 +1,20 @@
 # Terminal/Lexical
 
-The following are lexical rules that can be assumed by the rules above.
+The following are lexical rules that can be assumed by the non-terminal rules in previous sections.
 
 ```ebnf
 EOL     ::= "\n" | "\r" "\n"? ;
+
+DQUOTE  ::= #x22 ;
+
+UNDERSCORE
+        ::= "_" ;
 
 SPACE_SEP
         ::= ? corresponds to the Unicode category 'Zs' ? ;
 
 WHITESPACE
         ::= SPACE_SEP | "\t" | EOL ;
-
-DQUOTE  ::= #x22 ;
 
 LC_ALPHA
         ::= ? corresponds to the Unicode category 'Ll' ? ;

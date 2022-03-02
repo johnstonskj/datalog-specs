@@ -1,16 +1,16 @@
-# Datalog Text Representation
+# DATALOG-TEXT: Datalog Text Representation
 
-## Version: XX March 2022 (Draft)
+## Version: 1.0, XX March 2022 (Draft)
 
-Please check the [errata](z_errata.md) for any errors or issues reported since publication.
+Please check the [§&nbsp;Errata](z_errata.md) for any errors or issues reported since publication.
 
-The English version of this specification is the only normative version. Non-normative [translations](z_translations.md) may also be available.
+The English version of this specification is the only normative version. Non-normative [§&nbsp;Translations](z_translations.md) may also be available.
 
 -----
 
 ## Abstract
 
-This document defines a standard textual representation of a Datalog program. This allows a program to be completely written in a compact and natural text form, with abbreviations for common usage patterns and data-types. 
+This document defines a standard textual representation of a Datalog program. This representation is based upon commonly used representations for programs and adds processing instructions and explicit Unicode support. The term **DATALOG-TEXT** SHALL BE used to reference this specification in this document and others that reference it.
 
 ## Status of This Document
 

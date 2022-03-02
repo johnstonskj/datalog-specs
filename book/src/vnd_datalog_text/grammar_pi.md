@@ -1,55 +1,52 @@
 # Processing Instructions
 
-Processing Instructions are declarative statements meant for the parser and runtime tooling, they do not affect
-the meaning of the program itself.
+Processing Instructions are declarative statements that allow the parser and processor to enable and disable language features as well as load and save external relation data. 
+
+A conformant DATALOG-TEXT processor MUST signal the error `ERR_UNSUPPORTED_PROCESSING_INSTRUCTION` when detecting a processing instruction identifier which they do not recognize or cannot support, even if it may be valid in some other version of this specification.
 
 ![processing-instruction](images/processing-instruction.png)
 
 ```ebnf
 processing-instruction  
       ::= "." 
-          ( pi-feature 
+          ( pi-pragma 
           | pi-assert | pi-infer 
           | pi-fd 
-          | pi-input | pi-output 
-          | pi-pragma ) 
+          | pi-input | pi-output ) 
           "." ;
 ```
 
-## Processing Instruction `feature`
+## Strict Processing
 
-The `feature` processing instruction determines which Datalog language is in use. Use of syntax not supported by the
-selected language feature will result in errors.
+When strict processing is enabled (either by pragma or command-line) the following processing instructions MUST BE used:
 
-![pi-feature](images/pi-feature.png)
+1. feature pragmas -- all features required MUST BE declared before use.
+2. `assert` -- all extensional relations MUST BE declared before use.
+2. `infer` -- all intensional relations MUST BE declared before use.
+
+## Processing Instruction `pragma`
+
+A pragma is generally used to enable or disable some feature of either the parser or resolver. The first `predicate` in this production is termed the _pragma identifier_. The details of supported pragmas is in the separate section [§ Pragmas](pragmas.md).
+
+A conformant DATALOG-TEXT processor MUST signal an error when detecting a pragma identifier which they do not recognize, even if it may be valid in some other version of this specification.
+
+![pi-pragma](images/pi-pragma.png)
 
 ```ebnf
-pi-feature ::= "feature" "(" feature-id ( "," feature-id )* ")" ;
-```
-
-![feature-id](images/feature-id.png)
-
-```ebnf
-feature-id
-        ::= "comparisons"
-        | "constraints"
-        | "disjunction"
-        | "negation"
-        | "functional_dependencies"
-```
-
-### Example
-
-```datalog
-.feature(negation).
-.feature(comparisons, disjunction).
+pi-pragma
+        ::= "pragma" predicate ( "=" constant )? ;
 ```
 
 ## Processing Instruction `assert`
 
-The `assert` processing instruction describes a new relation in the extensional database. The parser can determine
-the schema for facts from their types in the database. The use of this processing instruction is therefore optional,
-but recommended.
+The `assert` processing instruction declares a new relation in the extensional database. 
+
+The following constraints exist:
+
+1. the initial predicate MUST NOT be the label of an existing relation.
+1. all attribute labels, if declared, MUST BE distinct.
+
+All extensional relations MUST be asserted before use in strict processing mode, an error MUST BE signaled otherwise. In non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled and infer the declaration and attribute types when the first fact is parsed. The use of this processing instruction is therefore optional, but recommended.
 
 ![pi-assert](images/pi-assert.png)
 
@@ -58,12 +55,16 @@ pi-assert
         ::= "assert" relation-decl ;
 ```
 
+A relation declaration declares the types, and optionally the names, of the attributes of a relation. The first predicate in `relation-decl` is the label of the relation, the attributes themselves are defined within the following parenthesis.
+
 ![relation-decl](images/relation-decl.png)
 
 ```ebnf
 relation-decl
         ::= predicate "(" attribute-decl ( "," attribute-decl )* ")" ;
 ```
+
+Each attribute has a declared type, and may also be preceded by a predicate label.
 
 ![attribute-decl](images/attribute-decl.png)
 
@@ -73,7 +74,17 @@ attribute-decl
             ( "boolean" | "float" | "decimal" | "integer" | "string" ) ;
 ```
 
+Note that the types `float` and `decimal` are only available if the feature `extended_numerics` is enabled.
+
 ### Example
+
+The following declares a relation labeled `human` that has a single string attribute.
+
+```datalog
+.assert human(string).
+```
+
+The following declares a relation labeled `human` that has a single string attribute, labeled as `name`.
 
 ```datalog
 .assert human(name: string).
@@ -81,10 +92,14 @@ attribute-decl
 
 ## Processing Instruction `infer`
 
-The `infer` processing instruction describes a new relation in the intensional database. Typically the parser
-can determine the schema for relational literals from their context, The use of this processing instruction
-is therefore optional, but recommended. The alternate form is more explicit in that it defines
-an intensional relation in terms of a previously defined extensional relation.
+In the same manner as `assert` above, the `infer` processing instruction declares a new relation in the intensional database. The alternate form is even more explicit in that it declares an intensional relation in terms of a previously declared extensional relation. 
+
+The following constraints exist:
+
+1. the initial predicate MUST NOT be the label of an existing relation.
+1. all attribute labels, if declared, MUST BE distinct.
+
+All intensional relations MUST be asserted before use in strict processing mode, an error MUST BE signaled otherwise. In non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled and infer the declaration and attribute types from rules as they are parsed. The use of this processing instruction is therefore optional, but recommended.
 
 ![pi-infer](images/pi-infer.png)
 
@@ -95,11 +110,13 @@ pi-infer
 
 ### Example
 
+The following declares a relation labeled `mortal` that has a single string attribute, labeled as `name`.
+
 ```datalog
 .infer mortal(name: string).
 ```
 
-Alternatively the short-cut form is often more convenient.
+Alternatively the short-cut form is often more convenient but has the advantage that if the definition of `human` changes declaration changes accordingly.
 
 ```datalog
 .assert human(name: string).
@@ -108,12 +125,18 @@ Alternatively the short-cut form is often more convenient.
 
 ## Processing Instruction `fd`
 
-The `fd` processing instruction, short for _functional dependency_, introduces a relationship between one or more attributes on the
-left-hand (determinant) side and one or more attributes on the right-hand (dependent) side. This relationship denotes
-that for a relationship $\small R$ with attributes $\small a_1, \cdots, a_n$, every valid combination of determinant
-values uniquely determines the value of the dependent values.
+The `fd` processing instruction, short for _functional dependency_, introduces a relationship between one or more attributes on the left-hand side (determinant -- a set denoted by $\small\alpha$) and one or more attributes on the right-hand side (dependent -- a set denoted by $\small\beta$). This relationship denotes that for a relationship $\small R$, every valid combination of determinant values uniquely determines the value of the dependent values. The syntax for the dependency is intended to be as close to the mathematical form $\small R: \alpha \longrightarrow \beta$. 
 
-Note that this processing instruction is only valid if the corresponding language feature is enabled.
+The following constraints exist:
+
+1. the initial predicate MUST BE the label of an extensional relation.
+2. the set of attribute identifiers comprising the set $\small\alpha$ MUST BE in $\small R$.
+3. the set of attribute identifiers comprising the set $\small\beta$ MUST BE in $\small R$.
+4. the same attribute identifier MUST NOT appear in both determinant and dependent.
+
+In strict processing mode this processing instruction is only valid if the corresponding language feature is enabled, an error MUST BE signaled otherwise. non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled. 
+
+Duplicate functional dependencies MUST NOT be treated as an error; however, a DATALOG-TEXT processor MAY issue a warning on detection of duplicate values.
 
 ![pi-fd](images/pi-fd.png)
 
@@ -121,7 +144,7 @@ Note that this processing instruction is only valid if the corresponding languag
 pi-fd      ::= ( "fd" | "functional_dependency" ) 
             predicate ":"
             attribute-index-list ( "-->" | "⟶" ) attribute-index-list
-``` 
+```
 
 ![attribute-index-list](images/attribute-index-list.png)
 
@@ -139,18 +162,7 @@ attribute-index
         ::= integer | predicate
 ``` 
 
-**Constraints** -- given the notational form $\small R: \alpha \rightarrow \Beta$;
-
-1. the initial predicate **must** be the label of an extensional relation:
-   $$\small R \in D_I \land label\(R\)$$
-2. the set of attribute identifiers comprising the set $\small \alpha$ **must** be in $\small R$:
-   $$\small \forall a \in \alpha \(a \in schema\(R\)\)$$
-3. the set of attribute identifiers comprising the set $\small \Beta$ **must** be in $\small R$:
-   $$\small \forall a \in \Beta \(a \in schema\(R\)\)$$
-4. the same attribute identifier **must not** appear in both determinant and dependent:
-   $$\small \alpha \cap \Beta = \emptyset$$
-
-### Example
+### Examples
 
 Given the extensional relation _employee_ the two functional dependencies in the
 following are equivalent. Note that the implementation will ignore such duplicate declarations.
@@ -165,17 +177,26 @@ following are equivalent. Note that the implementation will ignore such duplicat
 
 ## Processing Instruction `input`
 
-The `input` processing instruction instructs the parser to load facts for the named extensional relation from an
-external file. This processing instruction **requires** that the relation be previously defined via the `assert`
-processing instruction.
+The `input` processing instruction instructs the parser to load facts for the named extensional relation from an external file. 
+
+> This specification does not determine whether loading external resources happens during parsing, at the completion of parsing, at evaluation time, or via a client initiated API call. However, as some errors (fact schema conformance for example) cannot happen until facts are loaded, this choice MAY defer the signaling of some critical errors.
 
 ![pi-input](images/pi-input.png)
 
 ```ebnf
-pi-input   ::= "input" io-details "."
+pi-input   ::= "input" io-details
 ```
 
 ![io-details](images/io-details.png)
+
+The `io-details` production informs the parser of the expected media type for the external resource and any parameters for that media type.  
+
+The following constraints exist:
+
+1. the initial predicate in MUST BE the label of an extensional relation.
+2. the first `quoted-string` in the following production is interpreted as a URI <span class="bibref inline">[RFC3986](x_references.md#RFC3986)</span> which MUST BE handled as per [§ Resolvers](resolvers.md).
+
+For a detailed discussion of media type handling, see [§ Dataset Processing](resolvers.md#media-types).
 
 ```ebnf
 io-details
@@ -184,43 +205,67 @@ io-details
             ")" ;
 ```
 
+A format specifier provides information that allows a resolver to identify the type of resource that will be fetched and informs the parser how to interpret the fetched resource.
+
+The following constraints exist:
+
+1. the initial string value MUST BE either the type name and subtype name of a supported media type (i.e. `text/csv`) or one of the supported media type short form identifiers described in Resolvers [§ Media Types](resolvers.md#media-types).
+
 ![format-spec](images/format-spec.png)
 
 ```ebnf
 format-spec
-        ::= quoted-string ( "," assign-list )? ;
+        ::= string ( "," assign-list )? ;
 ```
+
+The assignment list provides the parameters that may be required for a particular media type. For example, the media type `text/csv` supports two optional parameters, `charset` and `header`; the value of the header parameter MUST BE one of `present` or `absent` <span class="bibref inline">[RFC4180](x_references.md#RFC4180)</span>, section 3.
 
 ![assign-list](images/assign-list.png)
 
 ```ebnf
-assign-list
+assignment-list
         ::= assignment ( "," assignment )* ;
 ```
+
+In the following production an assignment allows a form where no right-hand side is specified. This is only legal if the value denoted by the `predicate` is a boolean parameter and used in this way denotes `=true`. Therefore, `(escaped=true)` is equivalent to `(escaped)`.
 
 ![assignment](images/assignment.png)
 
 ```ebnf
 assignment
-        ::= predicate "=" constant ;
+        ::= predicate ( "=" constant )? ;
 ```
 
-the first quoted string is the type and 
+### Examples
 
-For a detailed discussion of media type handling, see [Dataset Processing](resolvers.md#media-types).
+In the following example the full media type is used and a parameter, allowing the resolver to pass the following request header to an HTTP request
+`Accept: text/csv;header=absent`
 
-### Example
+```datalog
+.assert human(name: string).
+.input(human, "data/humans.csv", "text/csv", header=absent).
+```
+
+In the following the short form of the media type is used, allowing the resolver to pass the following request header to an HTTP request
+`Accept: text/csv`
 
 ```datalog
 .assert human(name: string).
 .input(human, "data/humans.csv", "csv").
 ```
 
+In the following no media type is present, in this case the resolver MUST follow the steps in [§ Resolvers](resolvers.md).
+
+```datalog
+.assert human(name: string).
+.input(human, "data/humans.csv").
+```
+
 ## Processing Instruction `output`
 
-The `output` processing instruction instructs the parser to write facts from the named intensional relation to an
-external file. This processing instruction **requires** that the relation be previously defined via the `infer`
-processing instruction.
+The `output` processing instruction instructs the parser to write facts from the named intensional relation to an external file. 
+
+> This specification does not determine whether writing to external resources happens during evaluation, at completion of evaluation, or via a client initiated API call. However, as some errors (un-writable output resource) cannot happen until intensional relations are stored, this choice MAY defer the signaling of some critical errors.
 
 ![pi-output](images/pi-output.png)
 
@@ -228,7 +273,7 @@ processing instruction.
 pi-output  ::= "output" io-details "." ;
 ```
 
-### Example
+### Examples
 
 ```datalog
 .infer mortal(name: string).
@@ -238,40 +283,4 @@ pi-output  ::= "output" io-details "." ;
 ```datalog
 .infer mortal(name: string).
 .output(mortal, "data/mortals.txt", "csv", separator=";", header=present).
-```
-
-## Processing Instruction `pragma`
-
-![pi-pragma](images/pi-pragma.png)
-
-```ebnf
-pi-pragma
-        ::= "pragma" predicate ( "(" assignment-list ")" )? ;
-```
-
-### Defined Pragmas and Keys
-
-| Pragma | Key | Value Type | Description                                                                      |
-|--------|-----|------------|----------------------------------------------------------------------------------|
-| base   | iri | string     | Interpreted as an absolute IRI, all other references are relative to this value. |
-
-**Notes**
-
-1. If the `base` pragma is not specified then any references in the subject resource are relative to the resource location if known by the parser, or relative to the process performing the parsing.
-
-### Example
-
-In the following case the base IRI is _implicit_ and is determined by the parser to dereference the relative value "data/humans.csv".
-
-```datalog
-.assert human(string).
-.input(human, "data/humans.csv", "csv").
-```
-
-In the following case the base IRI is _explicitly_ declared and so the input for `human` is clearly "https://example.com/datalog/data/humans.csv".
-
-```datalog
-.pragma base(iri="https://example.com/datalog/").
-.assert human(string).
-.input(human, "data/humans.csv", "csv").
 ```

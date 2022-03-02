@@ -4,7 +4,12 @@
 
 _This section is non-normative._
 
-TBD
+This document is a detailed specification for DATALOG-TEXT, a representation in textual form, of a Datalog program. The document is primarily intended for the following audiences:
+
+* Software developers who want to generate or consume Datalog programs, in a DATALOG-TEXT syntax
+* Software developers who want to convert existing Datalog serializations to DATALOG-TEXT
+* Software developers who want to implement processors and APIs for DATALOG-TEXT
+* Software developers who want to understand the design decisions and language syntax for DATALOG-TEXT
 
 ## Contributing
 
@@ -51,7 +56,7 @@ irrelevant.
 |--------------------------------------|----------------------------------------------|------------------------------------------------------------|
 | $\small\text{Datalog}^{\lnot}$       | negation of literals in rule bodies          | `!`, `NOT`, `￢`                                            |
 | $\small\text{Datalog}^{\lor}$        | disjunction in rule heads                    | `;`, `OR`, `∨`                                             |
-| $\small\text{Datalog}^{\bot}$        | rules as constraints, i.e. no body           | N/A                                                        |
+| $\small\text{Datalog}^{\Leftarrow}$  | rules as constraints, i.e. no body           | N/A                                                        |
 | $\small\text{Datalog}^{\Gamma}$      | typed attributes for relations               | N/A                                                        |
 | $\small\text{Datalog}^{\theta}$      | arithmetic literals in rule bodies           | `=`, `!=`, `≠`, <`, `<=`, `≤`, `>`, `>=`, `≥`, `*=`, `≛`   |
 | $\small\text{Datalog}^{\rightarrow}$ | functional dependency processing instruction | `-->`, `⟶`                                                 |
