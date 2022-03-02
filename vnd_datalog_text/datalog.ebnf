@@ -5,7 +5,7 @@ program ::= processing-instruction* ( fact | rule | query )* ;
 fact    ::= predicate ( "(" constant ( "," constant )* ")" )? "." ;
 
 predicate
-        ::= LC_ALPHA ( ALPHA | DIGIT | "_" )* ;
+        ::= LC_ALPHA ( ALPHA | DIGIT | UNDERSCORE )* ;
 
 /* ************************************************************************* */
 
@@ -15,7 +15,7 @@ constant
 string  ::= identifier-string | literal-string ;
 
 identifier-string
-        ::= predicate ( ":" ALPHA ( ALPHA | DIGIT | "_" )* )? ;
+        ::= predicate ( ":" ALPHA ( ALPHA | DIGIT | UNDERSCORE )* )? ;
 
 literal-string
         ::= DQUOTE ( string-escape | [^#x22] )* DQUOTE ;
@@ -25,21 +25,27 @@ string-escape
         | "\u{" HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
               ( HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT )? "}" ;
 
-number  ::= float | decimal | integer ;
+number  ::= float   # Optional
+        | decimal   # Optional
+        | integer ; # Required
 
 integer ::= ( "+" | "-" )? DIGIT+ ;
 
 decimal ::= integer "." DIGIT+ ;
 
-float   ::= decimal ( "e" | "E" ) integer ;
+float   ::= ( decimal ( "e" | "E" ) integer )
+            | "+inf.0"
+            | "-inf.0"
+            | "+nan.0" ;
 
-boolean ::= ( "true" | "⊤" ) | ( "false" | "⊥" ) ;
+boolean ::= "true" | "false" ;
 
 /* ************************************************************************* */
 
-rule    ::= ( head | "⊥" )? ( ":-" | "<-" | "⟵" ) body "." ;
+rule    ::= head? ( ":-" | "<-" | "⟵" ) body "." ;
 
-head    ::= ( atom ( ( ";" | "|" | "OR" | "∨" ) atom )* ) ;
+head    ::= ( atom ( ( ";" | "|" | "OR" | "∨" ) atom )* )
+            | "⊥" ;
 
 body    ::= literal ( ( "," | "&" | "AND" | "∧" ) literal )* ;
 
@@ -53,15 +59,16 @@ variable
         ::= named-variable | anon-variable ;
 
 named-variable
-        ::= UC_ALPHA ( ALPHA | DIGIT | "_" )* ;
+        ::= UC_ALPHA ( ALPHA | DIGIT | UNDERSCORE )* ;
 
 anon-variable
-        ::= "_" ;
+        ::= UNDERSCORE ;
 
 /* ************************************************************************* */
 
 literal ::= ( "!" | "NOT" | "￢" )?
-            ( relational-literal | arithmetic-literal ) ;
+            ( relational-literal
+            | arithmetic-literal ) ;
 
 /* ************************************************************************* */
 
@@ -91,24 +98,16 @@ query   ::= ( "?-" atom "." )
 
 processing-instruction
         ::= "."
-            ( pi-feature
+            ( pi-pragma
             | pi-assert
             | pi-infer
             | pi-fd
             | pi-input
-            | pi-output
-            | pi-pragma )
+            | pi-output )
             "." ;
 
-pi-feature
-        ::= "feature" "(" feature-id ( "," feature-id )* ")" ;
-
-feature-id
-        ::= "arithmetic_literals"
-        |   "constraints"
-        |   "disjunction"
-        |   "negation"
-        |   "functional_dependencies" ;
+pi-pragma
+        ::= "pragma" predicate ( "=" constant )? ;
 
 pi-assert
         ::= "assert" relation-decl ;
@@ -142,9 +141,9 @@ io-details
             ")" ;
 
 format-spec
-        ::= quoted-string ( "," assign-list )? ;
+        ::= string ( "," assignment-list )? ;
 
-assign-list
+assignment-list
         ::= assignment ( "," assignment )* ;
 
 assignment
@@ -152,9 +151,6 @@ assignment
 
 pi-output
         ::= "output" io-details ;
-
-pi-pragma
-        ::= "pragma" predicate ( "(" assignment-list ")" )? ;
 
 /* ************************************************************************* */
 
@@ -170,13 +166,16 @@ block-comment
 
 EOL     ::= "\n" | "\r" "\n"? ;
 
+DQUOTE  ::= #x22 ;
+
+UNDERSCORE
+        ::= "_" ;
+
 SPACE_SEP
         ::= ? corresponds to the Unicode category 'Zs' ? ;
 
 WHITESPACE
         ::= SPACE_SEP | "\t" | EOL ;
-
-DQUOTE  ::= #x22 ;
 
 LC_ALPHA
         ::= ? corresponds to the Unicode category 'Ll' ? ;

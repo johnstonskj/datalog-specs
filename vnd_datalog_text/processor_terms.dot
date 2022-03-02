@@ -6,7 +6,8 @@ digraph G {
 
   subgraph cluster1 {
     evaluator [style=dashed];
-    evaluator -> parser [dir=both];
+    evaluator -> parser;
+    evaluator -> resolver;
     parser -> resolver;
     label = "processor";
   }

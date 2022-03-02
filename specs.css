@@ -69,13 +69,16 @@ main .biblio ol li {
 
 main .biblio ol li .bibkey {
     margin-left: -2.5em;
+    font-weight: bold;
 }
 
 main .biblio ol li .bibkey::before {
+    font-weight: bold;
     content: "[";
 }
 
 main .biblio ol li .bibkey::after {
+    font-weight: bold;
     content: "]\a";
     white-space: pre;
 }
