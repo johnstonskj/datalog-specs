@@ -1,6 +1,6 @@
 # datalog-specs
 
-GitHub Pages site for [datalog-spec.info ](https://datalog-spec.info).
+GitHub Pages source for [datalog-specs.info](https://datalog-specs.info).
 
 ## Building Locally
 
