@@ -48,20 +48,22 @@ car("ford", X, _)?
 TBD
 
 ```datalog
-car_1 :- car("ford", X, _);
+car_1 :- car("ford", X, _).
+car_1(X).
 car_1(edge).
 car_1(escort).
 car_1(fiesta).
 car_1(focus).
 car_1(fusion).
 car_1(mustang).
+...
 ```
 
 ## `tabular` Format
 
 This format is optional but RECOMMENDED.
 
-This specification does not require a specific set of characters for laying out tables. The following are all acceptable styles that use either ASCII characters or Unicode Box Drawing characters.
+This specification does not require a specific set of characters for laying out tables. The following are all acceptable styles that use either ASCII characters or Unicode Box Drawing characters. Note that all the formats below do make a distinction between header and body rows.
 
 ```text
 +------------+------------+    ,------------+------------,    

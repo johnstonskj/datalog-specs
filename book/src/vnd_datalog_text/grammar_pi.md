@@ -11,7 +11,6 @@ processing-instruction
       ::= "." 
           ( pi-pragma 
           | pi-assert | pi-infer 
-          | pi-fd 
           | pi-input | pi-output ) 
           "." ;
 ```
@@ -26,7 +25,7 @@ When strict processing is enabled (either by pragma or command-line) the followi
 
 ## Processing Instruction `pragma`
 
-A pragma is generally used to enable or disable some feature of either the parser or resolver. The first `predicate` in this production is termed the _pragma identifier_. The details of supported pragmas is in the separate section [§ Pragmas](pragmas.md).
+A pragma is generally used to enable or disable some feature of either the parser or resolver. The first `predicate` in this production is termed the _pragma identifier_. The details of supported pragmas is in the separate section [§&nbsp;Pragmas](pragmas.md).
 
 A conformant DATALOG-TEXT processor MUST signal an error when detecting a pragma identifier which they do not recognize, even if it may be valid in some other version of this specification.
 
@@ -36,6 +35,10 @@ A conformant DATALOG-TEXT processor MUST signal an error when detecting a pragma
 pi-pragma
         ::= "pragma" predicate ( "=" constant )? ;
 ```
+
+### Errors
+
+* `ERR_UNSUPPORTED_PRAGMA` -- the initial predicate does not identify a supported pragma.
 
 ## Processing Instruction `assert`
 
@@ -52,7 +55,7 @@ All extensional relations MUST be asserted before use in strict processing mode,
 
 ```ebnf
 pi-assert
-        ::= "assert" relation-decl ;
+        ::= "assert" relation-decl functional-dependency-list? ;
 ```
 
 A relation declaration declares the types, and optionally the names, of the attributes of a relation. The first predicate in `relation-decl` is the label of the relation, the attributes themselves are defined within the following parenthesis.
@@ -61,10 +64,17 @@ A relation declaration declares the types, and optionally the names, of the attr
 
 ```ebnf
 relation-decl
-        ::= predicate "(" attribute-decl ( "," attribute-decl )* ")" ;
+        ::= predicate attribute-decl-list ;
 ```
 
 Each attribute has a declared type, and may also be preceded by a predicate label.
+
+![attribute-decl-list](images/attribute-decl-list.png)
+
+```ebnf
+attribute-decl-list
+        ::= "(" attribute-decl ( "," attribute-decl )* ")" ;
+```
 
 ![attribute-decl](images/attribute-decl.png)
 
@@ -75,6 +85,11 @@ attribute-decl
 ```
 
 Note that the types `float` and `decimal` are only available if the feature `extended_numerics` is enabled.
+
+### Errors
+
+* `ERR_INVALID_RELATION` -- the values for production `attribute-decl-list` where invalid, it was not possible to construct a compliant relation schema.
+* `ERR_RELATION_ALREADY_EXISTS` -- the predicate labeling the relation already exists (either as an extensional or intensional relation).
 
 ### Example
 
@@ -90,60 +105,47 @@ The following declares a relation labeled `human` that has a single string attri
 .assert human(name: string).
 ```
 
-## Processing Instruction `infer`
-
-In the same manner as `assert` above, the `infer` processing instruction declares a new relation in the intensional database. The alternate form is even more explicit in that it declares an intensional relation in terms of a previously declared extensional relation. 
-
-The following constraints exist:
-
-1. the initial predicate MUST NOT be the label of an existing relation.
-1. all attribute labels, if declared, MUST BE distinct.
-
-All intensional relations MUST be asserted before use in strict processing mode, an error MUST BE signaled otherwise. In non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled and infer the declaration and attribute types from rules as they are parsed. The use of this processing instruction is therefore optional, but recommended.
-
-![pi-infer](images/pi-infer.png)
-
-```ebnf
-pi-infer
-        ::= "infer" ( relation-decl | "from" predicate ) ;
-```
-
-### Example
-
-The following declares a relation labeled `mortal` that has a single string attribute, labeled as `name`.
+The following is an error in that the `name` label is used for two separate attributes.
 
 ```datalog
-.infer mortal(name: string).
+.assert human(name: string, name: string).
+%% ==> ERR_INVALID_RELATION
 ```
 
-Alternatively the short-cut form is often more convenient but has the advantage that if the definition of `human` changes declaration changes accordingly.
+The following is an error, relations cannot be defined twice.
 
 ```datalog
 .assert human(name: string).
-.infer mortal from human.
+.assert human(first_name: string, last_name: string).
+%% ==> ERR_RELATION_ALREADY_EXISTS
 ```
 
-## Processing Instruction `fd`
+### Functional Dependencies
 
-The `fd` processing instruction, short for _functional dependency_, introduces a relationship between one or more attributes on the left-hand side (determinant -- a set denoted by $\small\alpha$) and one or more attributes on the right-hand side (dependent -- a set denoted by $\small\beta$). This relationship denotes that for a relationship $\small R$, every valid combination of determinant values uniquely determines the value of the dependent values. The syntax for the dependency is intended to be as close to the mathematical form $\small R: \alpha \longrightarrow \beta$. 
+The `functional-dependency-list` production introduces a relationship between one or more attributes on the left-hand side (determinant -- a set denoted by $\small\alpha$) and one or more attributes on the right-hand side (dependent -- a set denoted by $\small\beta$). This relationship denotes that for a relationship $\small R$, every valid combination of determinant values uniquely determines the value of the dependent values. The syntax for the dependency is intended to be as close to the mathematical form $\small R: \alpha \longrightarrow \beta$.
 
 The following constraints exist:
 
-1. the initial predicate MUST BE the label of an extensional relation.
 2. the set of attribute identifiers comprising the set $\small\alpha$ MUST BE in $\small R$.
 3. the set of attribute identifiers comprising the set $\small\beta$ MUST BE in $\small R$.
 4. the same attribute identifier MUST NOT appear in both determinant and dependent.
 
-In strict processing mode this processing instruction is only valid if the corresponding language feature is enabled, an error MUST BE signaled otherwise. non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled. 
+In strict processing mode this production is only valid if the corresponding language feature is enabled, an error MUST BE signaled otherwise. non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled.
 
-Duplicate functional dependencies MUST NOT be treated as an error; however, a DATALOG-TEXT processor MAY issue a warning on detection of duplicate values.
+Duplicate functional dependencies MUST NOT be treated as an error, they can be ignored; however, a DATALOG-TEXT processor MAY issue a warning on detection of duplicate values.
 
-![pi-fd](images/pi-fd.png)
+![functional-dependency-list](images/functional-dependency-list.png)
 
 ```ebnf
-pi-fd      ::= ( "fd" | "functional_dependency" ) 
-            predicate ":"
-            attribute-index-list ( "-->" | "⟶" ) attribute-index-list
+functional-dependency-list
+        ::= ":" functional-dependency ( ";" functional-dependency )* ;
+```
+
+![functional-dependency](images/functional-dependency.png)
+
+```ebnf
+functional-dependency
+        ::= attribute-index-list ( "-->" | "⟶" ) attribute-index-list ;
 ```
 
 ![attribute-index-list](images/attribute-index-list.png)
@@ -162,17 +164,80 @@ attribute-index
         ::= integer | predicate
 ``` 
 
-### Examples
+
+#### Errors
+
+* `ERR_INVALID_ATTRIBUTE_INDEX` -- the index (integer) is not valid within the relation's schema.
+* `ERR_INVALID_ATTRIBUTE_LABEL` -- the label (predicate) is not valid within the relation's schema.
+
+#### Examples
 
 Given the extensional relation _employee_ the two functional dependencies in the
 following are equivalent. Note that the implementation will ignore such duplicate declarations.
 
 ```datalog
 .feature(functional_dependencies).
-.assert employee(id:integer, name:string).
 
-.fd employee: id --> name.
-.fd employee: 1 ⟶ 2.
+.assert employee(id:integer, name:string) : id --> name.
+.assert employee(id:integer, name:string) : 1 ⟶ 2.
+```
+
+The following errors result from invalid attributes specified in the dependency.
+
+```datalog
+.feature(functional_dependencies).
+
+.assert employee(id:integer, name:string) : 1 ⟶ 42.
+%% ==> ERR_INVALID_ATTRIBUTE_INDEX
+.assert employee(id:integer, name:string) : id --> first_name.
+%% ==> ERR_INVALID_ATTRIBUTE_LABEL
+```
+
+## Processing Instruction `infer`
+
+In the same manner as `assert` above, the `infer` processing instruction declares a new relation in the intensional database. The alternate form is even more explicit in that it declares an intensional relation in terms of a previously declared extensional relation. 
+
+The following constraints exist:
+
+1. the initial predicate MUST NOT be the label of an existing extensional relation.
+1. all attribute labels, if declared, MUST BE distinct.
+
+All intensional relations MUST be asserted before use in strict processing mode, an error MUST BE signaled otherwise. In non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled and infer the declaration and attribute types from rules as they are parsed. The use of this processing instruction is therefore optional, but recommended.
+
+![pi-infer](images/pi-infer.png)
+
+```ebnf
+pi-infer
+        ::= "infer" ( relation-decl | "from" predicate ) ;
+```
+
+### Errors
+
+* `ERR_INVALID_RELATION` -- the values for production `attribute-decl-list` where invalid, it was not possible to construct a compliant relation schema.
+* `ERR_RELATION_ALREADY_EXISTS` -- the predicate labeling the relation already exists (either as an extensional or intensional relation).
+* `ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION` -- the predicate following the `from` keyword is not the label of an extensional relation.
+
+### Example
+
+The following declares a relation labeled `mortal` that has a single string attribute, labeled as `name`.
+
+```datalog
+.infer mortal(name: string).
+```
+
+Alternatively the short-cut form is often more convenient but has the advantage that if the definition of `human` changes declaration changes accordingly.
+
+```datalog
+.assert human(name: string).
+.infer mortal from human.
+```
+
+The following error is raised as `humans` is incorrectly spelled.
+
+```datalog
+.assert human(name: string).
+.infer mortal from humans.
+%% ==> ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION
 ```
 
 ## Processing Instruction `input`
@@ -184,58 +249,47 @@ The `input` processing instruction instructs the parser to load facts for the na
 ![pi-input](images/pi-input.png)
 
 ```ebnf
-pi-input   ::= "input" io-details
+pi-input
+        ::= "input" io-details ;
 ```
+
+The `io-details` production informs the parser of the expected media type for the external resource and any parameters for that media type.
+The initial predicate in MUST BE the label of an extensional relation.
+
+For a detailed discussion of media type handling, see [§&nbsp;Dataset Media Types](resolvers.md#dataset-media-types).
 
 ![io-details](images/io-details.png)
 
-The `io-details` production informs the parser of the expected media type for the external resource and any parameters for that media type.  
-
-The following constraints exist:
-
-1. the initial predicate in MUST BE the label of an extensional relation.
-2. the first `quoted-string` in the following production is interpreted as a URI <span class="bibref inline">[RFC3986](x_references.md#RFC3986)</span> which MUST BE handled as per [§ Resolvers](resolvers.md).
-
-For a detailed discussion of media type handling, see [§ Dataset Processing](resolvers.md#media-types).
-
 ```ebnf
 io-details
-        ::= "(" predicate "," quoted-string
-                ( "," format-spec )?
-            ")" ;
+        ::= predicate parameter-list ;
 ```
 
-A format specifier provides information that allows a resolver to identify the type of resource that will be fetched and informs the parser how to interpret the fetched resource.
+The parameter list provides the values that are specified for a particular media type. For example, the media type `text/csv` supports two optional parameters, `charset` and `header`; the value of the header parameter MUST BE one of `present` or `absent` <span class="bibref inline">[RFC4180](x_references.md#RFC4180)</span>, section 3.
 
-The following constraints exist:
-
-1. the initial string value MUST BE either the type name and subtype name of a supported media type (i.e. `text/csv`) or one of the supported media type short form identifiers described in Resolvers [§ Media Types](resolvers.md#media-types).
-
-![format-spec](images/format-spec.png)
+![parameter-list](images/parameter-list.png)
 
 ```ebnf
-format-spec
-        ::= string ( "," assign-list )? ;
+parameter-list
+        ::= parameter-assignment ( "," parameter-assignment )* ;
 ```
 
-The assignment list provides the parameters that may be required for a particular media type. For example, the media type `text/csv` supports two optional parameters, `charset` and `header`; the value of the header parameter MUST BE one of `present` or `absent` <span class="bibref inline">[RFC4180](x_references.md#RFC4180)</span>, section 3.
-
-![assign-list](images/assign-list.png)
+![parameter-assignment](images/parameter-assignment.png)
 
 ```ebnf
-assignment-list
-        ::= assignment ( "," assignment )* ;
+parameter-assignment
+        ::= predicate "=" constant ;
 ```
 
-In the following production an assignment allows a form where no right-hand side is specified. This is only legal if the value denoted by the `predicate` is a boolean parameter and used in this way denotes `=true`. Therefore, `(escaped=true)` is equivalent to `(escaped)`.
+### Errors
 
-![assignment](images/assignment.png)
-
-```ebnf
-assignment
-        ::= predicate ( "=" constant )? ;
-```
-
+* `ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION` -- the predicate is not the label of an extensional relation, the `input` processing instruction is only valid for extensional relations.
+* `ERR_INVALID_URI` -- the `uri` parameter could not be parsed, or has an unsupported scheme.
+* `ERR_UNSUPPORTED_MEDIA_TYPE` -- the `type` parameter could not be parsed, or has an unsupported media type.
+* `ERR_IO_INSTRUCTION_PARAMETER` -- another parameter provided for the type was either missing or has an incorrect value.
+* `ERR_INPUT_RESOURCE_DOES_NOT_EXIST` -- the URI could not be resolved to an accessible resource.
+* `ERR_IO_SYSTEM_FAILURE` -- some other I/O failure occurred.
+ 
 ### Examples
 
 In the following example the full media type is used and a parameter, allowing the resolver to pass the following request header to an HTTP request
@@ -243,7 +297,7 @@ In the following example the full media type is used and a parameter, allowing t
 
 ```datalog
 .assert human(name: string).
-.input(human, "data/humans.csv", "text/csv", header=absent).
+.input(human, uri="data/humans.csv", type="text/csv", header=absent).
 ```
 
 In the following the short form of the media type is used, allowing the resolver to pass the following request header to an HTTP request
@@ -251,14 +305,30 @@ In the following the short form of the media type is used, allowing the resolver
 
 ```datalog
 .assert human(name: string).
-.input(human, "data/humans.csv", "csv").
+.input(human, uri="data/humans.csv", type="csv").
 ```
 
-In the following no media type is present, in this case the resolver MUST follow the steps in [§ Resolvers](resolvers.md).
+In the following no media type is present, in this case the resolver MUST follow the steps in [§&nbsp;Resolvers](resolvers.md).
 
 ```datalog
 .assert human(name: string).
-.input(human, "data/humans.csv").
+.input(human, uri="data/humans.csv").
+```
+
+The following error is signaled due to the media type `audio/mp4` which is not, and is unlikely to ever be, supported.
+
+```datalog
+.assert human(name: string).
+.input(human, uri="data/humans.csv", type="audio/mp4").
+%% ==> ERR_UNSUPPORTED_MEDIA_TYPE
+```
+
+The values for the `header` parameter are `absent` or `present`.
+
+```datalog
+.assert human(name: string).
+.input(human, uri="data/humans.csv", headers=yes_please).
+%% ==> ERR_IO_INSTRUCTION_PARAMETER
 ```
 
 ## Processing Instruction `output`
@@ -273,14 +343,23 @@ The `output` processing instruction instructs the parser to write facts from the
 pi-output  ::= "output" io-details "." ;
 ```
 
+### Errors
+
+* `ERR_PREDICATE_NOT_AN_INTENSIONAL_RELATION` -- the predicate is not the label of an intensional relation, the `output` processing instruction is only valid for intensional relations.
+* `ERR_INVALID_URI` -- the `uri` parameter could not be parsed, or has an unsupported scheme.
+* `ERR_UNSUPPORTED_MEDIA_TYPE` -- the `type` parameter could not be parsed, or has an unsupported media type.
+* `ERR_IO_INSTRUCTION_PARAMETER` -- another parameter provided for the type was either missing or has an incorrect value.
+* `ERR_OUTPUT_RESOURCE_NOT_WRITEABLE` -- the URI identified a resource that could not be written to.
+* `ERR_IO_SYSTEM_FAILURE` -- some other I/O failure occurred.
+
 ### Examples
 
 ```datalog
 .infer mortal(name: string).
-.output(mortal, "data/mortals.txt").
+.output(mortal, uri="data/mortals.txt").
 ```
 
 ```datalog
 .infer mortal(name: string).
-.output(mortal, "data/mortals.txt", "csv", separator=";", header=present).
+.output(mortal, uri="data/mortals.txt", type="csv", separator=";", header=present).
 ```

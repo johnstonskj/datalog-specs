@@ -42,3 +42,15 @@ The media type `text/vnd.datalog;features=negation,constraints` denotes a docume
 An initial set of identifiers is included in the _non-normative_ [§&nbsp;Dialect Identifiers](dialects.md).
 
 Any value that is not known to the processor MUST signal the error `ERR_UNSUPPORTED_DIALECT`, even if it may be valid in some other version of this specification.
+
+## Language Features
+
+$\small\text{Datalog}^{\Gamma}$
+
+| Feature                   | Language                              | Conformance |
+|---------------------------|---------------------------------------|-------------|
+| `negation`                | $\small\text{Datalog}^{\lnot}$        | MUST        |
+| `disjunction`             | $\small\text{Datalog}^{\lor}$         | RECOMMENDED |
+| `constraints`             | $\small\text{Datalog}^{\Leftarrow}$   | RECOMMENDED |
+| `arithmetic_literals`     | $\small\text{Datalog}^{\theta}$       | RECOMMENDED |
+| `functional_dependencies` | $\small\text{Datalog}^{\rightarrow}$  | MAY         |

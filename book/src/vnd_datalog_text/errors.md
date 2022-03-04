@@ -29,6 +29,11 @@ A required language feature during parsing was not enabled in the `features` pra
     
 The processing instruction was not identified, or otherwise not supported by this parser.
     </dd>
+    <dt>ERR_UNSUPPORTED_PRAGMA</dt>
+    <dd>
+    
+The pragma was not identified, or otherwise not supported by this parser.
+    </dd>
     <dt>ERR_INCONSISTENT_FACT_SCHEMA</dt>
     <dd>
 
@@ -48,6 +53,11 @@ A predicate is used in a context that identifies an extensional relation, howeve
 
 A predicate is used in a context that identifies an intensional relation, however the label was not in the intensional database.
     </dd>
+    <dt>ERR_RELATION_ALREADY_EXISTS</dt>
+    <dd>
+
+An attempt was made to declare a relation where one already exists.
+    </dd>
     <dt>ERR_EXTENSIONAL_RELATION_IN_RULE_HEAD</dt>
     <dd>
 
@@ -61,7 +71,7 @@ A variable that is used within the head of a rule does not also appear in a posi
     <dt>ERR_INVALID_NUMBER_OF_ATOMS_IN_HEAD</dt>
     <dd>
 
-A $\small\text{Datalog}$ program requires one, and only one, atom in a rule's head. Also see [§ With Constraints](#with-constraints) and [§ With Disjunction](#with-disjunction) for modifications to this error condition.
+A $\small\text{Datalog}$ program requires one, and only one, atom in a rule's head. Also see [§&nbsp;With Constraints](#with-constraints) and [§&nbsp;With Disjunction](#with-disjunction) for modifications to this error condition.
     </dd>
     <dt>ERR_INVALID_TYPE</dt>
     <dd>
@@ -80,6 +90,11 @@ A value was provided that is an invalid representation of the expected type.
     </dd>
     <dt>ERR_ANONYMOUS_VARIABLE_NOT_ALLOWED_HERE</dt>
     <dd>TBD</dd>
+    <dt>ERR_INVALID_RELATION</dt>
+    <dd>
+
+A relation cannot be constructed, either from the values provided to an `assert` or `infer` processing instruction or during rule evaluation.
+    </dd>
     <dt>WARN_DUPLICATE</dt>
     <dd>
 
@@ -119,11 +134,6 @@ Having constructed a valid absolute URI no resource was found. For example in an
 
 Opening a file-system resource would be one of the errors  `ENODEV`,  `ENOENT`, or  `ENOTDIR`[^1].
     </dd>
-    <dt>ERR_COULD_NOT_FETCH_INPUT_RESOURCE</dt>
-    <dd>
-
-Some error occurred fetching or reading the resource. For example in an HTTP response this would generally be all 4xx errors except 404.
-    </dd>
     <dt>ERR_INVALID_INPUT_RESOURCE</dt>
     <dd>
 
@@ -133,6 +143,16 @@ The resource was retrieved, but it was not possible to parse it according to it'
     <dd>
 
 An `output` processing instruction identified a resource but the relation could not be written to that resource.
+    </dd>
+    <dt>ERR_IO_INSTRUCTION_PARAMETER</dt>
+    <dd>
+    
+A parameter specified for an input or output processing instruction does not match the expectations of the media type, or does not match the relation's schema.
+    </dd>
+    <dt>ERR_IO_SYSTEM_FAILURE</dt>
+    <dd>
+
+The underlying input output system reported a failure. For `file` URIs this is typically file system errors, for `http` this would be HTTP, <span class="bibref inline">[RFC2616](x_references.md#RFC2616)</span> [§&nbsp;10.&nbsp;Status Code Definitions](https://datatracker.ietf.org/doc/html/rfc2616#section-10), or network errors.
     </dd>
 </dl>
 

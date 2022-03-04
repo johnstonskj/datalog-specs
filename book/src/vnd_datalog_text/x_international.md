@@ -34,7 +34,7 @@ identifier-string
 
 ### Example
 
-The following is a perfectly valid version of the Socratic syllogism from the example in [Program](grammar_program.md).
+The following is a perfectly valid version of the Socratic syllogism from the example in [§&nbsp;Program](grammar_program.md).
 
 ```datalog
 ανθρώπινο("Σωκράτης").

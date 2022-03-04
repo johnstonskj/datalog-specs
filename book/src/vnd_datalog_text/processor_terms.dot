@@ -12,5 +12,5 @@ digraph G {
     label = "processor";
   }
 
-  application -> parser [lhead=cluster1 constraint=false headport=w tailport=e concentrate = true];
+  application -> parser [lhead=cluster1; headport=w; tailport=e];
 }

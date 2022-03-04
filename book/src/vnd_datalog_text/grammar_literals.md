@@ -35,7 +35,7 @@ allows the specification of negated literals. Negation may also be written using
 character `￢` (U+FFE2: full-width not sign). The following rules are equivalent.
 
 ```datalog
-.feature(negation).
+.pragma negation.
 
 alive(X) :- person(X), NOT dead(X).
 alive(X) ⟵ person(X) ∧ ￢dead(X).
@@ -44,7 +44,7 @@ alive(X) ⟵ person(X) ∧ ￢dead(X).
 The following will fail as the negated rule is not considered safe `ERR_NEGATIVE_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL`.
 
 ```datalog
-.feature(negation).
+.pragma negation.
 
 alive(X) :- NOT dead(X).
 alive(X) ⟵ ￢dead(X).
@@ -113,7 +113,7 @@ Additionally, some operators are not present for all types, as shown in the tabl
 The following is an example using arithmetic literals and the _car_ relation.
 
 ```datalog
-.feature(comparisons).
+.pragma arithmetic_literals.
 .assert car(make: string, model: string, age: integer).
 
 antique(X, Y) :- car(X, Y, _) AND X *= "[dD]uesenberg".

@@ -25,6 +25,10 @@ These characters and any other non-printable characters MUST be included using t
 string  ::= identifier-string | literal-string ;
 ```
 
+An identifier string... TODO
+
+> In some Datalog literature and implementations there is a `symbol` type...
+
 ![identifier-string](images/identifier-string.png)
 
 ```ebnf
