@@ -172,7 +172,6 @@ document.addEventListener("DOMContentLoaded", function() {
       ::= &quot;.&quot; 
           ( pi-pragma 
           | pi-assert | pi-infer 
-          | pi-fd 
           | pi-input | pi-output ) 
           &quot;.&quot; ;
 </code></pre>
@@ -184,12 +183,16 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><code>infer</code> – all intensional relations MUST BE declared before use.</li>
 </ol>
 <h2 id="processing-instruction-pragma"><a class="header" href="#processing-instruction-pragma">Processing Instruction <code>pragma</code></a></h2>
-<p>A pragma is generally used to enable or disable some feature of either the parser or resolver. The first <code>predicate</code> in this production is termed the <em>pragma identifier</em>. The details of supported pragmas is in the separate section <a href="pragmas.html">§ Pragmas</a>.</p>
+<p>A pragma is generally used to enable or disable some feature of either the parser or resolver. The first <code>predicate</code> in this production is termed the <em>pragma identifier</em>. The details of supported pragmas is in the separate section <a href="pragmas.html">§ Pragmas</a>.</p>
 <p>A conformant DATALOG-TEXT processor MUST signal an error when detecting a pragma identifier which they do not recognize, even if it may be valid in some other version of this specification.</p>
 <p><img src="images/pi-pragma.png" alt="pi-pragma" /></p>
 <pre><code class="language-ebnf">pi-pragma
         ::= &quot;pragma&quot; predicate ( &quot;=&quot; constant )? ;
 </code></pre>
+<h3 id="errors"><a class="header" href="#errors">Errors</a></h3>
+<ul>
+<li><code>ERR_UNSUPPORTED_PRAGMA</code> – the initial predicate does not identify a supported pragma.</li>
+</ul>
 <h2 id="processing-instruction-assert"><a class="header" href="#processing-instruction-assert">Processing Instruction <code>assert</code></a></h2>
 <p>The <code>assert</code> processing instruction declares a new relation in the extensional database. </p>
 <p>The following constraints exist:</p>
@@ -200,20 +203,29 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>All extensional relations MUST be asserted before use in strict processing mode, an error MUST BE signaled otherwise. In non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled and infer the declaration and attribute types when the first fact is parsed. The use of this processing instruction is therefore optional, but recommended.</p>
 <p><img src="images/pi-assert.png" alt="pi-assert" /></p>
 <pre><code class="language-ebnf">pi-assert
-        ::= &quot;assert&quot; relation-decl ;
+        ::= &quot;assert&quot; relation-decl functional-dependency-list? ;
 </code></pre>
 <p>A relation declaration declares the types, and optionally the names, of the attributes of a relation. The first predicate in <code>relation-decl</code> is the label of the relation, the attributes themselves are defined within the following parenthesis.</p>
 <p><img src="images/relation-decl.png" alt="relation-decl" /></p>
 <pre><code class="language-ebnf">relation-decl
-        ::= predicate &quot;(&quot; attribute-decl ( &quot;,&quot; attribute-decl )* &quot;)&quot; ;
+        ::= predicate attribute-decl-list ;
 </code></pre>
 <p>Each attribute has a declared type, and may also be preceded by a predicate label.</p>
+<p><img src="images/attribute-decl-list.png" alt="attribute-decl-list" /></p>
+<pre><code class="language-ebnf">attribute-decl-list
+        ::= &quot;(&quot; attribute-decl ( &quot;,&quot; attribute-decl )* &quot;)&quot; ;
+</code></pre>
 <p><img src="images/attribute-decl.png" alt="attribute-decl" /></p>
 <pre><code class="language-ebnf">attribute-decl
         ::= ( predicate &quot;:&quot; )?
             ( &quot;boolean&quot; | &quot;float&quot; | &quot;decimal&quot; | &quot;integer&quot; | &quot;string&quot; ) ;
 </code></pre>
 <p>Note that the types <code>float</code> and <code>decimal</code> are only available if the feature <code>extended_numerics</code> is enabled.</p>
+<h3 id="errors-1"><a class="header" href="#errors-1">Errors</a></h3>
+<ul>
+<li><code>ERR_INVALID_RELATION</code> – the values for production <code>attribute-decl-list</code> where invalid, it was not possible to construct a compliant relation schema.</li>
+<li><code>ERR_RELATION_ALREADY_EXISTS</code> – the predicate labeling the relation already exists (either as an extensional or intensional relation).</li>
+</ul>
 <h3 id="example"><a class="header" href="#example">Example</a></h3>
 <p>The following declares a relation labeled <code>human</code> that has a single string attribute.</p>
 <pre><code class="language-datalog">.assert human(string).
@@ -221,41 +233,32 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>The following declares a relation labeled <code>human</code> that has a single string attribute, labeled as <code>name</code>.</p>
 <pre><code class="language-datalog">.assert human(name: string).
 </code></pre>
-<h2 id="processing-instruction-infer"><a class="header" href="#processing-instruction-infer">Processing Instruction <code>infer</code></a></h2>
-<p>In the same manner as <code>assert</code> above, the <code>infer</code> processing instruction declares a new relation in the intensional database. The alternate form is even more explicit in that it declares an intensional relation in terms of a previously declared extensional relation. </p>
-<p>The following constraints exist:</p>
-<ol>
-<li>the initial predicate MUST NOT be the label of an existing relation.</li>
-<li>all attribute labels, if declared, MUST BE distinct.</li>
-</ol>
-<p>All intensional relations MUST be asserted before use in strict processing mode, an error MUST BE signaled otherwise. In non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled and infer the declaration and attribute types from rules as they are parsed. The use of this processing instruction is therefore optional, but recommended.</p>
-<p><img src="images/pi-infer.png" alt="pi-infer" /></p>
-<pre><code class="language-ebnf">pi-infer
-        ::= &quot;infer&quot; ( relation-decl | &quot;from&quot; predicate ) ;
+<p>The following is an error in that the <code>name</code> label is used for two separate attributes.</p>
+<pre><code class="language-datalog">.assert human(name: string, name: string).
+%% ==&gt; ERR_INVALID_RELATION
 </code></pre>
-<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
-<p>The following declares a relation labeled <code>mortal</code> that has a single string attribute, labeled as <code>name</code>.</p>
-<pre><code class="language-datalog">.infer mortal(name: string).
-</code></pre>
-<p>Alternatively the short-cut form is often more convenient but has the advantage that if the definition of <code>human</code> changes declaration changes accordingly.</p>
+<p>The following is an error, relations cannot be defined twice.</p>
 <pre><code class="language-datalog">.assert human(name: string).
-.infer mortal from human.
+.assert human(first_name: string, last_name: string).
+%% ==&gt; ERR_RELATION_ALREADY_EXISTS
 </code></pre>
-<h2 id="processing-instruction-fd"><a class="header" href="#processing-instruction-fd">Processing Instruction <code>fd</code></a></h2>
-<p>The <code>fd</code> processing instruction, short for <em>functional dependency</em>, introduces a relationship between one or more attributes on the left-hand side (determinant – a set denoted by $\small\alpha$) and one or more attributes on the right-hand side (dependent – a set denoted by $\small\beta$). This relationship denotes that for a relationship $\small R$, every valid combination of determinant values uniquely determines the value of the dependent values. The syntax for the dependency is intended to be as close to the mathematical form $\small R: \alpha \longrightarrow \beta$. </p>
+<h3 id="functional-dependencies"><a class="header" href="#functional-dependencies">Functional Dependencies</a></h3>
+<p>The <code>functional-dependency-list</code> production introduces a relationship between one or more attributes on the left-hand side (determinant – a set denoted by $\small\alpha$) and one or more attributes on the right-hand side (dependent – a set denoted by $\small\beta$). This relationship denotes that for a relationship $\small R$, every valid combination of determinant values uniquely determines the value of the dependent values. The syntax for the dependency is intended to be as close to the mathematical form $\small R: \alpha \longrightarrow \beta$.</p>
 <p>The following constraints exist:</p>
-<ol>
-<li>the initial predicate MUST BE the label of an extensional relation.</li>
+<ol start="2">
 <li>the set of attribute identifiers comprising the set $\small\alpha$ MUST BE in $\small R$.</li>
 <li>the set of attribute identifiers comprising the set $\small\beta$ MUST BE in $\small R$.</li>
 <li>the same attribute identifier MUST NOT appear in both determinant and dependent.</li>
 </ol>
-<p>In strict processing mode this processing instruction is only valid if the corresponding language feature is enabled, an error MUST BE signaled otherwise. non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled. </p>
-<p>Duplicate functional dependencies MUST NOT be treated as an error; however, a DATALOG-TEXT processor MAY issue a warning on detection of duplicate values.</p>
-<p><img src="images/pi-fd.png" alt="pi-fd" /></p>
-<pre><code class="language-ebnf">pi-fd      ::= ( &quot;fd&quot; | &quot;functional_dependency&quot; ) 
-            predicate &quot;:&quot;
-            attribute-index-list ( &quot;--&gt;&quot; | &quot;⟶&quot; ) attribute-index-list
+<p>In strict processing mode this production is only valid if the corresponding language feature is enabled, an error MUST BE signaled otherwise. non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled.</p>
+<p>Duplicate functional dependencies MUST NOT be treated as an error, they can be ignored; however, a DATALOG-TEXT processor MAY issue a warning on detection of duplicate values.</p>
+<p><img src="images/functional-dependency-list.png" alt="functional-dependency-list" /></p>
+<pre><code class="language-ebnf">functional-dependency-list
+        ::= &quot;:&quot; functional-dependency ( &quot;;&quot; functional-dependency )* ;
+</code></pre>
+<p><img src="images/functional-dependency.png" alt="functional-dependency" /></p>
+<pre><code class="language-ebnf">functional-dependency
+        ::= attribute-index-list ( &quot;--&gt;&quot; | &quot;⟶&quot; ) attribute-index-list ;
 </code></pre>
 <p><img src="images/attribute-index-list.png" alt="attribute-index-list" /></p>
 <pre><code class="language-ebnf">attribute-index-list
@@ -266,14 +269,57 @@ document.addEventListener("DOMContentLoaded", function() {
 <pre><code class="language-ebnf">attribute-index
         ::= integer | predicate
 </code></pre>
-<h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
+<h4 id="errors-2"><a class="header" href="#errors-2">Errors</a></h4>
+<ul>
+<li><code>ERR_INVALID_ATTRIBUTE_INDEX</code> – the index (integer) is not valid within the relation’s schema.</li>
+<li><code>ERR_INVALID_ATTRIBUTE_LABEL</code> – the label (predicate) is not valid within the relation’s schema.</li>
+</ul>
+<h4 id="examples"><a class="header" href="#examples">Examples</a></h4>
 <p>Given the extensional relation <em>employee</em> the two functional dependencies in the
 following are equivalent. Note that the implementation will ignore such duplicate declarations.</p>
 <pre><code class="language-datalog">.feature(functional_dependencies).
-.assert employee(id:integer, name:string).
 
-.fd employee: id --&gt; name.
-.fd employee: 1 ⟶ 2.
+.assert employee(id:integer, name:string) : id --&gt; name.
+.assert employee(id:integer, name:string) : 1 ⟶ 2.
+</code></pre>
+<p>The following errors result from invalid attributes specified in the dependency.</p>
+<pre><code class="language-datalog">.feature(functional_dependencies).
+
+.assert employee(id:integer, name:string) : 1 ⟶ 42.
+%% ==&gt; ERR_INVALID_ATTRIBUTE_INDEX
+.assert employee(id:integer, name:string) : id --&gt; first_name.
+%% ==&gt; ERR_INVALID_ATTRIBUTE_LABEL
+</code></pre>
+<h2 id="processing-instruction-infer"><a class="header" href="#processing-instruction-infer">Processing Instruction <code>infer</code></a></h2>
+<p>In the same manner as <code>assert</code> above, the <code>infer</code> processing instruction declares a new relation in the intensional database. The alternate form is even more explicit in that it declares an intensional relation in terms of a previously declared extensional relation. </p>
+<p>The following constraints exist:</p>
+<ol>
+<li>the initial predicate MUST NOT be the label of an existing extensional relation.</li>
+<li>all attribute labels, if declared, MUST BE distinct.</li>
+</ol>
+<p>All intensional relations MUST be asserted before use in strict processing mode, an error MUST BE signaled otherwise. In non-strict mode a conforming DATALOG-TEXT processor MAY signal an error, or MAY continue processing as if the feature is enabled and infer the declaration and attribute types from rules as they are parsed. The use of this processing instruction is therefore optional, but recommended.</p>
+<p><img src="images/pi-infer.png" alt="pi-infer" /></p>
+<pre><code class="language-ebnf">pi-infer
+        ::= &quot;infer&quot; ( relation-decl | &quot;from&quot; predicate ) ;
+</code></pre>
+<h3 id="errors-3"><a class="header" href="#errors-3">Errors</a></h3>
+<ul>
+<li><code>ERR_INVALID_RELATION</code> – the values for production <code>attribute-decl-list</code> where invalid, it was not possible to construct a compliant relation schema.</li>
+<li><code>ERR_RELATION_ALREADY_EXISTS</code> – the predicate labeling the relation already exists (either as an extensional or intensional relation).</li>
+<li><code>ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION</code> – the predicate following the <code>from</code> keyword is not the label of an extensional relation.</li>
+</ul>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<p>The following declares a relation labeled <code>mortal</code> that has a single string attribute, labeled as <code>name</code>.</p>
+<pre><code class="language-datalog">.infer mortal(name: string).
+</code></pre>
+<p>Alternatively the short-cut form is often more convenient but has the advantage that if the definition of <code>human</code> changes declaration changes accordingly.</p>
+<pre><code class="language-datalog">.assert human(name: string).
+.infer mortal from human.
+</code></pre>
+<p>The following error is raised as <code>humans</code> is incorrectly spelled.</p>
+<pre><code class="language-datalog">.assert human(name: string).
+.infer mortal from humans.
+%% ==&gt; ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION
 </code></pre>
 <h2 id="processing-instruction-input"><a class="header" href="#processing-instruction-input">Processing Instruction <code>input</code></a></h2>
 <p>The <code>input</code> processing instruction instructs the parser to load facts for the named extensional relation from an external file. </p>
@@ -281,54 +327,58 @@ following are equivalent. Note that the implementation will ignore such duplicat
 <p>This specification does not determine whether loading external resources happens during parsing, at the completion of parsing, at evaluation time, or via a client initiated API call. However, as some errors (fact schema conformance for example) cannot happen until facts are loaded, this choice MAY defer the signaling of some critical errors.</p>
 </blockquote>
 <p><img src="images/pi-input.png" alt="pi-input" /></p>
-<pre><code class="language-ebnf">pi-input   ::= &quot;input&quot; io-details
+<pre><code class="language-ebnf">pi-input
+        ::= &quot;input&quot; io-details ;
 </code></pre>
+<p>The <code>io-details</code> production informs the parser of the expected media type for the external resource and any parameters for that media type.
+The initial predicate in MUST BE the label of an extensional relation.</p>
+<p>For a detailed discussion of media type handling, see <a href="resolvers.html#dataset-media-types">§ Dataset Media Types</a>.</p>
 <p><img src="images/io-details.png" alt="io-details" /></p>
-<p>The <code>io-details</code> production informs the parser of the expected media type for the external resource and any parameters for that media type.</p>
-<p>The following constraints exist:</p>
-<ol>
-<li>the initial predicate in MUST BE the label of an extensional relation.</li>
-<li>the first <code>quoted-string</code> in the following production is interpreted as a URI <span class="bibref inline"><a href="x_references.html#RFC3986">RFC3986</a></span> which MUST BE handled as per <a href="resolvers.html">§ Resolvers</a>.</li>
-</ol>
-<p>For a detailed discussion of media type handling, see <a href="resolvers.html#media-types">§ Dataset Processing</a>.</p>
 <pre><code class="language-ebnf">io-details
-        ::= &quot;(&quot; predicate &quot;,&quot; quoted-string
-                ( &quot;,&quot; format-spec )?
-            &quot;)&quot; ;
+        ::= predicate parameter-list ;
 </code></pre>
-<p>A format specifier provides information that allows a resolver to identify the type of resource that will be fetched and informs the parser how to interpret the fetched resource.</p>
-<p>The following constraints exist:</p>
-<ol>
-<li>the initial string value MUST BE either the type name and subtype name of a supported media type (i.e. <code>text/csv</code>) or one of the supported media type short form identifiers described in Resolvers <a href="resolvers.html#media-types">§ Media Types</a>.</li>
-</ol>
-<p><img src="images/format-spec.png" alt="format-spec" /></p>
-<pre><code class="language-ebnf">format-spec
-        ::= string ( &quot;,&quot; assign-list )? ;
+<p>The parameter list provides the values that are specified for a particular media type. For example, the media type <code>text/csv</code> supports two optional parameters, <code>charset</code> and <code>header</code>; the value of the header parameter MUST BE one of <code>present</code> or <code>absent</code> <span class="bibref inline"><a href="x_references.html#RFC4180">RFC4180</a></span>, section 3.</p>
+<p><img src="images/parameter-list.png" alt="parameter-list" /></p>
+<pre><code class="language-ebnf">parameter-list
+        ::= parameter-assignment ( &quot;,&quot; parameter-assignment )* ;
 </code></pre>
-<p>The assignment list provides the parameters that may be required for a particular media type. For example, the media type <code>text/csv</code> supports two optional parameters, <code>charset</code> and <code>header</code>; the value of the header parameter MUST BE one of <code>present</code> or <code>absent</code> <span class="bibref inline"><a href="x_references.html#RFC4180">RFC4180</a></span>, section 3.</p>
-<p><img src="images/assign-list.png" alt="assign-list" /></p>
-<pre><code class="language-ebnf">assignment-list
-        ::= assignment ( &quot;,&quot; assignment )* ;
+<p><img src="images/parameter-assignment.png" alt="parameter-assignment" /></p>
+<pre><code class="language-ebnf">parameter-assignment
+        ::= predicate &quot;=&quot; constant ;
 </code></pre>
-<p>In the following production an assignment allows a form where no right-hand side is specified. This is only legal if the value denoted by the <code>predicate</code> is a boolean parameter and used in this way denotes <code>=true</code>. Therefore, <code>(escaped=true)</code> is equivalent to <code>(escaped)</code>.</p>
-<p><img src="images/assignment.png" alt="assignment" /></p>
-<pre><code class="language-ebnf">assignment
-        ::= predicate ( &quot;=&quot; constant )? ;
-</code></pre>
+<h3 id="errors-4"><a class="header" href="#errors-4">Errors</a></h3>
+<ul>
+<li><code>ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION</code> – the predicate is not the label of an extensional relation, the <code>input</code> processing instruction is only valid for extensional relations.</li>
+<li><code>ERR_INVALID_URI</code> – the <code>uri</code> parameter could not be parsed, or has an unsupported scheme.</li>
+<li><code>ERR_UNSUPPORTED_MEDIA_TYPE</code> – the <code>type</code> parameter could not be parsed, or has an unsupported media type.</li>
+<li><code>ERR_IO_INSTRUCTION_PARAMETER</code> – another parameter provided for the type was either missing or has an incorrect value.</li>
+<li><code>ERR_INPUT_RESOURCE_DOES_NOT_EXIST</code> – the URI could not be resolved to an accessible resource.</li>
+<li><code>ERR_IO_SYSTEM_FAILURE</code> – some other I/O failure occurred.</li>
+</ul>
 <h3 id="examples-1"><a class="header" href="#examples-1">Examples</a></h3>
 <p>In the following example the full media type is used and a parameter, allowing the resolver to pass the following request header to an HTTP request
 <code>Accept: text/csv;header=absent</code></p>
 <pre><code class="language-datalog">.assert human(name: string).
-.input(human, &quot;data/humans.csv&quot;, &quot;text/csv&quot;, header=absent).
+.input(human, uri=&quot;data/humans.csv&quot;, type=&quot;text/csv&quot;, header=absent).
 </code></pre>
 <p>In the following the short form of the media type is used, allowing the resolver to pass the following request header to an HTTP request
 <code>Accept: text/csv</code></p>
 <pre><code class="language-datalog">.assert human(name: string).
-.input(human, &quot;data/humans.csv&quot;, &quot;csv&quot;).
+.input(human, uri=&quot;data/humans.csv&quot;, type=&quot;csv&quot;).
 </code></pre>
-<p>In the following no media type is present, in this case the resolver MUST follow the steps in <a href="resolvers.html">§ Resolvers</a>.</p>
+<p>In the following no media type is present, in this case the resolver MUST follow the steps in <a href="resolvers.html">§ Resolvers</a>.</p>
 <pre><code class="language-datalog">.assert human(name: string).
-.input(human, &quot;data/humans.csv&quot;).
+.input(human, uri=&quot;data/humans.csv&quot;).
+</code></pre>
+<p>The following error is signaled due to the media type <code>audio/mp4</code> which is not, and is unlikely to ever be, supported.</p>
+<pre><code class="language-datalog">.assert human(name: string).
+.input(human, uri=&quot;data/humans.csv&quot;, type=&quot;audio/mp4&quot;).
+%% ==&gt; ERR_UNSUPPORTED_MEDIA_TYPE
+</code></pre>
+<p>The values for the <code>header</code> parameter are <code>absent</code> or <code>present</code>.</p>
+<pre><code class="language-datalog">.assert human(name: string).
+.input(human, uri=&quot;data/humans.csv&quot;, headers=yes_please).
+%% ==&gt; ERR_IO_INSTRUCTION_PARAMETER
 </code></pre>
 <h2 id="processing-instruction-output"><a class="header" href="#processing-instruction-output">Processing Instruction <code>output</code></a></h2>
 <p>The <code>output</code> processing instruction instructs the parser to write facts from the named intensional relation to an external file. </p>
@@ -338,12 +388,21 @@ following are equivalent. Note that the implementation will ignore such duplicat
 <p><img src="images/pi-output.png" alt="pi-output" /></p>
 <pre><code class="language-ebnf">pi-output  ::= &quot;output&quot; io-details &quot;.&quot; ;
 </code></pre>
+<h3 id="errors-5"><a class="header" href="#errors-5">Errors</a></h3>
+<ul>
+<li><code>ERR_PREDICATE_NOT_AN_INTENSIONAL_RELATION</code> – the predicate is not the label of an intensional relation, the <code>output</code> processing instruction is only valid for intensional relations.</li>
+<li><code>ERR_INVALID_URI</code> – the <code>uri</code> parameter could not be parsed, or has an unsupported scheme.</li>
+<li><code>ERR_UNSUPPORTED_MEDIA_TYPE</code> – the <code>type</code> parameter could not be parsed, or has an unsupported media type.</li>
+<li><code>ERR_IO_INSTRUCTION_PARAMETER</code> – another parameter provided for the type was either missing or has an incorrect value.</li>
+<li><code>ERR_OUTPUT_RESOURCE_NOT_WRITEABLE</code> – the URI identified a resource that could not be written to.</li>
+<li><code>ERR_IO_SYSTEM_FAILURE</code> – some other I/O failure occurred.</li>
+</ul>
 <h3 id="examples-2"><a class="header" href="#examples-2">Examples</a></h3>
 <pre><code class="language-datalog">.infer mortal(name: string).
-.output(mortal, &quot;data/mortals.txt&quot;).
+.output(mortal, uri=&quot;data/mortals.txt&quot;).
 </code></pre>
 <pre><code class="language-datalog">.infer mortal(name: string).
-.output(mortal, &quot;data/mortals.txt&quot;, &quot;csv&quot;, separator=&quot;;&quot;, header=present).
+.output(mortal, uri=&quot;data/mortals.txt&quot;, type=&quot;csv&quot;, separator=&quot;;&quot;, header=present).
 </code></pre>
 
                     </main>

@@ -187,6 +187,15 @@ document.addEventListener("DOMContentLoaded", function() {
 <h3 id="dialect-parameter"><a class="header" href="#dialect-parameter"><code>dialect</code> Parameter</a></h3>
 <p>An initial set of identifiers is included in the <em>non-normative</em> <a href="dialects.html">§ Dialect Identifiers</a>.</p>
 <p>Any value that is not known to the processor MUST signal the error <code>ERR_UNSUPPORTED_DIALECT</code>, even if it may be valid in some other version of this specification.</p>
+<h2 id="language-features"><a class="header" href="#language-features">Language Features</a></h2>
+<p>$\small\text{Datalog}^{\Gamma}$</p>
+<table><thead><tr><th>Feature</th><th>Language</th><th>Conformance</th></tr></thead><tbody>
+<tr><td><code>negation</code></td><td>$\small\text{Datalog}^{\lnot}$</td><td>MUST</td></tr>
+<tr><td><code>disjunction</code></td><td>$\small\text{Datalog}^{\lor}$</td><td>RECOMMENDED</td></tr>
+<tr><td><code>constraints</code></td><td>$\small\text{Datalog}^{\Leftarrow}$</td><td>RECOMMENDED</td></tr>
+<tr><td><code>arithmetic_literals</code></td><td>$\small\text{Datalog}^{\theta}$</td><td>RECOMMENDED</td></tr>
+<tr><td><code>functional_dependencies</code></td><td>$\small\text{Datalog}^{\rightarrow}$</td><td>MAY</td></tr>
+</tbody></table>
 
                     </main>
 

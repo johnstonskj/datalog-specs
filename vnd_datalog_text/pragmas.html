@@ -167,18 +167,21 @@ document.addEventListener("DOMContentLoaded", function() {
                         <h1 id="pragmas"><a class="header" href="#pragmas">Pragmas</a></h1>
 <p>The <code>features</code> pragma determines which Datalog language is in use. Use of syntax not supported by the selected language feature MAY result in errors. A conformant DATALOG-TEXT processor in strict mode MUST signal an error, otherwise the processor MAY assume the feature is enabled due to its usage. A conformant DATALOG-TEXT processor MUST signal an error when detecting a feature identifier which they do not recognize, even if it may be valid in some other version of this specification.</p>
 <p>The following is the list of feature identifiers supported by this version of the DATALOG-TEXT specification. These are boolean parameters, so the following two pragmas are equivalent.</p>
-<pre><code class="language-datalog">.pragma features(negation).
-.pragma features(negation=true).
+<pre><code class="language-datalog">.pragma negation.
+.pragma negation=true.
 </code></pre>
 <p>This also implies you can force a feature to be disabled in the following manner.</p>
-<pre><code class="language-datalog">.pragma features(negation=false).
+<pre><code class="language-datalog">.pragma negation=false.
 </code></pre>
 <p>Duplicate features listed in the same processing instruction, or multiple processing instructions MUST NOT be treated as an error, they are simply combined and de-duplicated as a set. A DATALOG-TEXT processor MAY signal a <code>WARN_DUPLICATE</code> warning on detection of duplicate values.</p>
 <h2 id="pragma-base"><a class="header" href="#pragma-base">Pragma <code>base</code></a></h2>
-<p>If the <code>base</code> pragma is not specified then any references in the subject resource are relative to the resource location if known by the parser, or relative to the process performing the parsing. Any use of the <code>base</code> pragma MUST include a constant string value that can be interpreted as a valid absolute URI.</p>
+<p>If the <code>base</code> pragma is not specified then any references in the subject resource are relative to the resource location if known by the parser, or relative to the process performing the parsing. </p>
+<p>Any use of the <code>base</code> pragma MUST include a constant string value that can be interpreted as a valid absolute URI (section 4.3 “<em>Absolute URI</em>” in <span class="bibref inline"><a href="x_references.html#RFC3986">RFC3986</a></span>).</p>
+<p><strong>Default Value</strong>: <code>&quot;&quot;</code>, see <a href="resolvers.html#uri-references">§ URI References</a>.</p>
 <h3 id="errors"><a class="header" href="#errors">Errors</a></h3>
 <ul>
 <li><code>ERR_MISSING_VALUE</code> – The URI was not present.</li>
+<li><code>ERR_INVALID_TYPE</code> – The value provided was not a string.</li>
 <li><code>ERR_INVALID_URI</code> – Could not parse the URI, or it was not absolute.</li>
 </ul>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
@@ -187,39 +190,59 @@ document.addEventListener("DOMContentLoaded", function() {
 .input(human, &quot;data/humans.csv&quot;, &quot;csv&quot;).
 </code></pre>
 <p>In the following example the base IRI is <em>explicitly</em> declared and so the input for <code>human</code> is clearly “https://example.com/datalog/data/humans.csv”.</p>
-<pre><code class="language-datalog">.pragma base = &quot;https://example.com/datalog/&quot;.
+<pre><code class="language-datalog">.pragma base=&quot;https://example.com/datalog/&quot;.
 .assert human(string).
 .input(human, &quot;data/humans.csv&quot;, &quot;csv&quot;).
 </code></pre>
+<p>The following are invalid.</p>
+<pre><code class="language-datalog">.pragma base.
+%% ==&gt; ERR_MISSING_VALUE
+</code></pre>
+<pre><code class="language-datalog">.pragma base=&quot;/resources&quot;.
+%% ==&gt; ERR_INVALID_URI
+</code></pre>
+<pre><code class="language-datalog">.pragma base=true.
+%% ==&gt; ERR_INVALID_TYPE
+</code></pre>
 <h2 id="pragma-constraints-feature"><a class="header" href="#pragma-constraints-feature">Pragma <code>constraints</code> (feature)</a></h2>
 <p>Enable rules to omit the head and become a constraint, as describe in <a href="grammar_rules.html#rule-body--constraints">§ Rule Body &amp; Constraints</a>.</p>
+<p><strong>Default Value</strong>: <code>false</code></p>
 <h3 id="errors-1"><a class="header" href="#errors-1">Errors</a></h3>
 <ul>
 <li><code>ERR_UNSUPPORTED_FEATURE</code> – This feature is not supported by this parser.</li>
+<li><code>ERR_INVALID_TYPE</code> – the value provided was not of type boolean.</li>
 </ul>
 <h2 id="pragma-disjunction-feature"><a class="header" href="#pragma-disjunction-feature">Pragma <code>disjunction</code> (feature)</a></h2>
 <p>Enable multiple atoms in a rule head, as describe in <a href="grammar_rules.html#rule-head--disjunction">§ Rule Head &amp; Disjunction</a>.</p>
+<p><strong>Default Value</strong>: <code>false</code></p>
 <h3 id="errors-2"><a class="header" href="#errors-2">Errors</a></h3>
 <ul>
 <li><code>ERR_UNSUPPORTED_FEATURE</code> – This feature is not supported by this parser.</li>
+<li><code>ERR_INVALID_TYPE</code> – the value provided was not of type boolean.</li>
 </ul>
 <h2 id="pragma-extended_numerics-feature"><a class="header" href="#pragma-extended_numerics-feature">Pragma <code>extended_numerics</code> (feature)</a></h2>
 <p>Enable the types <code>float</code> and <code>decimal</code>, as describe in <a href="grammar_constants.html#numbers">§ Numbers</a>.</p>
+<p><strong>Default Value</strong>: <code>false</code></p>
 <h3 id="errors-3"><a class="header" href="#errors-3">Errors</a></h3>
 <ul>
 <li><code>ERR_UNSUPPORTED_FEATURE</code> – This feature is not supported by this parser.</li>
+<li><code>ERR_INVALID_TYPE</code> – the value provided was not of type boolean.</li>
 </ul>
 <h2 id="pragma-functional_dependencies-feature"><a class="header" href="#pragma-functional_dependencies-feature">Pragma <code>functional_dependencies</code> (feature)</a></h2>
 <p>Enable the <code>fd</code> processing instruction, as describe in <a href="grammar_pi.html#processing-instruction-fd">§ Processing Instruction <code>fd</code></a></p>
+<p><strong>Default Value</strong>: <code>false</code></p>
 <h3 id="errors-4"><a class="header" href="#errors-4">Errors</a></h3>
 <ul>
 <li><code>ERR_UNSUPPORTED_FEATURE</code> – This feature is not supported by this parser.</li>
+<li><code>ERR_INVALID_TYPE</code> – the value provided was not of type boolean.</li>
 </ul>
 <h2 id="pragma-negation-feature"><a class="header" href="#pragma-negation-feature">Pragma <code>negation</code> (feature)</a></h2>
 <p>Enable negated literals within a rule, as describe in <a href="grammar_literals.html#negation">§ Negation</a>.</p>
+<p><strong>Default Value</strong>: <code>false</code></p>
 <h3 id="errors-5"><a class="header" href="#errors-5">Errors</a></h3>
 <ul>
 <li><code>ERR_UNSUPPORTED_FEATURE</code> – This feature is not supported by this parser.</li>
+<li><code>ERR_INVALID_TYPE</code> – the value provided was not of type boolean.</li>
 </ul>
 <h2 id="pragma-results"><a class="header" href="#pragma-results">Pragma <code>results</code></a></h2>
 <p>Determines whether query results are displayed in DATALOG-TEXT or tabular form. The following are valid values for the <code>results</code> pragma. This specification does not define the default form; however, it is RECOMMENDED to use tabular form in interactive tools.</p>
@@ -228,13 +251,21 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><code>native</code> – results are returned as constant values or facts; this format MUST be supported by a conforming DATALOG-TEXT processor that displays results in human-readable form.</li>
 <li><code>tabular</code> – results are returned in a tabular form; this format is optional but RECOMMENDED.</li>
 </ul>
+<p><strong>Default Value</strong>: undefined.</p>
 <h3 id="errors-6"><a class="header" href="#errors-6">Errors</a></h3>
 <ul>
 <li><code>ERR_UNSUPPORTED_FEATURE</code> – This feature is not supported by this parser.</li>
-<li><code>ERR_INVALID_VALUE_FOR_TYPE</code> – Invalid value for the results form.</li>
+<li><code>ERR_INVALID_TYPE</code> – the value provided was not a string.</li>
+<li><code>ERR_INVALID_VALUE_FOR_TYPE</code> – Invalid value for the results form, see <a href="x_result_forms.html">§ Result Formats</a>.</li>
 </ul>
 <h2 id="pragma-strict"><a class="header" href="#pragma-strict">Pragma <code>strict</code></a></h2>
-<p>This enables the strict processing mode as described in <a href="conformance.html#strict-vs-lax-processing">§ Strict vs Lax Processing</a> in Conformance and <a href="grammar_pi.html#strict-processing">§ Strict Processing</a> in Processing Instructions.</p>
+<p>This enables the strict processing mode as described in <a href="conformance.html#strict-vs-lax-processing">§ Strict vs Lax Processing</a> in Conformance and <a href="grammar_pi.html#strict-processing">§ Strict Processing</a> in Processing Instructions.
+This pragma MUST BE supported by a conforming DATALOG-TEXT processor.</p>
+<p><strong>Default Value</strong>: undefined.</p>
+<h3 id="errors-7"><a class="header" href="#errors-7">Errors</a></h3>
+<ul>
+<li><code>ERR_INVALID_TYPE</code> – the value provided was not of type boolean.</li>
+</ul>
 <h3 id="examples-1"><a class="header" href="#examples-1">Examples</a></h3>
 <p>The following program will signal an error as it is required that all relations be explicitly declared before use when in strict processing mode.</p>
 <pre><code class="language-datalog">.pragma strict.
@@ -258,6 +289,10 @@ mortal(X) :- human(X) AND NOT home(olympus).
 
 mortal(X) :- human(X) AND NOT home(olympus).
 %% ==&gt; ERR_FEATURE_NOT_ENABLED
+</code></pre>
+<p>The following is invalid.</p>
+<pre><code class="language-datalog">.pragma strict=&quot;yes&quot;.
+%% ==&gt; ERR_INVALID_TYPE
 </code></pre>
 
                     </main>

@@ -186,6 +186,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <dd></p>
 <p>The processing instruction was not identified, or otherwise not supported by this parser.
 </dd>
+<dt>ERR_UNSUPPORTED_PRAGMA</dt>
+<dd></p>
+<p>The pragma was not identified, or otherwise not supported by this parser.
+</dd>
 <dt>ERR_INCONSISTENT_FACT_SCHEMA</dt>
 <dd></p>
 <p>Two facts are asserted but with different schema, or a fact is asserted with a different schema than it’s declared relation.</p>
@@ -200,6 +204,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <dd></p>
 <p>A predicate is used in a context that identifies an intensional relation, however the label was not in the intensional database.
 </dd>
+<dt>ERR_RELATION_ALREADY_EXISTS</dt>
+<dd></p>
+<p>An attempt was made to declare a relation where one already exists.
+</dd>
 <dt>ERR_EXTENSIONAL_RELATION_IN_RULE_HEAD</dt>
 <dd></p>
 <p>A previously identified extensional relation, either with the <code>assert</code> processing instruction or inferred from a fact, appears in the head of a rule.
@@ -210,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </dd>
 <dt>ERR_INVALID_NUMBER_OF_ATOMS_IN_HEAD</dt>
 <dd></p>
-<p>A $\small\text{Datalog}$ program requires one, and only one, atom in a rule’s head. Also see <a href="#with-constraints">§ With Constraints</a> and <a href="#with-disjunction">§ With Disjunction</a> for modifications to this error condition.
+<p>A $\small\text{Datalog}$ program requires one, and only one, atom in a rule’s head. Also see <a href="#with-constraints">§ With Constraints</a> and <a href="#with-disjunction">§ With Disjunction</a> for modifications to this error condition.
 </dd>
 <dt>ERR_INVALID_TYPE</dt>
 <dd></p>
@@ -226,6 +234,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </dd>
 <dt>ERR_ANONYMOUS_VARIABLE_NOT_ALLOWED_HERE</dt>
 <dd>TBD</dd>
+<dt>ERR_INVALID_RELATION</dt>
+<dd></p>
+<p>A relation cannot be constructed, either from the values provided to an <code>assert</code> or <code>infer</code> processing instruction or during rule evaluation.
+</dd>
 <dt>WARN_DUPLICATE</dt>
 <dd></p>
 <p>Signaled on any duplicate declaration, processing instruction, fact, rule, or query.
@@ -255,10 +267,6 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Having constructed a valid absolute URI no resource was found. For example in an HTTP response this would be the error 404 <code>NOT FOUND</code>. </p>
 <p>Opening a file-system resource would be one of the errors  <code>ENODEV</code>,  <code>ENOENT</code>, or  <code>ENOTDIR</code><sup class="footnote-reference"><a href="#1">1</a></sup>.
 </dd>
-<dt>ERR_COULD_NOT_FETCH_INPUT_RESOURCE</dt>
-<dd></p>
-<p>Some error occurred fetching or reading the resource. For example in an HTTP response this would generally be all 4xx errors except 404.
-</dd>
 <dt>ERR_INVALID_INPUT_RESOURCE</dt>
 <dd></p>
 <p>The resource was retrieved, but it was not possible to parse it according to it’s expected media type.
@@ -266,6 +274,14 @@ document.addEventListener("DOMContentLoaded", function() {
 <dt>ERR_OUTPUT_RESOURCE_NOT_WRITEABLE</dt>
 <dd></p>
 <p>An <code>output</code> processing instruction identified a resource but the relation could not be written to that resource.
+</dd>
+<dt>ERR_IO_INSTRUCTION_PARAMETER</dt>
+<dd></p>
+<p>A parameter specified for an input or output processing instruction does not match the expectations of the media type, or does not match the relation’s schema.
+</dd>
+<dt>ERR_IO_SYSTEM_FAILURE</dt>
+<dd></p>
+<p>The underlying input output system reported a failure. For <code>file</code> URIs this is typically file system errors, for <code>http</code> this would be HTTP, <span class="bibref inline"><a href="x_references.html#RFC2616">RFC2616</a></span> <a href="https://datatracker.ietf.org/doc/html/rfc2616#section-10">§ 10. Status Code Definitions</a>, or network errors.
 </dd></p>
 </dl>
 <h2 id="evaluator-errors"><a class="header" href="#evaluator-errors">Evaluator Errors</a></h2>

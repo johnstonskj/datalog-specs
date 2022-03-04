@@ -101,7 +101,6 @@ processing-instruction
             ( pi-pragma
             | pi-assert
             | pi-infer
-            | pi-fd
             | pi-input
             | pi-output )
             "." ;
@@ -110,21 +109,23 @@ pi-pragma
         ::= "pragma" predicate ( "=" constant )? ;
 
 pi-assert
-        ::= "assert" relation-decl ;
+        ::= "assert" relation-decl functional-dependency-list? ;
 
 relation-decl
-        ::= predicate "(" attribute-decl ( "," attribute-decl )* ")" ;
+        ::= predicate attribute-decl-list ;
+
+attribute-decl-list
+        ::= "(" attribute-decl ( "," attribute-decl )* ")" ;
 
 attribute-decl
         ::= ( predicate ":" )?
             ( "boolean" | "float" | "decimal" | "integer" | "string" ) ;
 
-pi-infer
-        ::= "infer" ( relation-decl | "from" predicate ) ;
+functional-dependency-list
+        ::= ":" functional-dependency ( ";" functional-dependency )* ;
 
-pi-fd   ::= ( "fd" | "functional_dependency" )
-            predicate ":"
-            attribute-index-list ( "-->" | "⟶" ) attribute-index-list ;
+functional-dependency
+        ::= attribute-index-list ( "-->" | "⟶" ) attribute-index-list ;
 
 attribute-index-list
         ::= attribute-index ( "," attribute-index )* ;
@@ -132,25 +133,37 @@ attribute-index-list
 attribute-index
         ::= integer | predicate ;
 
+pi-infer
+        ::= "infer" ( relation-decl | "from" predicate ) ;
+
 pi-input
         ::= "input" io-details ;
 
 io-details
-        ::= "(" predicate "," quoted-string
-                ( "," format-spec )?
-            ")" ;
+        ::= predicate parameter-list ;
 
-format-spec
-        ::= string ( "," assignment-list )? ;
+parameter-list
+        ::= "(" parameter-assignment ( "," parameter-assignment )* ")" ;
 
-assignment-list
-        ::= assignment ( "," assignment )* ;
-
-assignment
+parameter-assignment
         ::= predicate "=" constant ;
 
+/*
+Known Parameter types:
+
+uri     ::=  URI ;
+type    ::=  predicate | media-type ;
+headers ::= "present" | "absent" ;
+columns ::= column ( "," column )* ;
+column  ::= integer |
+            "[" integer? ":" integer? "]" ;
+table   ::= identifier-string ;
+db-columns
+        ::= identifier-string ( "," identifier-string )* ;
+*/
+
 pi-output
-        ::= "output" io-details ;
+        ::= "output" parameter-list ;
 
 /* ************************************************************************* */
 

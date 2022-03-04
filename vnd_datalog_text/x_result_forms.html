@@ -191,17 +191,19 @@ document.addEventListener("DOMContentLoaded", function() {
 car(&quot;ford&quot;, X, _)?
 </code></pre>
 <p>TBD</p>
-<pre><code class="language-datalog">car_1 :- car(&quot;ford&quot;, X, _);
+<pre><code class="language-datalog">car_1 :- car(&quot;ford&quot;, X, _).
+car_1(X).
 car_1(edge).
 car_1(escort).
 car_1(fiesta).
 car_1(focus).
 car_1(fusion).
 car_1(mustang).
+...
 </code></pre>
 <h2 id="tabular-format"><a class="header" href="#tabular-format"><code>tabular</code> Format</a></h2>
 <p>This format is optional but RECOMMENDED.</p>
-<p>This specification does not require a specific set of characters for laying out tables. The following are all acceptable styles that use either ASCII characters or Unicode Box Drawing characters.</p>
+<p>This specification does not require a specific set of characters for laying out tables. The following are all acceptable styles that use either ASCII characters or Unicode Box Drawing characters. Note that all the formats below do make a distinction between header and body rows.</p>
 <pre><code class="language-text">+------------+------------+    ,------------+------------,    
 | X: string  | Y: string  |    | X: string  | Y: string  |    X: string  | Y: string
 +============+============+    |============+============|    -----------+-----------

@@ -269,7 +269,6 @@ processing-instruction
             ( pi-pragma
             | pi-assert
             | pi-infer
-            | pi-fd
             | pi-input
             | pi-output )
             &quot;.&quot; ;
@@ -278,21 +277,23 @@ pi-pragma
         ::= &quot;pragma&quot; predicate ( &quot;=&quot; constant )? ;
 
 pi-assert
-        ::= &quot;assert&quot; relation-decl ;
+        ::= &quot;assert&quot; relation-decl functional-dependency-list? ;
 
 relation-decl
-        ::= predicate &quot;(&quot; attribute-decl ( &quot;,&quot; attribute-decl )* &quot;)&quot; ;
+        ::= predicate attribute-decl-list ;
+
+attribute-decl-list
+        ::= &quot;(&quot; attribute-decl ( &quot;,&quot; attribute-decl )* &quot;)&quot; ;
 
 attribute-decl
         ::= ( predicate &quot;:&quot; )?
             ( &quot;boolean&quot; | &quot;float&quot; | &quot;decimal&quot; | &quot;integer&quot; | &quot;string&quot; ) ;
 
-pi-infer
-        ::= &quot;infer&quot; ( relation-decl | &quot;from&quot; predicate ) ;
+functional-dependency-list
+        ::= &quot;:&quot; functional-dependency ( &quot;;&quot; functional-dependency )* ;
 
-pi-fd   ::= ( &quot;fd&quot; | &quot;functional_dependency&quot; )
-            predicate &quot;:&quot;
-            attribute-index-list ( &quot;--&gt;&quot; | &quot;⟶&quot; ) attribute-index-list ;
+functional-dependency
+        ::= attribute-index-list ( &quot;--&gt;&quot; | &quot;⟶&quot; ) attribute-index-list ;
 
 attribute-index-list
         ::= attribute-index ( &quot;,&quot; attribute-index )* ;
@@ -300,25 +301,37 @@ attribute-index-list
 attribute-index
         ::= integer | predicate ;
 
+pi-infer
+        ::= &quot;infer&quot; ( relation-decl | &quot;from&quot; predicate ) ;
+
 pi-input
         ::= &quot;input&quot; io-details ;
 
 io-details
-        ::= &quot;(&quot; predicate &quot;,&quot; quoted-string
-                ( &quot;,&quot; format-spec )?
-            &quot;)&quot; ;
+        ::= predicate parameter-list ;
 
-format-spec
-        ::= string ( &quot;,&quot; assignment-list )? ;
+parameter-list
+        ::= &quot;(&quot; parameter-assignment ( &quot;,&quot; parameter-assignment )* &quot;)&quot; ;
 
-assignment-list
-        ::= assignment ( &quot;,&quot; assignment )* ;
-
-assignment
+parameter-assignment
         ::= predicate &quot;=&quot; constant ;
 
+/*
+Known Parameter types:
+
+uri     ::=  URI ;
+type    ::=  predicate | media-type ;
+headers ::= &quot;present&quot; | &quot;absent&quot; ;
+columns ::= column ( &quot;,&quot; column )* ;
+column  ::= integer |
+            &quot;[&quot; integer? &quot;:&quot; integer? &quot;]&quot; ;
+table   ::= identifier-string ;
+db-columns
+        ::= identifier-string ( &quot;,&quot; identifier-string )* ;
+*/
+
 pi-output
-        ::= &quot;output&quot; io-details ;
+        ::= &quot;output&quot; parameter-list ;
 
 /* ************************************************************************* */
 

@@ -186,13 +186,13 @@ ancestor(X, Y) ⟵ parent(X, Z) AND ancestor(Z, Y).
 <p>The language feature <code>negation</code> corresponds to the language $\small\text{Datalog}^{\lnot}$ and
 allows the specification of negated literals. Negation may also be written using the Unicode
 character <code>￢</code> (U+FFE2: full-width not sign). The following rules are equivalent.</p>
-<pre><code class="language-datalog">.feature(negation).
+<pre><code class="language-datalog">.pragma negation.
 
 alive(X) :- person(X), NOT dead(X).
 alive(X) ⟵ person(X) ∧ ￢dead(X).
 </code></pre>
 <p>The following will fail as the negated rule is not considered safe <code>ERR_NEGATIVE_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL</code>.</p>
-<pre><code class="language-datalog">.feature(negation).
+<pre><code class="language-datalog">.pragma negation.
 
 alive(X) :- NOT dead(X).
 alive(X) ⟵ ￢dead(X).
@@ -241,7 +241,7 @@ common arithmetic and string operators.</p>
 </ul>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
 <p>The following is an example using arithmetic literals and the <em>car</em> relation.</p>
-<pre><code class="language-datalog">.feature(comparisons).
+<pre><code class="language-datalog">.pragma arithmetic_literals.
 .assert car(make: string, model: string, age: integer).
 
 antique(X, Y) :- car(X, Y, _) AND X *= &quot;[dD]uesenberg&quot;.
