@@ -22,25 +22,24 @@ jobs:
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@v1.3.2
+        with:
+          fail: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-      - name: Create Issue From File
-        if: ${{ steps.lychee.outputs.exit_code }} != 0
-        uses: peter-evans/create-issue-from-file@v3
-        with:
-          title: Link Checker Report
-          content-filepath: ./lychee/out.md
-          labels: report, automated issue
+        args:
+          - --verbose
+          - --no-progress
+          - ./README.md
+          - ./book/src
 
   build_and_deploy:
     needs: link_check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v3
 
       - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1.1.14
+        uses: peaceiris/actions-mdbook@v1
         with:
           mdbook-version: 'latest'
 
@@ -51,7 +50,7 @@ jobs:
         run: cp ../CNAME ./book/
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.8.0
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./book/book
