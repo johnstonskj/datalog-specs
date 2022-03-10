@@ -4,7 +4,7 @@ While relations are a key aspect of the Datalog language there is no actual prod
 
 > In some literature, where Datalog is analyzed from a _model theoretic_ view, the term **sort** is more often used than **schema**. In either case the meaning is equivalent. See <span class="bibref inline">[Wilfred97](x_references.md#Wilfred97)</span> and <span class="bibref inline">[AbHuVi94](x_references.md#AbHuVi94)</span>.
 
-Facts are expressed in the form of ground [§&nbsp;Atoms](grammar_atoms.ms) where all [§&nbsp;Terms](grammar_atoms.md#terms) are constant, and so they have a specific production rather than a constrained form of the `atom` rule. A predicate is the identifying label shared by a relation and its facts.
+Facts are expressed in the form of ground [§&nbsp;Atoms](grammar_atoms.md) where all [§&nbsp;Terms](grammar_atoms.md#terms) are constant, and so they have a specific production rather than a constrained form of the `atom` rule. A predicate is the identifying label shared by a relation and its facts.
 
 ![fact](images/fact.png)
 
