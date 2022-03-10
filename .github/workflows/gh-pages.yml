@@ -14,7 +14,27 @@ defaults:
     working-directory: ./book
 
 jobs:
-  deploy:
+  link_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v1.3.2
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Create Issue From File
+        if: ${{ steps.lychee.outputs.exit_code }} != 0
+        uses: peter-evans/create-issue-from-file@v3
+        with:
+          title: Link Checker Report
+          content-filepath: ./lychee/out.md
+          labels: report, automated issue
+
+  build_and_deploy:
+    needs: link_check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
