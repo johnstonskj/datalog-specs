@@ -23,14 +23,10 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@v1.3.2
         with:
+          args: --verbose --no-progress ./README.md ./book/src
           fail: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        args:
-          - --verbose
-          - --no-progress
-          - ./README.md
-          - ./book/src
 
   build_and_deploy:
     needs: link_check
