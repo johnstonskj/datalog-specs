@@ -2,6 +2,6 @@
 /book/.sass-cache/
 /book/.jekyll-cache/
 /book/.jekyll-metadata
-/book/book/
+/book/book/*
 
 /.idea
