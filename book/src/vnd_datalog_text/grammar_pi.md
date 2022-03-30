@@ -2,7 +2,7 @@
 
 Processing Instructions are declarative statements that allow the parser and processor to enable and disable language features as well as load and save external relation data. 
 
-A conformant DATALOG-TEXT processor MUST signal the error `ERR_UNSUPPORTED_PROCESSING_INSTRUCTION` when detecting a processing instruction identifier which they do not recognize or cannot support, even if it may be valid in some other version of this specification.
+A conformant DATALOG-TEXT processor MUST signal the error [`ERR_UNSUPPORTED_PROCESSING_INSTRUCTION`](errors.md#ERR_UNSUPPORTED_PROCESSING_INSTRUCTION) when detecting a processing instruction identifier which they do not recognize or cannot support, even if it may be valid in some other version of this specification.
 
 ![processing-instruction](images/processing-instruction.png)
 
@@ -38,7 +38,7 @@ pi-pragma
 
 ### Errors
 
-* `ERR_UNSUPPORTED_PRAGMA` -- the initial predicate does not identify a supported pragma.
+* [`ERR_UNSUPPORTED_PRAGMA`](errors.md#ERR_UNSUPPORTED_PRAGMA) -- the initial predicate does not identify a supported pragma.
 
 ## Processing Instruction `assert`
 
@@ -88,8 +88,8 @@ Note that the types `float` and `decimal` are only available if the feature `ext
 
 ### Errors
 
-* `ERR_INVALID_RELATION` -- the values for production `attribute-decl-list` where invalid, it was not possible to construct a compliant relation schema.
-* `ERR_RELATION_ALREADY_EXISTS` -- the predicate labeling the relation already exists (either as an extensional or intensional relation).
+* [`ERR_INVALID_RELATION`](errors.md#ERR_INVALID_RELATION) -- the values for production `attribute-decl-list` where invalid, it was not possible to construct a compliant relation schema.
+* [`ERR_RELATION_ALREADY_EXISTS`](errors.md#ERR_RELATION_ALREADY_EXISTS) -- the predicate labeling the relation already exists (either as an extensional or intensional relation).
 
 ### Example
 
@@ -167,8 +167,10 @@ attribute-index
 
 #### Errors
 
-* `ERR_INVALID_ATTRIBUTE_INDEX` -- the index (integer) is not valid within the relation's schema.
-* `ERR_INVALID_ATTRIBUTE_LABEL` -- the label (predicate) is not valid within the relation's schema.
+* [`ERR_INVALID_ATTRIBUTE_INDEX`](errors.md#ERR_INVALID_ATTRIBUTE_INDEX) --
+  the index (integer) is not valid within the relation's schema. 
+* [`ERR_INVALID_ATTRIBUTE_LABEL`](errors.md#ERR_INVALID_ATTRIBUTE_LABEL) --
+  the label (predicate) is not valid within the relation's schema. 
 
 #### Examples
 
@@ -213,9 +215,15 @@ pi-infer
 
 ### Errors
 
-* `ERR_INVALID_RELATION` -- the values for production `attribute-decl-list` where invalid, it was not possible to construct a compliant relation schema.
-* `ERR_RELATION_ALREADY_EXISTS` -- the predicate labeling the relation already exists (either as an extensional or intensional relation).
-* `ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION` -- the predicate following the `from` keyword is not the label of an extensional relation.
+* [`ERR_INVALID_RELATION`](errors.md#ERR_INVALID_RELATION) -- the values for
+  production `attribute-decl-list` where invalid, it was not possible to
+  construct a compliant relation schema. 
+* [`ERR_RELATION_ALREADY_EXISTS`](errors.md#ERR_RELATION_ALREADY_EXISTS) --
+  the predicate labeling the relation already exists (either as an extensional
+  or intensional relation). 
+* [`ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION`](errors.md#ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION)
+  -- the predicate following the `from` keyword is not the label of an
+  extensional relation. 
 
 ### Example
 
@@ -283,12 +291,20 @@ parameter-assignment
 
 ### Errors
 
-* `ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION` -- the predicate is not the label of an extensional relation, the `input` processing instruction is only valid for extensional relations.
-* `ERR_INVALID_URI` -- the `uri` parameter could not be parsed, or has an unsupported scheme.
-* `ERR_UNSUPPORTED_MEDIA_TYPE` -- the `type` parameter could not be parsed, or has an unsupported media type.
-* `ERR_IO_INSTRUCTION_PARAMETER` -- another parameter provided for the type was either missing or has an incorrect value.
-* `ERR_INPUT_RESOURCE_DOES_NOT_EXIST` -- the URI could not be resolved to an accessible resource.
-* `ERR_IO_SYSTEM_FAILURE` -- some other I/O failure occurred.
+* [`ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION`](errors.md#ERR_PREDICATE_NOT_AN_EXTENSIONAL_RELATION)
+  -- the predicate is not the label of an extensional relation, the `input`
+  processing instruction is only valid for extensional relations.
+* [`ERR_INVALID_URI`](errors.md#ERR_INVALID_URI) -- the `uri` parameter could
+  not be parsed, or has an unsupported scheme.
+* [`ERR_UNSUPPORTED_MEDIA_TYPE`](errors.md#ERR_UNSUPPORTED_MEDIA_TYPE) -- the
+  `type` parameter could not be parsed, or has an unsupported media type. 
+* [`ERR_IO_INSTRUCTION_PARAMETER`](errors.md#ERR_IO_INSTRUCTION_PARAMETER) --
+  another parameter provided for the type was either missing or has an
+  incorrect value. 
+* [`ERR_INPUT_RESOURCE_DOES_NOT_EXIST`](errors.md#ERR_INPUT_RESOURCE_DOES_NOT_EXIST)
+  -- the URI could not be resolved to an accessible resource. 
+* [`ERR_IO_SYSTEM_FAILURE`](errors.md#ERR_IO_SYSTEM_FAILURE) -- some other I/O
+  failure occurred. 
  
 ### Examples
 
@@ -345,12 +361,20 @@ pi-output  ::= "output" io-details "." ;
 
 ### Errors
 
-* `ERR_PREDICATE_NOT_AN_INTENSIONAL_RELATION` -- the predicate is not the label of an intensional relation, the `output` processing instruction is only valid for intensional relations.
-* `ERR_INVALID_URI` -- the `uri` parameter could not be parsed, or has an unsupported scheme.
-* `ERR_UNSUPPORTED_MEDIA_TYPE` -- the `type` parameter could not be parsed, or has an unsupported media type.
-* `ERR_IO_INSTRUCTION_PARAMETER` -- another parameter provided for the type was either missing or has an incorrect value.
-* `ERR_OUTPUT_RESOURCE_NOT_WRITEABLE` -- the URI identified a resource that could not be written to.
-* `ERR_IO_SYSTEM_FAILURE` -- some other I/O failure occurred.
+* [`ERR_PREDICATE_NOT_AN_INTENSIONAL_RELATION`](errors.md#ERR_PREDICATE_NOT_AN_INTENSIONAL_RELATION)
+  -- the predicate is not the label of an intensional relation, the `output`
+  processing instruction is only valid for intensional relations.
+* [`ERR_INVALID_URI`](errors.md#ERR_INVALID_URI) -- the `uri` parameter could
+  not be parsed, or has an unsupported scheme.
+* [`ERR_UNSUPPORTED_MEDIA_TYPE`](errors.md#ERR_UNSUPPORTED_MEDIA_TYPE) -- the
+  `type` parameter could not be parsed, or has an unsupported media type.
+* [`ERR_IO_INSTRUCTION_PARAMETER`](errors.md#ERR_IO_INSTRUCTION_PARAMETER) --
+  another parameter provided for the type was either missing or has an
+  incorrect value.
+* [`ERR_OUTPUT_RESOURCE_NOT_WRITEABLE`](errors.md#ERR_OUTPUT_RESOURCE_NOT_WRITEABLE)
+  -- the URI identified a resource that could not be written to.
+* [`ERR_IO_SYSTEM_FAILURE`](errors.md#ERR_IO_SYSTEM_FAILURE) -- some other I/O
+  failure occurred.
 
 ### Examples
 

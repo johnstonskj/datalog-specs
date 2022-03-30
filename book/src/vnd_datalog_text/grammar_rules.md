@@ -31,7 +31,10 @@ head    ::= ( atom ( ( ";" | "|" | "OR" | "∨" ) atom )* )
             | "⊥" ;
 ```
 
-A processor MUST signal the error `ERR_EXTENSIONAL_RELATION_IN_RULE_HEAD` (in [§&nbsp;Errors](errors.md)) when it detects  an extensional relation used in the head of a rule. 
+### Errors
+
+* [`ERR_EXTENSIONAL_RELATION_IN_RULE_HEAD`](errors.md#ERR_EXTENSIONAL_RELATION_IN_RULE_HEAD)
+  --  an extensional relation is used in the head of a rule. 
 
 ```datalog
 parent("Xerces", brooke).
@@ -94,11 +97,12 @@ movie_star(X) :- star(X) AND movie_cast_member(X, _, _).
 movie_star(X) :- star(X)  ∧  movie_cast_member(X, _, _).
 ```
 
-## Safety
+## Errors - Safety
 
 A DATALOG-TEXT processor MUST disallow the creation or addition of rules that are _unsafe_. These are rule forms that typically introduce infinite sets that cannot be reasoned over.
 
-All variables used in the head of a rule MUST appear in a positive relational literal.
+* [`ERR_HEAD_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL`](errors.md#ERR_HEAD_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL)
+  All variables used in the head of a rule MUST appear in a positive relational literal.
 
 ```datalog
 ...
@@ -106,7 +110,8 @@ a(X) :- b(Y).
 %% ==> ERR_HEAD_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL
 ```
 
-All variables used in a negated literal MUST appear in a positive relational literal.
+* [`ERR_NEGATIVE_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL`](errors.md#ERR_NEGATIVE_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL)
+  All variables used in a negated literal MUST appear in a positive relational literal.
 
 ```datalog
 .pragma negation.
@@ -115,7 +120,8 @@ a(X) :- b(Y), NOT b(X).
 %% ==> ERR_NEGATIVE_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL
 ```
 
-All variables used in an arithmetic literal MUST appear in a positive relational literal.
+* [`ERR_ARITHMETIC_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL`](errors.md#ERR_ARITHMETIC_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL)
+  All variables used in an arithmetic literal MUST appear in a positive relational literal.
 
 ```datalog
 .pragma arithmetic_literals.

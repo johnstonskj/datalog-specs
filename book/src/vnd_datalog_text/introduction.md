@@ -70,6 +70,8 @@ irrelevant.
 
 When referring to the specifics of the language we will use the common format $\small\text{Datalog}$ with superscripts as necessary to identify specific language extensions being used. Note that the default language described by DATALOG-TEXT with no enabled language features is in fact $\small\text{Datalog}^{\Gamma}$ and not $\small\text{Datalog}$.
 
+<p>&nbsp;</p>
+
 ----------
 
 [^1]: Chapter 1 of <span class="bibref inline">[CeGoTa90](x_references.md#CeGoTa90)</span> provides a good overview of the drawbacks of Prolog and the advantages of Datalog for certain tasks.

@@ -17,6 +17,18 @@ The following are equivalent queries.
 ancestor(xerces, X)?
 ```
 
+## Query Forms
+
+While a query is syntactically simple, an Atom with constant _and_ variable
+terms, it's application falls into some distinct patterns or forms.
+
+* _Existential_ -- determines the existance of a fact by only providing
+  constant terms; this can be reduced to a boolean response value.
+* _Selection_ -- one or more variables will result in all facts that match any
+  provided constants. 
+* _Projection_ (narrower) -- one or more anonymous variables will remove the
+  corresponding attribute from any results.
+
 ## Examples
 
 We refer to our common syllogism example.
@@ -29,7 +41,10 @@ mortal(X) <- human(X).
 ?- mortal("Socrates").
 ```
 
-The execution of this program will start with the goal query `mortal("Socrates")` which can be read as "_is there an atom with the label 'mortal' with a single attribute value 'Socrates'_?". As all attribute values are constant this query returns a boolean value, in this case `true`.
+The execution of this program will start with the goal query
+`mortal("Socrates")` which can be read as "_is there an atom with the label
+'mortal' with a single attribute value 'Socrates'_?". As all attribute values
+are constant this query returns a boolean value, in this case `true`.
 
 ```text
 +------------+

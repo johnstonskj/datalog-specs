@@ -23,7 +23,6 @@
    10. [Appendix: EBNF](vnd_datalog_text/x_ebnf.md)
    10. [Appendix: Result Formats](vnd_datalog_text/x_result_forms.md)
    11. [Appendix: IANA Considerations](vnd_datalog_text/x_iana.md)
-       1. [Dialect Identifiers](vnd_datalog_text/dialects.md)
    12. [Appendix: References](vnd_datalog_text/x_references.md)
 
 -----

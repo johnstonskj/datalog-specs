@@ -29,6 +29,6 @@ changes and performs a build on any updates.
 2020-07-30 08:40:54 [INFO] (mdbook::cmd::serve): Serving on: http://localhost:3000
 2020-07-30 08:40:54 [INFO] (warp::server): Server::run; addr=V6([::1]:3000)
 2020-07-30 08:40:54 [INFO] (warp::server): listening on http://[::1]:3000
-2020-07-30 08:40:54 [INFO] (mdbook::cmd::watch): Listening for changes...
+2020-07-30 08:40:54 [INFO] (mdbook::cmd::watch): Listening for changes…
 ```
 

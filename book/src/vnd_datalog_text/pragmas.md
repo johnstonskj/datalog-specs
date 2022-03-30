@@ -15,7 +15,7 @@ This also implies you can force a feature to be disabled in the following manner
 .pragma negation=false.
 ```
 
-Duplicate features listed in the same processing instruction, or multiple processing instructions MUST NOT be treated as an error, they are simply combined and de-duplicated as a set. A DATALOG-TEXT processor MAY signal a `WARN_DUPLICATE` warning on detection of duplicate values.
+Duplicate features listed in the same processing instruction, or multiple processing instructions MUST NOT be treated as an error, they are simply combined and de-duplicated as a set. A DATALOG-TEXT processor MAY signal a [`WARN_DUPLICATE`](errors.md#WARN_DUPLICATE) warning on detection of duplicate values.
 
 ## Pragma `base`
 
@@ -27,9 +27,9 @@ Any use of the `base` pragma MUST include a constant string value that can be in
 
 ### Errors
 
-* `ERR_MISSING_VALUE` -- The URI was not present.
-* `ERR_INVALID_TYPE` -- The value provided was not a string.
-* `ERR_INVALID_URI` -- Could not parse the URI, or it was not absolute.
+* [`ERR_MISSING_VALUE`](errors.md#ERR_MISSING_VALUE) -- The URI was not present.
+* [`ERR_INVALID_TYPE`](errors.md#ERR_INVALID_TYPE) -- The value provided was not a string.
+* [`ERR_INVALID_URI`](errors.md#ERR_INVALID_URI) -- Could not parse the URI, or it was not absolute.
 
 ### Examples
 
@@ -61,7 +61,7 @@ The following are invalid.
 ```
 
 ```datalog
-.pragma base=true.
+3M.pragma base=true.
 %% ==> ERR_INVALID_TYPE
 ```
 
@@ -74,8 +74,8 @@ Enable rules to omit the head and become a constraint, as describe in [§&nbsp;R
 
 ### Errors
 
-* `ERR_UNSUPPORTED_FEATURE` -- This feature is not supported by this parser.
-* `ERR_INVALID_TYPE` -- the value provided was not of type boolean.
+* [`ERR_UNSUPPORTED_FEATURE`](errors.md#ERR_UNSUPPORTED_FEATURE) -- This feature is not supported by this parser.
+* [`ERR_INVALID_TYPE`](errors.md#ERR_INVALID_TYPE) -- the value provided was not of type boolean.
 
 ## Pragma `disjunction` (feature)
 
@@ -85,8 +85,8 @@ Enable multiple atoms in a rule head, as describe in [§&nbsp;Rule Head & Disjun
 
 ### Errors
 
-* `ERR_UNSUPPORTED_FEATURE` -- This feature is not supported by this parser.
-* `ERR_INVALID_TYPE` -- the value provided was not of type boolean.
+* [`ERR_UNSUPPORTED_FEATURE`](errors.md#ERR_UNSUPPORTED_FEATURE) -- This feature is not supported by this parser.
+* [`ERR_INVALID_TYPE`](errors.md#ERR_INVALID_TYPE) -- the value provided was not of type boolean.
 
 ## Pragma `extended_numerics` (feature)
 
@@ -96,8 +96,8 @@ Enable the types `float` and `decimal`, as describe in [§&nbsp;Numbers](grammar
 
 ### Errors
 
-* `ERR_UNSUPPORTED_FEATURE` -- This feature is not supported by this parser.
-* `ERR_INVALID_TYPE` -- the value provided was not of type boolean.
+* [`ERR_UNSUPPORTED_FEATURE`](errors.md#ERR_UNSUPPORTED_FEATURE) -- This feature is not supported by this parser.
+* [`ERR_INVALID_TYPE`](errors.md#ERR_INVALID_TYPE) -- the value provided was not of type boolean.
 
 ## Pragma `functional_dependencies` (feature)
 
@@ -107,8 +107,8 @@ Enable the `fd` processing instruction, as describe in [§&nbsp;Processing Instr
 
 ### Errors
 
-* `ERR_UNSUPPORTED_FEATURE` -- This feature is not supported by this parser.
-* `ERR_INVALID_TYPE` -- the value provided was not of type boolean.
+* [`ERR_UNSUPPORTED_FEATURE`](errors.md#ERR_UNSUPPORTED_FEATURE) -- This feature is not supported by this parser.
+* [`ERR_INVALID_TYPE`](errors.md#ERR_INVALID_TYPE) -- the value provided was not of type boolean.
 
 ## Pragma `negation` (feature)
 
@@ -118,8 +118,8 @@ Enable negated literals within a rule, as describe in [§&nbsp;Negation](grammar
 
 ### Errors
 
-* `ERR_UNSUPPORTED_FEATURE` -- This feature is not supported by this parser.
-* `ERR_INVALID_TYPE` -- the value provided was not of type boolean.
+* [`ERR_UNSUPPORTED_FEATURE`](errors.md#ERR_UNSUPPORTED_FEATURE) -- This feature is not supported by this parser.
+* [`ERR_INVALID_TYPE`](errors.md#ERR_INVALID_TYPE) -- the value provided was not of type boolean.
 
 ## Pragma `results`
 
@@ -134,9 +134,9 @@ The following are valid values for the result pragma. The details of each suppor
 
 ### Errors
 
-* `ERR_UNSUPPORTED_FEATURE` -- This feature is not supported by this parser.
-* `ERR_INVALID_TYPE` -- the value provided was not a string.
-* `ERR_INVALID_VALUE_FOR_TYPE` -- Invalid value for the results form, see [§&nbsp;Result Formats](x_result_forms.md).
+* [`ERR_UNSUPPORTED_FEATURE`](errors.md#ERR_UNSUPPORTED_FEATURE) -- This feature is not supported by this parser.
+* [`ERR_INVALID_TYPE`](errors.md#ERR_INVALID_TYPE) -- the value provided was not a string.
+* [`ERR_INVALID_VALUE_FOR_TYPE`](errors.md#ERR_INVALID_VALUE_FOR_TYPE) -- Invalid value for the results form, see [§&nbsp;Result Formats](x_result_forms.md).
 
 ## Pragma `strict`
 
@@ -147,7 +147,7 @@ This pragma MUST BE supported by a conforming DATALOG-TEXT processor.
 
 ### Errors
 
-* `ERR_INVALID_TYPE` -- the value provided was not of type boolean.
+* [`ERR_INVALID_TYPE`](errors.md#ERR_INVALID_TYPE) -- the value provided was not of type boolean.
 
 ### Examples
 

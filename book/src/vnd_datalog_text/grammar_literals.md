@@ -41,7 +41,10 @@ alive(X) :- person(X), NOT dead(X).
 alive(X) ⟵ person(X) ∧ ￢dead(X).
 ```
 
-The following will fail as the negated rule is not considered safe `ERR_NEGATIVE_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL`.
+### Errors
+
+* [`ERR_NEGATIVE_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL`](errors.md#`ERR_NEGATIVE_VARIABLE_NOT_IN_POSITIVE_RELATIONAL_LITERAL`)
+  -- the negated rule is not considered safe.
 
 ```datalog
 .pragma negation.
@@ -56,7 +59,9 @@ The language feature `comparisons` corresponds to the language $\small\text{Data
 allows the use of arithmetic literals. Comparisons take place between two literals and are
 currently limited to a set of common operators. Note the addition of a string match operator, this
 is similar to the Perl `=~` and requires a string value/variable on the left and a string value or
-variable on the right that compiles to a valid Rust regular expression. Finally, the rule `named-term` disallows the use of anonymous variables in arithmetic literals.
+variable on the right that compiles to a valid Rust regular expression.
+Finally, the rule `named-term` disallows the use of anonymous variables in
+arithmetic literals.
 
 ![arithmetic-literal](images/arithmetic-literal.png)
 
@@ -103,12 +108,12 @@ Additionally, some operators are not present for all types, as shown in the tabl
 | Float   | Yes        | Yes                | No  |
 | Boolean | Yes        | No                 | No  |
 
-## Errors
+### Errors
 
-* `ERR_INCOMPATIBLE_TYPES_FOR_OPERATOR` -- the two operands have different types; for example `1 < true`.
-* `ERR_INVALID_OPERATOR_FOR_TYPE` -- the operator is not supported by one, or both, operands `22 *= false`.
+* [`ERR_INCOMPATIBLE_TYPES_FOR_OPERATOR`](errors.md#ERR_INCOMPATIBLE_TYPES_FOR_OPERATOR) -- the two operands have different types; for example `1 < true`.
+* [`ERR_INVALID_OPERATOR_FOR_TYPE`](errors.md#ERR_INVALID_OPERATOR_FOR_TYPE) -- the operator is not supported by one, or both, operands `22 *= false`.
 
-## Example
+### Example
 
 The following is an example using arithmetic literals and the _car_ relation.
 

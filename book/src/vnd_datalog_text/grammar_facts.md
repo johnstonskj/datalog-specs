@@ -1,18 +1,66 @@
 # Relations & Facts
 
-While relations are a key aspect of the Datalog language there is no actual production for relation in the syntax. This is because the syntax instead expects a set of facts expressed and where those facts share the same label, and are _schema compatible_ they comprise a relation. Each relation has a schema that defines the number of attributes, their types, and optionally their labels. The number of attributes is often termed the _arity_ of the relation or of a fact.
+While relations are a key aspect of the Datalog language there is no actual
+production for relation in the syntax. This is because the syntax instead
+expects a set of facts expressed and where those facts share the same label,
+and are _schema compatible_ they comprise a relation. Each relation has a
+schema that defines the number of attributes, their types, and optionally
+their labels. The number of attributes is often termed the _arity_ of the
+relation or of a fact.
 
-> In some literature, where Datalog is analyzed from a _model theoretic_ view, the term **sort** is more often used than **schema**. In either case the meaning is equivalent. See <span class="bibref inline">[Wilfred97](x_references.md#Wilfred97)</span> and <span class="bibref inline">[AbHuVi94](x_references.md#AbHuVi94)</span>.
+> In some literature, where Datalog is analyzed from a _model theoretic_ view,
+> the term **sort** is more often used than **schema**. In either case the
+> meaning is equivalent. See <span class="bibref
+> inline">[Wilfred97](x_references.md#Wilfred97)</span> and 
+> <span class="bibref inline">[AbHuVi94](x_references.md#AbHuVi94)</span>.
 
-Facts are expressed in the form of ground [§&nbsp;Atoms](grammar_atoms.md) where all [§&nbsp;Terms](grammar_atoms.md#terms) are constant, and so they have a specific production rather than a constrained form of the `atom` rule. A predicate is the identifying label shared by a relation and its facts.
+Facts may be either _asserted_ (added to a relation), or _retracted_ (removed
+from a relation).
 
 ![fact](images/fact.png)
 
 ```ebnf
-fact    ::= predicate ( "(" constant ( "," constant )* ")" )? "." ;
+fact    ::= assertion | retraction ;
 ```
 
-A predicate is a string of characters that MUST start with a character from the Unicode category **Ll**.
+Assertion is denoted by a fact body followed by the perion, `'.'` character.
+
+![fact](images/assertion.png)
+
+```ebnf
+assertion
+        ::= fact-body "." ;
+```
+
+Retraction is denoted by a fact body followed by the tilde, `'~'` character.
+As a relation is a set of facts, each fact is syntactically unique and
+addition and removal are based on the equality relation for each constant type.
+
+![fact](images/retraction.png)
+
+```ebnf
+retraction
+        ::= fact-body "~" ;
+```
+
+Retraction of a fact which is not a member of the relation MUST NOT be treated
+as an error, although it MAY BE handled with a warning or informational message.
+
+The body of a fact is expressed in the form of ground
+[§&nbsp;Atoms](grammar_atoms.md) where all
+[§&nbsp;Terms](grammar_atoms.md#terms) are constant, and so they have a
+specific production rather than a constrained form of the `atom` rule. A
+predicate is the identifying label shared by a relation and its facts.
+
+![fact](images/fact-body.png)
+
+```ebnf
+fact-body
+        ::= predicate ( "(" constant ( "," constant )* ")" )? ;
+```
+
+A predicate is a string of characters that MUST start with a character from
+the Unicode category **Ll**.
 
 ![predicate](images/predicate.png)
 
@@ -23,7 +71,8 @@ predicate
 
 ## Errors
 
-It is an error to add a fact that is schema incompatible with an explicitly declared extensional relation.
+Attempting to add a fact that is schema incompatible with an explicitly
+declared extensional relation MUST signal the error [`ERR_INCONSISTENT_FACT_SCHEMA`](errors.md#ERR_INCONSISTENT_FACT_SCHEMA).
 
 ```datalog
 .assert human(string).

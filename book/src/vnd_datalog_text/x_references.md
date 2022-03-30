@@ -8,9 +8,17 @@
 
 3. <span class="bibkey" id="EBNF-NOTATION">EBNF-NOTATION</span>T. Bray, J. Paoli. C. M. Sperberg-McQueen, E. Maler, F. Yergeau. _EBNF Notation_ 26 November 2008. W3C Recommendation. URL: [http://www.w3.org/TR/REC-xml/#sec-notation](http://www.w3.org/TR/REC-xml/#sec-notation)
 
+3. <span class="bibkey" id="ECMA-JSON">ECMA-JSON</span>ECMA International. _The JSON Data
+Interchange Syntax_ 2nd Edition. December 2017. URL: [https://www.ecma-international.org/publications-and-standards/standards/ecma-404/](https://www.ecma-international.org/publications-and-standards/standards/ecma-404/)
+
+21. <span class="bibkey" id="Hodg97">Hodg97</span>W. Hodges. _A Shorter Model Theory_. 1997. Cambridge University Press, USA.
+
 4. <span class="bibkey" id="HTML">HTML</span>A. van Kesteren, D. Denicola, I. Hickson, P. Jägenstedt, S. Pieters. _HTML Standard_. WHATWG. Living Standard. URL: [https://html.spec.whatwg.org/multipage/](https://html.spec.whatwg.org/multipage/)
 
 5. <span class="bibkey" id="IANA-TSV">IANA-TSV</span>P. Lindner. _Media Type Registration: text/tab-separated-values_. U of MN Internet Gopher Team. URL: [https://www.iana.org/assignments/media-types/text/tab-separated-values](https://www.iana.org/assignments/media-types/text/tab-separated-values) 
+
+5. <span class="bibkey" id="IANA-SQLITE3">IANA-SQLITE3</span>C. Ladisch.
+   _Media Type Registration: application/vnd.sqlite3_. URL: [https://www.iana.org/assignments/media-types/application/vnd.sqlite3](https://www.iana.org/assignments/media-types/application/vnd.sqlite3) 
 
 6. <span class="bibkey" id="IEEE754">IEEE754</span>_IEEE Standard for Binary Floating-Point Arithmetic_. 1985. IEEE. URL: [https://standards.ieee.org/ieee/754/993/](https://standards.ieee.org/ieee/754/993/).
 
@@ -32,17 +40,17 @@
 
 15. <span class="bibkey" id="RFC8174">RFC8089</span>M. Kerwin. _The "file" URI Scheme_. February 2017. IETF. Internet Standard. URL: [https://tools.ietf.org/html/rfc8089](https://tools.ietf.org/html/rfc8089)
 
+15. <span class="bibkey" id="RFC7231">RFC7231</span>R. Fielding, J. Reschke. _Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content_. June 2014. IETF. Internet Standard. URL: [https://tools.ietf.org/html/rfc7231](https://tools.ietf.org/html/rfc7231)
+
 16. <span class="bibkey" id="RFC8174">RFC8174</span>B. Leiba. _Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words_. May 2017. IETF. Best Current Practice. URL: [https://tools.ietf.org/html/rfc8174](https://tools.ietf.org/html/rfc8174)
 
 17. <span class="bibkey" id="SQLITE3-URI">SQLITE3-URI</span>_Uniform Resource Identifiers_. URL: [https://www.sqlite.org/uri.html](https://www.sqlite.org/uri.html)
 
 18. <span class="bibkey" id="strings-meta">strings-meta</span>A. Phillips, R. Ishida. _Strings on the Web: Language and Direction Metadata_. 11 June 2019. W3C. W3C Working Draft. URL: [https://www.w3.org/TR/string-meta/](https://www.w3.org/TR/string-meta/)
 
-19. <span class="bibkey" id="UAX9">UAX9</span>M. Davis, A. Lanin, A. Glass. _Unicode Bidirectional Algorithm_. 12 February 2020. Unicode Consortium.  Unicode Standard Annex #9. URL: [https://www.unicode.org/reports/tr9/tr9-42.html](https://www.unicode.org/reports/tr9/tr9-42.html)
+19. <span class="bibkey" id="UAX9">UAX9</span>M. Davis, A. Lanin, A. Glass. _Unicode Bidirectional Algorithm_. 12 February 2020. Unicode Consortium. Unicode Standard Annex #9. URL: [https://www.unicode.org/reports/tr9/tr9-42.html](https://www.unicode.org/reports/tr9/tr9-42.html)
 
 20. <span class="bibkey" id="UNICODE">UNICODE</span>_The Unicode Standard_. URL: [http://www.unicode.org/versions/latest/](http://www.unicode.org/versions/latest/)
-
-21. Hodges, W. _A Shorter Model Theory_. 1997. Cambridge University Press, USA.
 
 22. <span class="bibkey" id="XMLSCHEMA-2">XMLSCHEMA-2</span>Biron, P. V.,  Malhotra A. _XML Schema Part 2: Datatypes Second Edition_. 28 October 2004. W3C Recommendation. URL: [http://www.w3.org/TR/xmlschema-2/](http://www.w3.org/TR/xmlschema-2/).
 

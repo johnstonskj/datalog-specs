@@ -10,7 +10,7 @@ The English version of this specification is the only normative version. Non-nor
 
 ## Abstract
 
-This document defines a standard textual representation of a Datalog program. This representation is based upon commonly used representations for programs and adds processing instructions and explicit Unicode support. The term **DATALOG-TEXT** SHALL BE used to reference this specification in this document and others that reference it.
+This document defines a standard textual representation of a Datalog program. This representation is based upon commonly used representations for programs and adds processing instructions and explicit Unicode support. The term **DATALOG-TEXT** SHALL BE used to reference this specification within this document and others that reference it.
 
 ## Status of This Document
 

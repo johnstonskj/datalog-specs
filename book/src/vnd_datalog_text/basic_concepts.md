@@ -2,7 +2,7 @@
 
 _This section is non-normative._
 
-The following graph is an informal representation of the DATALOG-TEXT grammar. It represents_leaf values_ (constants, variables, ...) in rectangles and _composite values_ as ellipses. Additionally, where a composite is defined as $\small A \oplus B$ a small filled diamond shape represents the exclusive or relationship. Finally, some edges in the graph are labeled with "`*`", "`+`", and "`?`" which are the common cardinality notation used in regular expressions and BNF notation.
+The following graph is an informal representation of the DATALOG-TEXT grammar. It represents_leaf values_ (constants, variables, …) in rectangles and _composite values_ as ellipses. Additionally, where a composite is defined as $\small A \oplus B$ a small filled diamond shape represents the exclusive or relationship. Finally, some edges in the graph are labeled with "`*`", "`+`", and "`?`" which are the common cardinality notation used in regular expressions and BNF notation.
 
 [![Abstract Graph](images/abstract_graph.svg)](images/abstract_graph.svg)
 

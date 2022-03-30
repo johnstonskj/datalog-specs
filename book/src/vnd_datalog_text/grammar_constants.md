@@ -25,9 +25,9 @@ These characters and any other non-printable characters MUST be included using t
 string  ::= identifier-string | literal-string ;
 ```
 
-An identifier string... TODO
+An `identifier-string` is a string of characters that looks much like a predicate `hello`, or a _namespaced_ predicate `message:hello`. This allows for simple string values to be specified without quoting, and a syntax that is closer to the original Prolog form. The introduction of the ":" and trailing string part is an addition in DATALOG-TEXT that allows for larger programs to naturally introduce namespaces for symbols.
 
-> In some Datalog literature and implementations there is a `symbol` type...
+> In some Datalog literature and implementations there is a `symbol` type with a similar grammar production to `predicate`. In some implementations a symbol type is supported, but it's _value_ is the string representation of the predicate. This can lead to API confusion here a symbol can be created but is manipulated as a string. 
 
 ![identifier-string](images/identifier-string.png)
 
@@ -36,12 +36,16 @@ identifier-string
         ::= predicate ( ":" ALPHA ( ALPHA | DIGIT | UNDERSCORE )* )? ;
 ```
 
+Literal strings are enclosed in double quote characters `'"'` and use the backslash escaping for quotes `\"`, tab `\t`, new-line `\n`, and carriage return `\r`.
+
 ![literal-string](images/literal-string.png)
 
 ```ebnf
 literal-string
         ::= DQUOTE ( string-escape | [^#x22] )* DQUOTE ;
 ```
+
+The escape form also allows for the escaping of Unicode characters either in 4 or 8 character hexadecimal format.
 
 ![string-escape](images/string-escape.png)
 
@@ -54,7 +58,7 @@ string-escape
 
 ### Errors
 
-* `ERR_INVALID_VALUE_FOR_TYPE` -- invalid characters present within a string value.
+* [`ERR_INVALID_VALUE_FOR_TYPE`](errors.md#ERR_INVALID_VALUE_FOR_TYPE) -- invalid characters present within a string value.
 
 ## Numbers
 
@@ -70,7 +74,7 @@ number  ::= float   # Optional
 
 ### Integers
 
-While this specification does not require a specific number of bits for integer values a conforming DATALOG-TEXT processor MUST provide _at least_ 64-bit signed values. 
+While this specification does not require a specific number of bits for integer values a conforming DATALOG-TEXT processor MUST provide _at least_ 64-bit signed values $\small -2^{64} < v < 2^{64}$. 
 
 ![integer](images/integer.png)
 
@@ -109,7 +113,7 @@ float   ::= ( decimal ( "e" | "E" ) integer )
 
 ### Errors
 
-* `ERR_INVALID_VALUE_FOR_TYPE` -- a constant value is too large for the implementation type.
+* [`ERR_INVALID_VALUE_FOR_TYPE`](errors.md#ERR_INVALID_VALUE_FOR_TYPE) -- a constant value is too large for the implementation type.
 
 ### Examples
 

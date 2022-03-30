@@ -56,7 +56,7 @@ car_1(fiesta).
 car_1(focus).
 car_1(fusion).
 car_1(mustang).
-...
+…
 ```
 
 ## `tabular` Format
@@ -142,5 +142,5 @@ TBD
 +------------+
 | mustang    |
 +------------+
-     ...
+      …
 ```
