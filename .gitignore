@@ -1,7 +1,10 @@
-/book/_site/
-/book/.sass-cache/
-/book/.jekyll-cache/
-/book/.jekyll-metadata
-/book/book/*
+book/_site/
+book/.sass-cache/
+book/.jekyll-cache/
+book/.jekyll-metadata
+book/book/
+
+**/\#*\#
+**/*~
 
 /.idea
