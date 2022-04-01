@@ -22,7 +22,7 @@ Strict processing support is RECOMMENDED, and may be enabled by the [`strict` pr
 
 ## Media Type and Content Encoding
 
-The media type of DATALOG-TEXT resource is `text/vnd.datalog`. The content encoding of a DATALOG-TEXT document is always UTF-8. For complete details, see appendix [§&nbsp;IANA Considerations](x_iana.md).
+The media type of DATALOG-TEXT resource is `application/vnd.datalog`. The content encoding of a DATALOG-TEXT document is always UTF-8. For complete details, see appendix [§&nbsp;IANA Considerations](x_iana.md).
 
 ### `features` Parameter
 
@@ -38,7 +38,7 @@ While it is clearly of benefit for the set of features listed in this parameter 
 
 #### Example
 
-The media type `text/vnd.datalog;features=negation,constraints` denotes a document with the following feature pragmas.
+The media type `application/vnd.datalog;features=negation,constraints` denotes a document with the following feature pragmas.
 
 ```datalog
 .pragma negation.
@@ -102,6 +102,6 @@ Note that the absence of the `dialect` parameter on the MIME type is the same
 as using the value `core`. The following values are therefore equivalent.
 
 ```text
-text/vnd.datalog
-text/vnd.datalog;dialect=core
+application/vnd.datalog
+application/vnd.datalog;dialect=core
 ```

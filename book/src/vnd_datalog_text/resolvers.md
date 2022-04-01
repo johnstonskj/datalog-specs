@@ -106,7 +106,7 @@ The following media types are documented here, however only `text/csv` and `text
 | text/tab-separated-values | tsv     | N/A        | MUST    | See <span class="bibref inline">[IANA-TSV](x_references.md#IANA-TSV)</span>       |
 | application/json          | json    | N/A        | N/A     | See <span class="bibref inline">[RFC4627](x_references.md#RFC4627)</span>         |
 | application/vnd.sqlite3   | sqlite3 | N/A        | N/A     | See <span class="bibref inline">[IANA-SQLITE3](x_references.md#IANA-SQLITE3)</span> |
-| text/vnd.datalog          | datalog | N/A        | N/A     | Used on output only to write DATALOG-TEXT from an in-memory representation        |
+| application/vnd.datalog          | datalog | N/A        | N/A     | Used on output only to write DATALOG-TEXT from an in-memory representation        |
 
 ### Common Parameters
 

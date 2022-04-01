@@ -2,11 +2,11 @@
 
 This section has been submitted to the Internet Engineering Steering Group (IESG)[^1] for review, approval, and registration with IANA[^2].
 
-## text/vnd.datalog
+## application/vnd.datalog
 
 <dl>
     <dt>Type name:</dt>
-    <dd><code>text</code></dd>
+    <dd><code>application</code></dd>
     <dt>Subtype name:</dt>
     <dd><code>vnd.datalog</code></dd>
     <dt>Required parameters:</dt>
