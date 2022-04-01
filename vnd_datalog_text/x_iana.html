@@ -177,11 +177,23 @@ document.addEventListener("DOMContentLoaded", function() {
     <dt>Optional parameters:</dt>
     <dd>
 <p><code>features</code></p>
-<p>The optional “features” parameter allows the transport to identify language features used within the representation. The value of this parameter is a comma-separated list of feature identifiers supported by this specification. The purpose of this parameter is to save a client from having to parse a document if the features identified in the parameter are unsupported by them.</p>
-<p>If this parameter is specified more than once its values MUST be aggregated into a set, removing duplicates.</p>
+<p>The optional “features” parameter allows the transport to identify language features
+used within the representation. The value of this parameter is a
+comma-separated list of feature identifiers supported by the specification.
+Feature identifiers conform to the following EBNF production.</p>
+<pre><code>id ::= LC_ALPHA ( ALPHA | DIGIT | UNDERSCORE )* ;
+</code></pre>
+<p>The purpose of this parameter is to save a client from having to parse a
+document if the features identified in the parameter are unsupported by them.
+If this parameter is specified more than once its values MUST be aggregated
+into a set, removing duplicates.</p>
 <p><code>dialect</code></p>
-<p>This parameter identifies the tool which generated the document, there are some existing tools with extensive usage that deviate from this core specification.</p>
-<p>If this parameter is specified more than once, the first value MUST be used and any subsequent value MUST be discarded.
+<p>The “dialect” parameter identifies the tool which generated the document,
+there are some existing tools with extensive usage that deviate from this core
+specification. Dialect identifiers conform to the same <code>id</code> production
+described for feature identifiers.</p>
+<p>If this parameter is specified more than once, the first value MUST be used
+and any subsequent value MUST be discarded.
 </dd>
 <dt>Encoding considerations:</dt>
 <dd>The content encoding of a Datalog text document is always UTF-8.</dd>
@@ -219,7 +231,7 @@ parsing issues of a specific document.
 <dd>None.</dd>
 <dt>Published specification:</dt>
 <dd>
-<a href="https://datalog-specs.info/vnd_datalog_text/abstract.html">https://datalog-specs.info/vnd_datalog_text/abstract.html</a> (not yet complete).
+<a href="https://datalog-specs.info/vnd_datalog_text/abstract.html">https://datalog-specs.info/vnd_datalog_text/abstract.html</a>.
 </dd>
 <dt>Additional information:</dt>
 <dd>
