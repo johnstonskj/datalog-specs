@@ -258,7 +258,7 @@ the source and is especially useful in dealing with Datalog written in
 different dialects.</p>
 <p>Strict processing support is RECOMMENDED, and may be enabled by the <a href="vnd_datalog_text/pragmas.html#pragma-strict"><code>strict</code> pragma</a>. Where behavior is required by strict processing it will be highlighted in the text. This specification does not define whether a conforming DATALOG-TEXT processor is required to be strict by default.</p>
 <h2 id="media-type-and-content-encoding"><a class="header" href="#media-type-and-content-encoding">Media Type and Content Encoding</a></h2>
-<p>The media type of DATALOG-TEXT resource is <code>text/vnd.datalog</code>. The content encoding of a DATALOG-TEXT document is always UTF-8. For complete details, see appendix <a href="vnd_datalog_text/x_iana.html">§ IANA Considerations</a>.</p>
+<p>The media type of DATALOG-TEXT resource is <code>application/vnd.datalog</code>. The content encoding of a DATALOG-TEXT document is always UTF-8. For complete details, see appendix <a href="vnd_datalog_text/x_iana.html">§ IANA Considerations</a>.</p>
 <h3 id="features-parameter"><a class="header" href="#features-parameter"><code>features</code> Parameter</a></h3>
 <p>This parameter is used to indicate the language features the resource requires. The list of supported feature identifiers is in <a href="vnd_datalog_text/conformance.html#language-features">§ Language Features</a>.</p>
 <p>The content of this parameter is a comma separated list of feature identifiers. This is used as a hint to a conforming DATALOG-TEXT processor to determine if they can process the resource. </p>
@@ -268,7 +268,7 @@ different dialects.</p>
 <li><a href="vnd_datalog_text/errors.html#ERR_UNSUPPORTED_FEATURE"><code>ERR_UNSUPPORTED_FEATURE</code></a> – a feature identifier was not recognized, or supported, by the processor, even if it may be valid in some other version of this specification.</li>
 </ul>
 <h4 id="example"><a class="header" href="#example">Example</a></h4>
-<p>The media type <code>text/vnd.datalog;features=negation,constraints</code> denotes a document with the following feature pragmas.</p>
+<p>The media type <code>application/vnd.datalog;features=negation,constraints</code> denotes a document with the following feature pragmas.</p>
 <pre><code class="language-datalog">.pragma negation.
 .pragma constraints.
 </code></pre>
@@ -312,8 +312,8 @@ support the features <code>constraints</code>, <code>disjunction</code>, or <cod
 <h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
 <p>Note that the absence of the <code>dialect</code> parameter on the MIME type is the same
 as using the value <code>core</code>. The following values are therefore equivalent.</p>
-<pre><code class="language-text">text/vnd.datalog
-text/vnd.datalog;dialect=core
+<pre><code class="language-text">application/vnd.datalog
+application/vnd.datalog;dialect=core
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-concepts"><a class="header" href="#basic-concepts">Basic Concepts</a></h1>
 <p><em>This section is non-normative.</em></p>
@@ -1338,7 +1338,7 @@ Accept: text/csv;header=present
 <tr><td>text/tab-separated-values</td><td>tsv</td><td>N/A</td><td>MUST</td><td>See <span class="bibref inline"><a href="vnd_datalog_text/x_references.html#IANA-TSV">IANA-TSV</a></span></td></tr>
 <tr><td>application/json</td><td>json</td><td>N/A</td><td>N/A</td><td>See <span class="bibref inline"><a href="vnd_datalog_text/x_references.html#RFC4627">RFC4627</a></span></td></tr>
 <tr><td>application/vnd.sqlite3</td><td>sqlite3</td><td>N/A</td><td>N/A</td><td>See <span class="bibref inline"><a href="vnd_datalog_text/x_references.html#IANA-SQLITE3">IANA-SQLITE3</a></span></td></tr>
-<tr><td>text/vnd.datalog</td><td>datalog</td><td>N/A</td><td>N/A</td><td>Used on output only to write DATALOG-TEXT from an in-memory representation</td></tr>
+<tr><td>application/vnd.datalog</td><td>datalog</td><td>N/A</td><td>N/A</td><td>Used on output only to write DATALOG-TEXT from an in-memory representation</td></tr>
 </tbody></table>
 <h3 id="common-parameters"><a class="header" href="#common-parameters">Common Parameters</a></h3>
 <ul>
@@ -2231,10 +2231,10 @@ car(&quot;ford&quot;, X, _)?
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-iana-considerations"><a class="header" href="#appendix-iana-considerations">Appendix: IANA Considerations</a></h1>
 <p>This section has been submitted to the Internet Engineering Steering Group (IESG)<sup class="footnote-reference"><a href="#1">1</a></sup> for review, approval, and registration with IANA<sup class="footnote-reference"><a href="#2">2</a></sup>.</p>
-<h2 id="textvnddatalog"><a class="header" href="#textvnddatalog">text/vnd.datalog</a></h2>
+<h2 id="applicationvnddatalog"><a class="header" href="#applicationvnddatalog">application/vnd.datalog</a></h2>
 <dl>
     <dt>Type name:</dt>
-    <dd><code>text</code></dd>
+    <dd><code>application</code></dd>
     <dt>Subtype name:</dt>
     <dd><code>vnd.datalog</code></dd>
     <dt>Required parameters:</dt>
