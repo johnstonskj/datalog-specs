@@ -10,7 +10,13 @@ A conforming DATALOG-TEXT _parser_ MUST ensure the resource it is provided is a 
 
 ## Strict vs Lax Processing
 
-Two modes of operation for a conforming DATALOG-TEXT processor are described, a **strict** processing mode that, while more verbose, relies less on inference of a program's semantics. For example, when strict processing is enabled all relations both extensional and intensional MUST BE declared by processing instructions.
+Two modes of operation for a conforming DATALOG-TEXT processor are described,
+a **strict** processing mode that, while more verbose, relies less on
+inference of a program's semantics. For example, when strict processing is
+enabled all relations both extensional and intensional MUST BE declared by
+processing instructions. A **lax** processing mode allows more flexibility in
+the source and is especially useful in dealing with Datalog written in
+different dialects.
 
 Strict processing support is RECOMMENDED, and may be enabled by the [`strict` pragma](pragmas.md#pragma-strict). Where behavior is required by strict processing it will be highlighted in the text. This specification does not define whether a conforming DATALOG-TEXT processor is required to be strict by default.
 

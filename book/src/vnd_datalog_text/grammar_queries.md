@@ -43,8 +43,18 @@ mortal(X) <- human(X).
 
 The execution of this program will start with the goal query
 `mortal("Socrates")` which can be read as "_is there an atom with the label
-'mortal' with a single attribute value 'Socrates'_?". As all attribute values
-are constant this query returns a boolean value, in this case `true`.
+'mortal' with a single attribute value 'Socrates'_?". 
+
+```text
++------------+
+| _: string  |
++============+
+| "Socrates" |
++------------+
+```
+
+As all terms are constant in this query, a processor  MAY return a boolean
+value rather than the matching fact, in this case `true`.
 
 ```text
 +------------+
@@ -54,13 +64,15 @@ are constant this query returns a boolean value, in this case `true`.
 +------------+
 ```
 
-However, if we were to change the final query to replace the constant with a variable, as follows.
+However, if we were to change the final query to replace the constant with a variable, as follows:
 
 ```datalog
 ?- mortal(X).
 ```
 
-The program will select all matching (in this case all) facts from the _mortal_ relation.
+The program will select all matching (in this case all) facts from the
+_mortal_ relation. In this case the column is named for the variable `X`, the
+previous example used the anonymous identifier.
 
 ```text
 +------------+

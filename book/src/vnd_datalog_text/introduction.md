@@ -2,7 +2,7 @@
 
 _This section is non-normative_.
 
-Datalog is a logic programming language and a subset of the earlier Prolog[^1]. The language is interesting as it can be used as a data query language akin to SQL with some important additional capabilities such as recursive queries. It is also expressive enough to allow for it’s use as an entailment mechanism for ontology languages such as the Web Ontology Language (OWL)[^2] and the Semantic Web.
+Datalog is a logic programming language and a subset of the earlier Prolog[^1]. The language is interesting as it can be used as a data query language akin to SQL with some important additional capabilities such as recursive queries. It is also expressive enough to allow for its use as an entailment mechanism for ontology languages such as the Web Ontology Language (OWL)[^2] and the Semantic Web.
 
 The specific language that may be represented by the DATALOG-TEXT grammar includes typed attributes and functional dependencies for relations, negated and arithmetic literals, disjunction in rule heads, and constraint rules. With the exception of required support for typed attributes the other _language features_ are opt-in using _pragmas_.
 
@@ -29,8 +29,8 @@ _This section is non-normative._
 
 * **Media Type** -- This specification describes an Internet Media Type <span class="bibref inline">[RFC1590](x_references.md#RFC1590)</span> that is used "_in order to provide open and extensible data typing and type negotiation_" -- from <span class="bibref inline">[RFC2616](x_references.md#RFC2616), section 3.7</span>.
 * **Program** -- A complete Datalog entity that may be serialized into a resource in a particular representation or media type.
-* **Representation** -- "_An entity included with a response that is subject to content negotiation, as described in section [removed]. There may exist multiple representations associated with a particular response status._" -- from <span class="bibref inline">[RFC2616](x_references.md#RFC2616), section 1.3</span>.
-* **Resource** -- "_A network data object or service that can be identified by a URI, as defined in section [removed]. Resources may be available in multiple representations (e.g. multiple languages, data formats, size, and resolutions) or vary in other ways._" -- from <span class="bibref inline">[RFC2616](x_references.md#RFC2616), section 1.3</span>.
+* **Representation** -- "_An entity included with a response that is subject to content negotiation, as described in section […]. There may exist multiple representations associated with a particular response status._" -- from <span class="bibref inline">[RFC2616](x_references.md#RFC2616), section 1.3</span>.
+* **Resource** -- "_A network data object or service that can be identified by a URI, as defined in section […]. Resources may be available in multiple representations (e.g. multiple languages, data formats, size, and resolutions) or vary in other ways._" -- from <span class="bibref inline">[RFC2616](x_references.md#RFC2616), section 1.3</span>.
 * **Dataset** -- An external resource that holds a representation of a Datalog resource.
 
 Using these terms this specification describes a particular _representation_ of a Datalog _program_, whose type is identified by a unique _media type_, that may be serialized into a _resource_ for storage or transfer.
@@ -38,7 +38,7 @@ Using these terms this specification describes a particular _representation_ of 
 ![Processor Terms](images/processor_terms.svg)
 
 * **Application** -- This denotes some software component that requires the ability to download, read, and act upon Datalog resources. To accomplish this the application has to interact with the _processor_.
-* **Processor** -- A software component that provides at lease the _parser_ and _resolver_ and commonly the _evaluator_ as well.
+* **Processor** -- A software component that provides at least the _parser_ and _resolver_ and commonly the _evaluator_ as well.
   * **Parser** -- The subcomponent that actually parses the resource, validating syntax and well-formedness rules (see [§&nbsp;Grammar](grammar.md) for the details of the DATALOG-TEXT language grammar).
   * **Resolver** -- The subcomponent that has to resolve and make available any referenced dataset resources (see [§&nbsp;Resolvers](resolvers.md) for details of the resolver).
   * **Evaluator** -- The subcomponent that consumes the parsed program and entails intensional facts from rules. 

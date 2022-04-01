@@ -42,8 +42,8 @@ In the following example no media type is provided.
 ```
 
 In this case the HTTP request contains a list of acceptable response types as
-well as language and encoding preferences. In this case not only does the
-client accept CSV and TSV representations it indicates it's preference for CSV
+well as language and encoding preferences. In this case, not only does the
+client accept CSV and TSV representations, it indicates its preference for CSV
 over TSV.
 
 ```http

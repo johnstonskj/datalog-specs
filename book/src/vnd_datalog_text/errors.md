@@ -93,8 +93,6 @@ An expected value was not found.
 
 A value was provided that is an invalid representation of the expected type.
     </dd>
-    <dt id="ERR_ANONYMOUS_VARIABLE_NOT_ALLOWED_HERE">ERR_ANONYMOUS_VARIABLE_NOT_ALLOWED_HERE</dt>
-    <dd>TBD</dd>
     <dt id="ERR_INVALID_RELATION">ERR_INVALID_RELATION</dt>
     <dd>
 
@@ -108,12 +106,12 @@ Signaled on any duplicate declaration, processing instruction, fact, rule, or qu
     <dt id="WARN_RULE_IS_ALWAYS_TRUE">WARN_RULE_IS_ALWAYS_TRUE</dt>
     <dd>
 
-For some reason this rule will always evaluate to true.
+This rule will always evaluate to true. See also `WARN_ARITHMETIC_LITERAL_IS_ALWAYS_TRUE`.
     </dd>
     <dt id="WARN_RULE_IS_ALWAYS_FALSE">WARN_RULE_IS_ALWAYS_FALSE</dt>
     <dd>
 
-For some reason, this rule will always evaluate to false.
+This rule will always evaluate to false. See also `WARN_ARITHMETIC_LITERAL_IS_ALWAYS_FALSE`.
     </dd>
 </dl>
 
@@ -142,7 +140,7 @@ Opening a file-system resource would be one of the errors  `ENODEV`,  `ENOENT`, 
     <dt id="ERR_INVALID_INPUT_RESOURCE">ERR_INVALID_INPUT_RESOURCE</dt>
     <dd>
 
-The resource was retrieved, but it was not possible to parse it according to it's expected media type.
+The resource was retrieved, but it was not possible to parse it according to its expected media type.
     </dd>
     <dt id="ERR_OUTPUT_RESOURCE_NOT_WRITEABLE">ERR_OUTPUT_RESOURCE_NOT_WRITEABLE</dt>
     <dd>
@@ -211,7 +209,7 @@ The left-hand and right-hand sides of the literal are of different types and the
     <dt id="WARN_ARITHMETIC_LITERAL_IS_ALWAYS_TRUE">WARN_ARITHMETIC_LITERAL_IS_ALWAYS_TRUE</dt>
     <dd>
 
-Evaluation of this literal will always return true. For example `1 = 1`
+Evaluation of this literal will always return true. For example `1 = 1`.
     </dd>
     <dt id="WARN_ARITHMETIC_LITERAL_IS_ALWAYS_FALSE">WARN_ARITHMETIC_LITERAL_IS_ALWAYS_FALSE</dt>
     <dd>

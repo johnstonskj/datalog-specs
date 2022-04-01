@@ -7,7 +7,7 @@ Until a more comprehensive solution can be addressed in a future version of this
 
 ## Identifier Characters
 
-The characters allowed in labeling relations, attributes, facts, atoms, and variables are taken from a broad set of Unicode by category rather than by codepoint range. The following are the definitions of the lexical productions, showing their relation to defined categories.
+The characters allowed in labeling relations, attributes, facts, atoms, and variables are taken from a broad set of Unicode by category rather than by codepoint range. The following are the definitions of the lexical productions, showing their relation to defined categories:
 
 ```ebnf
 SPACE_SEP

@@ -58,7 +58,10 @@ pi-assert
         ::= "assert" relation-decl functional-dependency-list? ;
 ```
 
-A relation declaration declares the types, and optionally the names, of the attributes of a relation. The first predicate in `relation-decl` is the label of the relation, the attributes themselves are defined within the following parenthesis.
+A relation declaration declares the types, and optionally the names, of the
+attributes of a relation. The first predicate in `relation-decl` is the label
+of the relation, the attributes themselves are defined within the following
+parenthesis:
 
 ![relation-decl](images/relation-decl.png)
 
@@ -93,26 +96,26 @@ Note that the types `float` and `decimal` are only available if the feature `ext
 
 ### Example
 
-The following declares a relation labeled `human` that has a single string attribute.
+The following declares a relation labeled `human` that has a single string attribute:
 
 ```datalog
 .assert human(string).
 ```
 
-The following declares a relation labeled `human` that has a single string attribute, labeled as `name`.
+The following declares a relation labeled `human` that has a single string attribute, labeled as `name`:
 
 ```datalog
 .assert human(name: string).
 ```
 
-The following is an error in that the `name` label is used for two separate attributes.
+The following is an error in that the `name` label is used for two separate attributes:
 
 ```datalog
 .assert human(name: string, name: string).
 %% ==> ERR_INVALID_RELATION
 ```
 
-The following is an error, relations cannot be defined twice.
+The following is an error, relations cannot be defined twice:
 
 ```datalog
 .assert human(name: string).
@@ -351,7 +354,7 @@ The values for the `header` parameter are `absent` or `present`.
 
 The `output` processing instruction instructs the parser to write facts from the named intensional relation to an external file. 
 
-> This specification does not determine whether writing to external resources happens during evaluation, at completion of evaluation, or via a client initiated API call. However, as some errors (un-writable output resource) cannot happen until intensional relations are stored, this choice MAY defer the signaling of some critical errors.
+This specification does not determine whether writing to external resources happens during evaluation, at completion of evaluation, or via a client initiated API call. However, as some errors (un-writable output resource) cannot happen until intensional relations are stored, this choice MAY defer the signaling of some critical errors.
 
 ![pi-output](images/pi-output.png)
 

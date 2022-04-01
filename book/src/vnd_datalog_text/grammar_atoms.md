@@ -1,10 +1,10 @@
 # Atoms & Terms
 
-A term is a labeled tuple of terms and is either a **fact** or a **goal**/**sub-goal**.
+A term is a labeled tuple of terms and is either a _fact_ or a _goal_/_sub-goal_.
 
-In the case of a _fact_ the label identifies the relation to which it belongs and all terms must be constant values -- also termed a _ground_ atom. Facts may belong to either extensional or intensional relations.
+In the case of a fact the label identifies the relation to which it belongs and all terms must be constant values -- also termed a _ground_ atom. Facts may belong to either extensional or intensional relations.
 
-In the case of a _goal_ it is the consequence of a rule. Its goal is satisfied if the antecedents, now termed _sub-goals_, are satisfied. 
+In the case of a goal it is the consequence of a rule. Its goal is satisfied if the antecedents, now termed sub-goals, are satisfied. 
 
 ![atom](images/atom.png)
 

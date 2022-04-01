@@ -1,8 +1,18 @@
 # Pragmas
 
-The `features` pragma determines which Datalog language is in use. Use of syntax not supported by the selected language feature MAY result in errors. A conformant DATALOG-TEXT processor in strict mode MUST signal an error, otherwise the processor MAY assume the feature is enabled due to its usage. A conformant DATALOG-TEXT processor MUST signal an error when detecting a feature identifier which they do not recognize, even if it may be valid in some other version of this specification.
+**REREAD THIS SECTION**
 
-The following is the list of feature identifiers supported by this version of the DATALOG-TEXT specification. These are boolean parameters, so the following two pragmas are equivalent.
+A number of pragmas below are termed _feature pragmas_ as they are boolean
+gates that enable or disable specific language featues. Use of syntax
+associated with a disabled language feature MAY result in errors. 
+
+A conformant DATALOG-TEXT processor in strict mode MUST signal an error,
+otherwise the processor MAY assume the feature is enabled due to its usage. A
+conformant DATALOG-TEXT processor MUST signal an error when detecting a
+feature identifier which they do not recognize, even if it may be valid in
+some other version of this specification.
+
+As feature pragmas are boolean parameters, the following two pragmas are equivalent:
 
 ```datalog
 .pragma negation.

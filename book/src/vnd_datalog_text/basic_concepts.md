@@ -37,7 +37,7 @@ Relations $\small R$ and rules $\small\lambda$ are built from a language $\small
 
 $$\small \mathcal{L}=\( \mathcal{C},\mathcal{P},\mathcal{V},\Gamma\)$$
 
-* $\small \mathcal{C}$ -- the finite sets of symbols for all constant values; e.g. `hello`, `"hi"`
+* $\small \mathcal{C}$ -- the finite sets of symbols for all constant values; e.g. `hello`, `"hi"`,
   `123`,
 * $\small \mathcal{P}$ -- predicates, the finite set of alphanumeric character strings that begin with a
   lowercase character; e.g. `human`, `size`, `a`,

@@ -18,7 +18,7 @@ This section has been submitted to the Internet Engineering Steering Group (IESG
 
 The optional "features" parameter allows the transport to identify language features used within the representation. The value of this parameter is a comma-separated list of feature identifiers supported by this specification. The purpose of this parameter is to save a client from having to parse a document if the features identified in the parameter are unsupported by them.
 
-If this parameter is specified more than once it's values MUST be aggregated into a set, removing duplicates.
+If this parameter is specified more than once its values MUST be aggregated into a set, removing duplicates.
 
 `dialect`
 
@@ -32,7 +32,7 @@ If this parameter is specified more than once, the first value MUST be used and 
     <dd>
 This media type does include program code for a Datalog interpreter to
 execute. However, as Datalog is a restricted deductive logic language
-it's execution environment is limited to entailment and query, and not
+its execution environment is limited to entailment and query, and not
 capable of general purpose programming.
 
 The Datalog language does contain references to additional resources

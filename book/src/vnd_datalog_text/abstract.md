@@ -1,6 +1,6 @@
 # DATALOG-TEXT: Datalog Text Representation
 
-## Version: 1.0, XX March 2022 (Draft)
+## Version: 1.0, 2 April 2022 (Draft)
 
 Please check the [§&nbsp;Errata](z_errata.md) for any errors or issues reported since publication.
 

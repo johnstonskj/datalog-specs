@@ -89,11 +89,12 @@ human(22).
 %% ==> ERR_INCONSISTENT_FACT_SCHEMA
 ```
 
-Some cases may not be so obvious, especially with numerics. The value `22` is inferred to be `integer`, the value `22.0` is inferred to be a `decimal`, and the value `22e1` is inferred to be a `float`. Therefore, the example below causes an error.
+Some cases may not be so obvious, especially with numerics. The value `22` is inferred to be `integer`, the value `22.0` is inferred to be a `decimal`, and the value `22.0e2` is inferred to be a `float`. Therefore, the example below causes an error.
 
 ```datalog
-human(22).   % integer
-human(22.0). % decimal
+human(22).      % integer
+human(22.0).    % decimal
+human(22.0e+2). % float
 %% ==> ERR_INCONSISTENT_FACT_SCHEMA
 ```
 

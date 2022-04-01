@@ -1,5 +1,5 @@
 # Datalog Text Representation -- Translations
 
-## Version: XX March 2022.
+## Version: 2 April 2022.
 
 None.
