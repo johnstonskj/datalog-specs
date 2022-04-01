@@ -1492,7 +1492,7 @@ otherwise the processor MAY assume the feature is enabled due to its usage. A
 conformant DATALOG-TEXT processor MUST signal an error when detecting a
 feature identifier which they do not recognize, even if it may be valid in
 some other version of this specification.</p>
-<p>As feature pragmas are boolean parameters, the following two pragmas are equivalent:</p>
+<p>As feature pragmas are boolean parameters, the following two pragmas are equivalent</p>
 <pre><code class="language-datalog">.pragma negation.
 .pragma negation=true.
 </code></pre>
@@ -2131,34 +2131,61 @@ HEXDIGIT
         ::= [0-9a-fA-F] ;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-result-formats"><a class="header" href="#appendix-result-formats">Appendix: Result Formats</a></h1>
-<p>A DATALOG-TEXT processor may simply need to return query results via an API and so not deal with the display of data to human users. If the processor does display human-readable results it should be done according to the results formats defined in this section.</p>
-<p>If a processor supports multiple result forms, including forms not defined in this specification, the programmer can select the preferred form via the <code>results</code> pragma <a href="vnd_datalog_text/pragmas.html#pragma-results">§ Pragma results</a> or some other means such as processor command-line parameters, environment variables and so forth.</p>
+<p>A DATALOG-TEXT processor may simply need to return query results via an API
+and so not deal with the display of data to human users. If the processor does
+display human-readable results it should be done according to the results
+formats defined in this section.</p>
+<p>If a processor supports multiple result forms, including forms not defined in
+this specification, the programmer can select the preferred form via the
+<code>results</code> pragma <a href="vnd_datalog_text/pragmas.html#pragma-results">§ Pragma results</a> or some
+other means such as processor command-line parameters, environment variables
+and so forth.</p>
 <h2 id="native-format"><a class="header" href="#native-format"><code>native</code> Format</a></h2>
 <p>This format MUST be supported by a conforming DATALOG-TEXT processor that displays results in human-readable form</p>
 <h3 id="example--existential-query"><a class="header" href="#example--existential-query">Example – Existential Query</a></h3>
 <pre><code class="language-datalog">.pragma results=native
 ?- mortal(&quot;Socrates&quot;).
 </code></pre>
-<p>In the native results form this simply returns the value <code>true</code> to indicate that the query matches.</p>
-<pre><code class="language-datalog">true
+<p>In the native results form a processor MAY return the matching fact, or return
+a boolean response. The two results in the following example are therefore equivalent:</p>
+<pre><code class="language-datalog">mortal(&quot;Socrates&quot;).
+true
 </code></pre>
 <h3 id="example--selection-query"><a class="header" href="#example--selection-query">Example – Selection Query</a></h3>
 <pre><code class="language-datalog">.pragma results=native
 ?- mortal(X).
 </code></pre>
-<p>In the native results form the results are written to look like the input form of a fact.</p>
+<p>As above, but the output MUST be line-oriented with a single fact per line.</p>
 <pre><code class="language-datalog">mortal(&quot;Socrates&quot;).
+mortal(&quot;Plato&quot;).
 </code></pre>
 <h3 id="example--projection-query"><a class="header" href="#example--projection-query">Example – Projection Query</a></h3>
-<p>TBD</p>
 <pre><code class="language-datalog">.pragma results=native
 .assert car(make: string, model: string, age: integer).
 
 car(&quot;ford&quot;, X, _)?
 </code></pre>
-<p>TBD</p>
+<p>As above, but only variables are REQUIRED to be included in the response.
+Specifically, anonymous attributes MUST be removed from the results and the
+inclusion of constant values MAY be present, but it is RECOMMENDED to remove
+them.</p>
+<p>In the native form the result <code>car(edge).</code> would be an error as the car relation has
+three attributes; similarly, <code>car(&quot;ford&quot;, edge, _).</code> is invalid as it includes
+an anonymous variable in a fact. The naïve approach is to return the entirety
+of the matching facts, as shown below. However, this results in a column that
+was specifically anonymous and really should not be present.</p>
+<pre><code class="language-datalog">car(&quot;ford&quot;, edge, 22).
+car(&quot;ford&quot;, escort, 12).
+car(&quot;ford&quot;, fiesta, 8).
+car(&quot;ford&quot;, focus, 19).
+car(&quot;ford&quot;, fusion, 13).
+car(&quot;ford&quot;, mustang, 3).
+…
+</code></pre>
+<p>In this case the processor MAY choose to construct a new intensional relation
+representing the query and then return these <em>simplified</em> facts.</p>
 <pre><code class="language-datalog">car_1 :- car(&quot;ford&quot;, X, _).
-car_1(X).
+
 car_1(edge).
 car_1(escort).
 car_1(fiesta).
@@ -2169,7 +2196,10 @@ car_1(mustang).
 </code></pre>
 <h2 id="tabular-format"><a class="header" href="#tabular-format"><code>tabular</code> Format</a></h2>
 <p>This format is optional but RECOMMENDED.</p>
-<p>This specification does not require a specific set of characters for laying out tables. The following are all acceptable styles that use either ASCII characters or Unicode Box Drawing characters. Note that all the formats below do make a distinction between header and body rows.</p>
+<p>This specification does not require a specific set of characters for laying
+out tables. The following are all acceptable styles that use either ASCII
+characters or Unicode Box Drawing characters. Note that all the formats below
+do make a distinction between header and body rows.</p>
 <pre><code class="language-text">+------------+------------+    ,------------+------------,    
 | X: string  | Y: string  |    | X: string  | Y: string  |    X: string  | Y: string
 +============+============+    |============+============|    -----------+-----------
@@ -2183,10 +2213,16 @@ car_1(mustang).
 └────────────┴────────────┘    ╰────────────┴────────────╯    
 </code></pre>
 <h3 id="example--existential-query-1"><a class="header" href="#example--existential-query-1">Example – Existential Query</a></h3>
-<pre><code class="language-datalog">.pragma results=tabular
-?- mortal(&quot;Socrates&quot;).
+<p>In the fact result form a table has an unnamed column with the fact constants
+included.</p>
+<pre><code class="language-text">+------------+
+| _: string  |
++============+
+| &quot;Socrates&quot; |
++------------+
 </code></pre>
-<p>In the tabular results form a table is written with an unlabeled column with the value <code>true</code>.</p>
+<p>In the boolean result form a table is written with an unlabeled column with
+the value <code>true</code>.</p>
 <pre><code class="language-text">+------------+
 | _: boolean |
 +============+
@@ -2194,26 +2230,28 @@ car_1(mustang).
 +------------+
 </code></pre>
 <h3 id="example--selection-query-1"><a class="header" href="#example--selection-query-1">Example – Selection Query</a></h3>
-<pre><code class="language-datalog">.pragma results=tabular
-?- mortal(X).
-</code></pre>
-<p>In the tabular results form a table is written with one column per variable in the goal and all matching values as rows.</p>
+<p>In the tabular results form a table is written with one column per variable in
+the goal and all matching facts as rows. </p>
 <pre><code class="language-text">+------------+
 | X: string  |
 +============+
 | &quot;Socrates&quot; |
+| &quot;Plato&quot;    |
 +------------+
 </code></pre>
-<h3 id="example--projection-query-1"><a class="header" href="#example--projection-query-1">Example – Projection Query</a></h3>
-<p>TBD</p>
-<pre><code class="language-datalog">.pragma results=tabular
-.assert car(make: string, model: string, age: integer).
-
-car(&quot;ford&quot;, X, _)?
+<p>Note that in naming a column it is appropriate to use either the name of the
+variable (as shown above) or the name of the attribute if known (below).</p>
+<pre><code class="language-text">+---------------+
+| name: string  |
++===============+
+| &quot;Socrates&quot;    |
+| &quot;Plato&quot;       |
++---------------+
 </code></pre>
-<p>TBD</p>
+<h3 id="example--projection-query-1"><a class="header" href="#example--projection-query-1">Example – Projection Query</a></h3>
+<p>As above.</p>
 <pre><code class="language-text">+------------+
-| model      |
+| X: string  |
 +============+
 | edge       |
 +------------+
