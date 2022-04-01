@@ -5,6 +5,7 @@ digraph G {
   application;
 
   subgraph cluster1 {
+    node [fontsize=10 fontname="Verdana" shape=record];
     evaluator [style=dashed];
     evaluator -> parser;
     evaluator -> resolver;

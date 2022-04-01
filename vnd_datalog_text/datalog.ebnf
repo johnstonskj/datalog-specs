@@ -2,8 +2,17 @@ program ::= processing-instruction* ( fact | rule | query )* ;
 
 /* ************************************************************************* */
 
-fact    ::= predicate ( "(" constant ( "," constant )* ")" )? "." ;
+fact    ::= assertion | retraction ;
 
+assertion
+        ::= fact-body "." ;
+
+retraction
+        ::= fact-body "~" ;
+
+fact-body
+        ::= predicate ( "(" constant ( "," constant )* ")" )? ;
+        
 predicate
         ::= LC_ALPHA ( ALPHA | DIGIT | UNDERSCORE )* ;
 

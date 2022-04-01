@@ -1,5 +1,5 @@
 /*!
-  Highlight.js v11.4.0 (git: 2d0e7c1094)
+  Highlight.js v11.5.0 (git: 7a62552656)
   (c) 2006-2022 Ivan Sagalaev and other contributors
   License: BSD-3-Clause
  */
@@ -52,10 +52,10 @@ const m=/\[(?:[^\\\]]|\\.)*\]|\(\??|\\([1-9][0-9]*)|\\./
 r+=i.substring(0,e.index),
 i=i.substring(e.index+e[0].length),"\\"===e[0][0]&&e[1]?r+="\\"+(Number(e[1])+t):(r+=e[0],
 "("===e[0]&&n++)}return r})).map((e=>`(${e})`)).join(t)}
-const x="[a-zA-Z]\\w*",w="[a-zA-Z_]\\w*",y="\\b\\d+(\\.\\d+)?",_="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",v="\\b(0b[01]+)",k={
+const x="[a-zA-Z]\\w*",w="[a-zA-Z_]\\w*",y="\\b\\d+(\\.\\d+)?",_="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",k="\\b(0b[01]+)",v={
 begin:"\\\\[\\s\\S]",relevance:0},O={scope:"string",begin:"'",end:"'",
-illegal:"\\n",contains:[k]},N={scope:"string",begin:'"',end:'"',illegal:"\\n",
-contains:[k]},M=(e,t,n={})=>{const i=s({scope:"comment",begin:e,end:t,
+illegal:"\\n",contains:[v]},N={scope:"string",begin:'"',end:'"',illegal:"\\n",
+contains:[v]},M=(e,t,n={})=>{const i=s({scope:"comment",begin:e,end:t,
 contains:[]},n);i.contains.push({scope:"doctag",
 begin:"[ ]*(?=(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):)",
 end:/(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):/,excludeBegin:!0,relevance:0})
@@ -63,19 +63,19 @@ end:/(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):/,excludeBegin:!0,relevance:0})
 ;return i.contains.push({begin:f(/[ ]+/,"(",r,/[.]?[:]?([.][ ]|[ ])/,"){3}")}),i
 },S=M("//","$"),R=M("/\\*","\\*/"),j=M("#","$");var A=Object.freeze({
 __proto__:null,MATCH_NOTHING_RE:/\b\B/,IDENT_RE:x,UNDERSCORE_IDENT_RE:w,
-NUMBER_RE:y,C_NUMBER_RE:_,BINARY_NUMBER_RE:v,
+NUMBER_RE:y,C_NUMBER_RE:_,BINARY_NUMBER_RE:k,
 RE_STARTERS_RE:"!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",
 SHEBANG:(e={})=>{const t=/^#![ ]*\//
 ;return e.binary&&(e.begin=f(t,/.*\b/,e.binary,/\b.*/)),s({scope:"meta",begin:t,
 end:/$/,relevance:0,"on:begin":(e,t)=>{0!==e.index&&t.ignoreMatch()}},e)},
-BACKSLASH_ESCAPE:k,APOS_STRING_MODE:O,QUOTE_STRING_MODE:N,PHRASAL_WORDS_MODE:{
+BACKSLASH_ESCAPE:v,APOS_STRING_MODE:O,QUOTE_STRING_MODE:N,PHRASAL_WORDS_MODE:{
 begin:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/
 },COMMENT:M,C_LINE_COMMENT_MODE:S,C_BLOCK_COMMENT_MODE:R,HASH_COMMENT_MODE:j,
 NUMBER_MODE:{scope:"number",begin:y,relevance:0},C_NUMBER_MODE:{scope:"number",
-begin:_,relevance:0},BINARY_NUMBER_MODE:{scope:"number",begin:v,relevance:0},
+begin:_,relevance:0},BINARY_NUMBER_MODE:{scope:"number",begin:k,relevance:0},
 REGEXP_MODE:{begin:/(?=\/[^/\n]*\/)/,contains:[{scope:"regexp",begin:/\//,
-end:/\/[gimuy]*/,illegal:/\n/,contains:[k,{begin:/\[/,end:/\]/,relevance:0,
-contains:[k]}]}]},TITLE_MODE:{scope:"title",begin:x,relevance:0},
+end:/\/[gimuy]*/,illegal:/\n/,contains:[v,{begin:/\[/,end:/\]/,relevance:0,
+contains:[v]}]}]},TITLE_MODE:{scope:"title",begin:x,relevance:0},
 UNDERSCORE_TITLE_MODE:{scope:"title",begin:w,relevance:0},METHOD_GUARD:{
 begin:"\\.\\s*[a-zA-Z_]\\w*",relevance:0},END_SAME_AS_BEGIN:e=>Object.assign(e,{
 "on:begin":(e,t)=>{t.data._beginMatch=e[1]},"on:end":(e,t)=>{
@@ -197,8 +197,8 @@ if(!t[O.subLanguage])return void M.addText(S)
 ;e=E(O.subLanguage,S,!0,N[O.subLanguage]),N[O.subLanguage]=e._top
 }else e=x(S,O.subLanguage.length?O.subLanguage:null)
 ;O.relevance>0&&(R+=e.relevance),M.addSublanguage(e._emitter,e.language)
-})():l(),S=""}function u(e,t){let n=1;for(;void 0!==t[n];){if(!e._emit[n]){n++
-;continue}const i=y.classNameAliases[e[n]]||e[n],r=t[n]
+})():l(),S=""}function u(e,t){let n=1;const i=t.length-1;for(;n<=i;){
+if(!e._emit[n]){n++;continue}const i=y.classNameAliases[e[n]]||e[n],r=t[n]
 ;i?M.addKeyword(r,i):(S=r,l(),S=""),n++}}function h(e,t){
 return e.scope&&"string"==typeof e.scope&&M.openNode(y.classNameAliases[e.scope]||e.scope),
 e.beginScope&&(e.beginScope._wrap?(M.addKeyword(S,y.classNameAliases[e.beginScope._wrap]||e.beginScope._wrap),
@@ -230,33 +230,33 @@ const e=Error('Illegal lexeme "'+a+'" for mode "'+(O.scope||"<unnamed>")+'"')
 ;throw e.mode=O,e}if("end"===s.type){const e=b(s);if(e!==ee)return e}
 if("illegal"===s.type&&""===a)return 1
 ;if(A>1e5&&A>3*s.index)throw Error("potential infinite loop, way more iterations than matches")
-;return S+=a,a.length}const y=v(e)
+;return S+=a,a.length}const y=k(e)
 ;if(!y)throw K(a.replace("{}",e)),Error('Unknown language: "'+e+'"')
-;const _=V(y);let k="",O=s||_;const N={},M=new g.__emitter(g);(()=>{const e=[]
+;const _=V(y);let v="",O=s||_;const N={},M=new g.__emitter(g);(()=>{const e=[]
 ;for(let t=O;t!==y;t=t.parent)t.scope&&e.unshift(t.scope)
 ;e.forEach((e=>M.openNode(e)))})();let S="",R=0,j=0,A=0,I=!1;try{
 for(O.matcher.considerAll();;){
 A++,I?I=!1:O.matcher.considerAll(),O.matcher.lastIndex=j
 ;const e=O.matcher.exec(n);if(!e)break;const t=w(n.substring(j,e.index),e)
-;j=e.index+t}return w(n.substr(j)),M.closeAllNodes(),M.finalize(),k=M.toHTML(),{
-language:e,value:k,relevance:R,illegal:!1,_emitter:M,_top:O}}catch(t){
+;j=e.index+t}return w(n.substr(j)),M.closeAllNodes(),M.finalize(),v=M.toHTML(),{
+language:e,value:v,relevance:R,illegal:!1,_emitter:M,_top:O}}catch(t){
 if(t.message&&t.message.includes("Illegal"))return{language:e,value:Y(n),
 illegal:!0,relevance:0,_illegalBy:{message:t.message,index:j,
-context:n.slice(j-100,j+100),mode:t.mode,resultSoFar:k},_emitter:M};if(o)return{
+context:n.slice(j-100,j+100),mode:t.mode,resultSoFar:v},_emitter:M};if(o)return{
 language:e,value:Y(n),illegal:!1,relevance:0,errorRaised:t,_emitter:M,_top:O}
 ;throw t}}function x(e,n){n=n||g.languages||Object.keys(t);const i=(e=>{
 const t={value:Y(e),illegal:!1,relevance:0,_top:c,_emitter:new g.__emitter(g)}
-;return t._emitter.addText(e),t})(e),r=n.filter(v).filter(O).map((t=>E(t,e,!1)))
+;return t._emitter.addText(e),t})(e),r=n.filter(k).filter(O).map((t=>E(t,e,!1)))
 ;r.unshift(i);const s=r.sort(((e,t)=>{
 if(e.relevance!==t.relevance)return t.relevance-e.relevance
-;if(e.language&&t.language){if(v(e.language).supersetOf===t.language)return 1
-;if(v(t.language).supersetOf===e.language)return-1}return 0})),[o,a]=s,l=o
+;if(e.language&&t.language){if(k(e.language).supersetOf===t.language)return 1
+;if(k(t.language).supersetOf===e.language)return-1}return 0})),[o,a]=s,l=o
 ;return l.secondBest=a,l}function w(e){let t=null;const n=(e=>{
 let t=e.className+" ";t+=e.parentNode?e.parentNode.className:""
-;const n=g.languageDetectRe.exec(t);if(n){const t=v(n[1])
+;const n=g.languageDetectRe.exec(t);if(n){const t=k(n[1])
 ;return t||(W(a.replace("{}",n[1])),
 W("Falling back to no-highlight mode for this block.",e)),t?n[1]:"no-highlight"}
-return t.split(/\s+/).find((e=>b(e)||v(e)))})(e);if(b(n))return
+return t.split(/\s+/).find((e=>b(e)||k(e)))})(e);if(b(n))return
 ;if(N("before:highlightElement",{el:e,language:n
 }),e.children.length>0&&(g.ignoreUnescapedHTML||(console.warn("One of your code blocks includes unescaped HTML. This is a potentially serious security risk."),
 console.warn("https://github.com/highlightjs/highlight.js/wiki/security"),
@@ -270,9 +270,9 @@ relevance:s.relevance},s.secondBest&&(e.secondBest={
 language:s.secondBest.language,relevance:s.secondBest.relevance
 }),N("after:highlightElement",{el:e,result:s,text:i})}let y=!1;function _(){
 "loading"!==document.readyState?document.querySelectorAll(g.cssSelector).forEach(w):y=!0
-}function v(e){return e=(e||"").toLowerCase(),t[e]||t[r[e]]}
-function k(e,{languageName:t}){"string"==typeof e&&(e=[e]),e.forEach((e=>{
-r[e.toLowerCase()]=t}))}function O(e){const t=v(e)
+}function k(e){return e=(e||"").toLowerCase(),t[e]||t[r[e]]}
+function v(e,{languageName:t}){"string"==typeof e&&(e=[e]),e.forEach((e=>{
+r[e.toLowerCase()]=t}))}function O(e){const t=k(e)
 ;return t&&!t.disableAutodetect}function N(e,t){const n=e;s.forEach((e=>{
 e[n]&&e[n](t)}))}
 "undefined"!=typeof window&&window.addEventListener&&window.addEventListener("DOMContentLoaded",(()=>{
@@ -287,100 +287,39 @@ _(),X("10.6.0","initHighlightingOnLoad() deprecated.  Use highlightAll() now.")
 },registerLanguage:(n,i)=>{let r=null;try{r=i(e)}catch(e){
 if(K("Language definition for '{}' could not be registered.".replace("{}",n)),
 !o)throw e;K(e),r=c}
-r.name||(r.name=n),t[n]=r,r.rawDefinition=i.bind(null,e),r.aliases&&k(r.aliases,{
+r.name||(r.name=n),t[n]=r,r.rawDefinition=i.bind(null,e),r.aliases&&v(r.aliases,{
 languageName:n})},unregisterLanguage:e=>{delete t[e]
 ;for(const t of Object.keys(r))r[t]===e&&delete r[t]},
-listLanguages:()=>Object.keys(t),getLanguage:v,registerAliases:k,
+listLanguages:()=>Object.keys(t),getLanguage:k,registerAliases:v,
 autoDetection:O,inherit:Q,addPlugin:e=>{(e=>{
 e["before:highlightBlock"]&&!e["before:highlightElement"]&&(e["before:highlightElement"]=t=>{
 e["before:highlightBlock"](Object.assign({block:t.el},t))
 }),e["after:highlightBlock"]&&!e["after:highlightElement"]&&(e["after:highlightElement"]=t=>{
 e["after:highlightBlock"](Object.assign({block:t.el},t))})})(e),s.push(e)}
 }),e.debugMode=()=>{o=!1},e.safeMode=()=>{o=!0
-},e.versionString="11.4.0",e.regex={concat:f,lookahead:d,either:p,optional:h,
+},e.versionString="11.5.0",e.regex={concat:f,lookahead:d,either:p,optional:h,
 anyNumberOfTimes:u};for(const e in A)"object"==typeof A[e]&&n(A[e])
 ;return Object.assign(e,A),e})({});return te}()
-;"object"==typeof exports&&"undefined"!=typeof module&&(module.exports=hljs);/*! `bash` grammar compiled for Highlight.js 11.4.0 */
-(()=>{var e=(()=>{"use strict";return e=>{const s=e.regex,t={},n={begin:/\$\{/,
-end:/\}/,contains:["self",{begin:/:-/,contains:[t]}]};Object.assign(t,{
-className:"variable",variants:[{
-begin:s.concat(/\$[\w\d#@][\w\d_]*/,"(?![\\w\\d])(?![$])")},n]});const a={
-className:"subst",begin:/\$\(/,end:/\)/,contains:[e.BACKSLASH_ESCAPE]},i={
-begin:/<<-?\s*(?=\w+)/,starts:{contains:[e.END_SAME_AS_BEGIN({begin:/(\w+)/,
-end:/(\w+)/,className:"string"})]}},c={className:"string",begin:/"/,end:/"/,
-contains:[e.BACKSLASH_ESCAPE,t,a]};a.contains.push(c);const o={begin:/\$\(\(/,
-end:/\)\)/,contains:[{begin:/\d+#[0-9a-f]+/,className:"number"},e.NUMBER_MODE,t]
-},r=e.SHEBANG({binary:"(fish|bash|zsh|sh|csh|ksh|tcsh|dash|scsh)",relevance:10
-}),l={className:"function",begin:/\w[\w\d_]*\s*\(\s*\)\s*\{/,returnBegin:!0,
-contains:[e.inherit(e.TITLE_MODE,{begin:/\w[\w\d_]*/})],relevance:0};return{
-name:"Bash",aliases:["sh"],keywords:{$pattern:/\b[a-z._-]+\b/,
-keyword:["if","then","else","elif","fi","for","while","in","do","done","case","esac","function"],
-literal:["true","false"],
-built_in:["break","cd","continue","eval","exec","exit","export","getopts","hash","pwd","readonly","return","shift","test","times","trap","umask","unset","alias","bind","builtin","caller","command","declare","echo","enable","help","let","local","logout","mapfile","printf","read","readarray","source","type","typeset","ulimit","unalias","set","shopt","autoload","bg","bindkey","bye","cap","chdir","clone","comparguments","compcall","compctl","compdescribe","compfiles","compgroups","compquote","comptags","comptry","compvalues","dirs","disable","disown","echotc","echoti","emulate","fc","fg","float","functions","getcap","getln","history","integer","jobs","kill","limit","log","noglob","popd","print","pushd","pushln","rehash","sched","setcap","setopt","stat","suspend","ttyctl","unfunction","unhash","unlimit","unsetopt","vared","wait","whence","where","which","zcompile","zformat","zftp","zle","zmodload","zparseopts","zprof","zpty","zregexparse","zsocket","zstyle","ztcp","chcon","chgrp","chown","chmod","cp","dd","df","dir","dircolors","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","tty","uname","unlink","uptime","users","who","whoami","yes"]
-},contains:[r,e.SHEBANG(),l,o,e.HASH_COMMENT_MODE,i,{match:/(\/[a-z._-]+)+/},c,{
-className:"",begin:/\\"/},{className:"string",begin:/'/,end:/'/},t]}}})()
-;hljs.registerLanguage("bash",e)})();/*! `ebnf` grammar compiled for Highlight.js 11.4.0 */
-(()=>{var e=(()=>{"use strict";return e=>{const a=e.COMMENT(/\(\*/,/\*\)/)
-;return{name:"Extended Backus-Naur Form",illegal:/\S/,contains:[a,{
-className:"attribute",begin:/^[ ]*[a-zA-Z]+([\s_-]+[a-zA-Z]+)*/},{begin:/=/,
-end:/[.;]/,contains:[a,{className:"meta",begin:/\?.*\?/},{className:"string",
-variants:[e.APOS_STRING_MODE,e.QUOTE_STRING_MODE,{begin:"`",end:"`"}]}]}]}}})()
-;hljs.registerLanguage("ebnf",e)})();/*! `prolog` grammar compiled for Highlight.js 11.4.0 */
-(()=>{var n=(()=>{"use strict";return n=>{const e={begin:/\(/,end:/\)/,
-relevance:0},a={begin:/\[/,end:/\]/},s={className:"comment",begin:/%/,end:/$/,
-contains:[n.PHRASAL_WORDS_MODE]},i={className:"string",begin:/`/,end:/`/,
-contains:[n.BACKSLASH_ESCAPE]},g=[{begin:/[a-z][A-Za-z0-9_]*/,relevance:0},{
-className:"symbol",variants:[{begin:/[A-Z][a-zA-Z0-9_]*/},{
-begin:/_[A-Za-z0-9_]*/}],relevance:0},e,{begin:/:-/
-},a,s,n.C_BLOCK_COMMENT_MODE,n.QUOTE_STRING_MODE,n.APOS_STRING_MODE,i,{
-className:"string",begin:/0'(\\'|.)/},{className:"string",begin:/0'\\s/
-},n.C_NUMBER_MODE];return e.contains=g,a.contains=g,{name:"Prolog",
-contains:g.concat([{begin:/\.$/}])}}})();hljs.registerLanguage("prolog",n)})();/*! `rust` grammar compiled for Highlight.js 11.4.0 */
-(()=>{var e=(()=>{"use strict";return e=>{const t=e.regex,n={
-className:"title.function.invoke",relevance:0,
-begin:t.concat(/\b/,/(?!let\b)/,e.IDENT_RE,t.lookahead(/\s*\(/))
-},a="([ui](8|16|32|64|128|size)|f(32|64))?",i=["drop ","Copy","Send","Sized","Sync","Drop","Fn","FnMut","FnOnce","ToOwned","Clone","Debug","PartialEq","PartialOrd","Eq","Ord","AsRef","AsMut","Into","From","Default","Iterator","Extend","IntoIterator","DoubleEndedIterator","ExactSizeIterator","SliceConcatExt","ToString","assert!","assert_eq!","bitflags!","bytes!","cfg!","col!","concat!","concat_idents!","debug_assert!","debug_assert_eq!","env!","panic!","file!","format!","format_args!","include_bin!","include_str!","line!","local_data_key!","module_path!","option_env!","print!","println!","select!","stringify!","try!","unimplemented!","unreachable!","vec!","write!","writeln!","macro_rules!","assert_ne!","debug_assert_ne!"]
-;return{name:"Rust",aliases:["rs"],keywords:{$pattern:e.IDENT_RE+"!?",
-type:["i8","i16","i32","i64","i128","isize","u8","u16","u32","u64","u128","usize","f32","f64","str","char","bool","Box","Option","Result","String","Vec"],
-keyword:["abstract","as","async","await","become","box","break","const","continue","crate","do","dyn","else","enum","extern","false","final","fn","for","if","impl","in","let","loop","macro","match","mod","move","mut","override","priv","pub","ref","return","self","Self","static","struct","super","trait","true","try","type","typeof","unsafe","unsized","use","virtual","where","while","yield"],
-literal:["true","false","Some","None","Ok","Err"],built_in:i},illegal:"</",
-contains:[e.C_LINE_COMMENT_MODE,e.COMMENT("/\\*","\\*/",{contains:["self"]
-}),e.inherit(e.QUOTE_STRING_MODE,{begin:/b?"/,illegal:null}),{
-className:"string",variants:[{begin:/b?r(#*)"(.|\n)*?"\1(?!#)/},{
-begin:/b?'\\?(x\w{2}|u\w{4}|U\w{8}|.)'/}]},{className:"symbol",
-begin:/'[a-zA-Z_][a-zA-Z0-9_]*/},{className:"number",variants:[{
-begin:"\\b0b([01_]+)"+a},{begin:"\\b0o([0-7_]+)"+a},{
-begin:"\\b0x([A-Fa-f0-9_]+)"+a},{
-begin:"\\b(\\d[\\d_]*(\\.[0-9_]+)?([eE][+-]?[0-9_]+)?)"+a}],relevance:0},{
-begin:[/fn/,/\s+/,e.UNDERSCORE_IDENT_RE],className:{1:"keyword",
-3:"title.function"}},{className:"meta",begin:"#!?\\[",end:"\\]",contains:[{
-className:"string",begin:/"/,end:/"/}]},{
-begin:[/let/,/\s+/,/(?:mut\s+)?/,e.UNDERSCORE_IDENT_RE],className:{1:"keyword",
-3:"keyword",4:"variable"}},{
-begin:[/for/,/\s+/,e.UNDERSCORE_IDENT_RE,/\s+/,/in/],className:{1:"keyword",
-3:"variable",5:"keyword"}},{begin:[/type/,/\s+/,e.UNDERSCORE_IDENT_RE],
-className:{1:"keyword",3:"title.class"}},{
-begin:[/(?:trait|enum|struct|union|impl|for)/,/\s+/,e.UNDERSCORE_IDENT_RE],
-className:{1:"keyword",3:"title.class"}},{begin:e.IDENT_RE+"::",keywords:{
-keyword:"Self",built_in:i}},{className:"punctuation",begin:"->"},n]}}})()
-;hljs.registerLanguage("rust",e)})();/*! `plaintext` grammar compiled for Highlight.js 11.4.0 */
-(()=>{var t=(()=>{"use strict";return t=>({name:"Plain text",
-aliases:["text","txt"],disableAutodetect:!0})})()
-;hljs.registerLanguage("plaintext",t)})();/*! `ini` grammar compiled for Highlight.js 11.4.0 */
-(()=>{var e=(()=>{"use strict";return e=>{const n=e.regex,a={className:"number",
-relevance:0,variants:[{begin:/([+-]+)?[\d]+_[\d_]+/},{begin:e.NUMBER_RE}]
-},s=e.COMMENT();s.variants=[{begin:/;/,end:/$/},{begin:/#/,end:/$/}];const i={
-className:"variable",variants:[{begin:/\$[\w\d"][\w\d_]*/},{begin:/\$\{(.*?)\}/
-}]},t={className:"literal",begin:/\bon|off|true|false|yes|no\b/},r={
-className:"string",contains:[e.BACKSLASH_ESCAPE],variants:[{begin:"'''",
-end:"'''",relevance:10},{begin:'"""',end:'"""',relevance:10},{begin:'"',end:'"'
-},{begin:"'",end:"'"}]},l={begin:/\[/,end:/\]/,contains:[s,t,i,r,a,"self"],
-relevance:0},c=n.either(/[A-Za-z0-9_-]+/,/"(\\"|[^"])*"/,/'[^']*'/);return{
-name:"TOML, also INI",aliases:["toml"],case_insensitive:!0,illegal:/\S/,
-contains:[s,{className:"section",begin:/\[+/,end:/\]+/},{
-begin:n.concat(c,"(\\s*\\.\\s*",c,")*",n.lookahead(/\s*=\s*[^#\s]/)),
-className:"attr",starts:{end:/$/,contains:[s,l,t,i,r,a]}}]}}})()
-;hljs.registerLanguage("ini",e)})();/*! `latex` grammar compiled for Highlight.js 11.4.0 */
+;"object"==typeof exports&&"undefined"!=typeof module&&(module.exports=hljs);/*! `json` grammar compiled for Highlight.js 11.5.0 */
+(()=>{var e=(()=>{"use strict";return e=>({name:"JSON",contains:[{
+className:"attr",begin:/"(\\.|[^\\"\r\n])*"(?=\s*:)/,relevance:1.01},{
+match:/[{}[\],:]/,className:"punctuation",relevance:0},e.QUOTE_STRING_MODE,{
+beginKeywords:"true false null"
+},e.C_NUMBER_MODE,e.C_LINE_COMMENT_MODE,e.C_BLOCK_COMMENT_MODE],illegal:"\\S"})
+})();hljs.registerLanguage("json",e)})();/*! `http` grammar compiled for Highlight.js 11.5.0 */
+(()=>{var e=(()=>{"use strict";return e=>{const n="HTTP/(2|1\\.[01])",a={
+className:"attribute",
+begin:e.regex.concat("^",/[A-Za-z][A-Za-z0-9-]*/,"(?=\\:\\s)"),starts:{
+contains:[{className:"punctuation",begin:/: /,relevance:0,starts:{end:"$",
+relevance:0}}]}},s=[a,{begin:"\\n\\n",starts:{subLanguage:[],endsWithParent:!0}
+}];return{name:"HTTP",aliases:["https"],illegal:/\S/,contains:[{
+begin:"^(?="+n+" \\d{3})",end:/$/,contains:[{className:"meta",begin:n},{
+className:"number",begin:"\\b\\d{3}\\b"}],starts:{end:/\b\B/,illegal:/\S/,
+contains:s}},{begin:"(?=^[A-Z]+ (.*?) "+n+"$)",end:/$/,contains:[{
+className:"string",begin:" ",end:" ",excludeBegin:!0,excludeEnd:!0},{
+className:"meta",begin:n},{className:"keyword",begin:"[A-Z]+"}],starts:{
+end:/\b\B/,illegal:/\S/,contains:s}},e.inherit(a,{relevance:0})]}}})()
+;hljs.registerLanguage("http",e)})();/*! `latex` grammar compiled for Highlight.js 11.5.0 */
 (()=>{var e=(()=>{"use strict";return e=>{const n=[{begin:/\^{6}[0-9a-f]{6}/},{
 begin:/\^{5}[0-9a-f]{5}/},{begin:/\^{4}[0-9a-f]{4}/},{begin:/\^{3}[0-9a-f]{3}/
 },{begin:/\^{2}[0-9a-f]{2}/},{begin:/\^{2}[\u0000-\u007f]/}],a=[{
@@ -412,4 +351,84 @@ contains:[m()]})),d("mintinline",o(c,{contains:[p(),m()]})),d("url",{
 contains:[p("link"),p("link")]}),d("hyperref",{contains:[p("link")]
 }),d("href",o(l,{contains:[p("link")]
 })),...[].concat(...["","\\*"].map((e=>[g("verbatim"+e,b("verbatim"+e)),g("filecontents"+e,o(c,b("filecontents"+e))),...["","B","L"].map((n=>g(n+"Verbatim"+e,o(l,b(n+"Verbatim"+e)))))]))),g("minted",o(l,o(c,b("minted")))),...a]
-}}})();hljs.registerLanguage("latex",e)})();
+}}})();hljs.registerLanguage("latex",e)})();/*! `bash` grammar compiled for Highlight.js 11.5.0 */
+(()=>{var e=(()=>{"use strict";return e=>{const s=e.regex,t={},n={begin:/\$\{/,
+end:/\}/,contains:["self",{begin:/:-/,contains:[t]}]};Object.assign(t,{
+className:"variable",variants:[{
+begin:s.concat(/\$[\w\d#@][\w\d_]*/,"(?![\\w\\d])(?![$])")},n]});const a={
+className:"subst",begin:/\$\(/,end:/\)/,contains:[e.BACKSLASH_ESCAPE]},i={
+begin:/<<-?\s*(?=\w+)/,starts:{contains:[e.END_SAME_AS_BEGIN({begin:/(\w+)/,
+end:/(\w+)/,className:"string"})]}},c={className:"string",begin:/"/,end:/"/,
+contains:[e.BACKSLASH_ESCAPE,t,a]};a.contains.push(c);const o={begin:/\$\(\(/,
+end:/\)\)/,contains:[{begin:/\d+#[0-9a-f]+/,className:"number"},e.NUMBER_MODE,t]
+},r=e.SHEBANG({binary:"(fish|bash|zsh|sh|csh|ksh|tcsh|dash|scsh)",relevance:10
+}),l={className:"function",begin:/\w[\w\d_]*\s*\(\s*\)\s*\{/,returnBegin:!0,
+contains:[e.inherit(e.TITLE_MODE,{begin:/\w[\w\d_]*/})],relevance:0};return{
+name:"Bash",aliases:["sh"],keywords:{$pattern:/\b[a-z][a-z0-9._-]+\b/,
+keyword:["if","then","else","elif","fi","for","while","in","do","done","case","esac","function"],
+literal:["true","false"],
+built_in:["break","cd","continue","eval","exec","exit","export","getopts","hash","pwd","readonly","return","shift","test","times","trap","umask","unset","alias","bind","builtin","caller","command","declare","echo","enable","help","let","local","logout","mapfile","printf","read","readarray","source","type","typeset","ulimit","unalias","set","shopt","autoload","bg","bindkey","bye","cap","chdir","clone","comparguments","compcall","compctl","compdescribe","compfiles","compgroups","compquote","comptags","comptry","compvalues","dirs","disable","disown","echotc","echoti","emulate","fc","fg","float","functions","getcap","getln","history","integer","jobs","kill","limit","log","noglob","popd","print","pushd","pushln","rehash","sched","setcap","setopt","stat","suspend","ttyctl","unfunction","unhash","unlimit","unsetopt","vared","wait","whence","where","which","zcompile","zformat","zftp","zle","zmodload","zparseopts","zprof","zpty","zregexparse","zsocket","zstyle","ztcp","chcon","chgrp","chown","chmod","cp","dd","df","dir","dircolors","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","tty","uname","unlink","uptime","users","who","whoami","yes"]
+},contains:[r,e.SHEBANG(),l,o,e.HASH_COMMENT_MODE,i,{match:/(\/[a-z._-]+)+/},c,{
+className:"",begin:/\\"/},{className:"string",begin:/'/,end:/'/},t]}}})()
+;hljs.registerLanguage("bash",e)})();/*! `ini` grammar compiled for Highlight.js 11.5.0 */
+(()=>{var e=(()=>{"use strict";return e=>{const n=e.regex,a={className:"number",
+relevance:0,variants:[{begin:/([+-]+)?[\d]+_[\d_]+/},{begin:e.NUMBER_RE}]
+},s=e.COMMENT();s.variants=[{begin:/;/,end:/$/},{begin:/#/,end:/$/}];const i={
+className:"variable",variants:[{begin:/\$[\w\d"][\w\d_]*/},{begin:/\$\{(.*?)\}/
+}]},t={className:"literal",begin:/\bon|off|true|false|yes|no\b/},r={
+className:"string",contains:[e.BACKSLASH_ESCAPE],variants:[{begin:"'''",
+end:"'''",relevance:10},{begin:'"""',end:'"""',relevance:10},{begin:'"',end:'"'
+},{begin:"'",end:"'"}]},l={begin:/\[/,end:/\]/,contains:[s,t,i,r,a,"self"],
+relevance:0},c=n.either(/[A-Za-z0-9_-]+/,/"(\\"|[^"])*"/,/'[^']*'/);return{
+name:"TOML, also INI",aliases:["toml"],case_insensitive:!0,illegal:/\S/,
+contains:[s,{className:"section",begin:/\[+/,end:/\]+/},{
+begin:n.concat(c,"(\\s*\\.\\s*",c,")*",n.lookahead(/\s*=\s*[^#\s]/)),
+className:"attr",starts:{end:/$/,contains:[s,l,t,i,r,a]}}]}}})()
+;hljs.registerLanguage("ini",e)})();/*! `plaintext` grammar compiled for Highlight.js 11.5.0 */
+(()=>{var t=(()=>{"use strict";return t=>({name:"Plain text",
+aliases:["text","txt"],disableAutodetect:!0})})()
+;hljs.registerLanguage("plaintext",t)})();/*! `prolog` grammar compiled for Highlight.js 11.5.0 */
+(()=>{var n=(()=>{"use strict";return n=>{const e={begin:/\(/,end:/\)/,
+relevance:0},a={begin:/\[/,end:/\]/},s={className:"comment",begin:/%/,end:/$/,
+contains:[n.PHRASAL_WORDS_MODE]},i={className:"string",begin:/`/,end:/`/,
+contains:[n.BACKSLASH_ESCAPE]},g=[{begin:/[a-z][A-Za-z0-9_]*/,relevance:0},{
+className:"symbol",variants:[{begin:/[A-Z][a-zA-Z0-9_]*/},{
+begin:/_[A-Za-z0-9_]*/}],relevance:0},e,{begin:/:-/
+},a,s,n.C_BLOCK_COMMENT_MODE,n.QUOTE_STRING_MODE,n.APOS_STRING_MODE,i,{
+className:"string",begin:/0'(\\'|.)/},{className:"string",begin:/0'\\s/
+},n.C_NUMBER_MODE];return e.contains=g,a.contains=g,{name:"Prolog",
+contains:g.concat([{begin:/\.$/}])}}})();hljs.registerLanguage("prolog",n)})();/*! `rust` grammar compiled for Highlight.js 11.5.0 */
+(()=>{var e=(()=>{"use strict";return e=>{const t=e.regex,n={
+className:"title.function.invoke",relevance:0,
+begin:t.concat(/\b/,/(?!let\b)/,e.IDENT_RE,t.lookahead(/\s*\(/))
+},a="([ui](8|16|32|64|128|size)|f(32|64))?",i=["drop ","Copy","Send","Sized","Sync","Drop","Fn","FnMut","FnOnce","ToOwned","Clone","Debug","PartialEq","PartialOrd","Eq","Ord","AsRef","AsMut","Into","From","Default","Iterator","Extend","IntoIterator","DoubleEndedIterator","ExactSizeIterator","SliceConcatExt","ToString","assert!","assert_eq!","bitflags!","bytes!","cfg!","col!","concat!","concat_idents!","debug_assert!","debug_assert_eq!","env!","panic!","file!","format!","format_args!","include_bin!","include_str!","line!","local_data_key!","module_path!","option_env!","print!","println!","select!","stringify!","try!","unimplemented!","unreachable!","vec!","write!","writeln!","macro_rules!","assert_ne!","debug_assert_ne!"]
+;return{name:"Rust",aliases:["rs"],keywords:{$pattern:e.IDENT_RE+"!?",
+type:["i8","i16","i32","i64","i128","isize","u8","u16","u32","u64","u128","usize","f32","f64","str","char","bool","Box","Option","Result","String","Vec"],
+keyword:["abstract","as","async","await","become","box","break","const","continue","crate","do","dyn","else","enum","extern","false","final","fn","for","if","impl","in","let","loop","macro","match","mod","move","mut","override","priv","pub","ref","return","self","Self","static","struct","super","trait","true","try","type","typeof","unsafe","unsized","use","virtual","where","while","yield"],
+literal:["true","false","Some","None","Ok","Err"],built_in:i},illegal:"</",
+contains:[e.C_LINE_COMMENT_MODE,e.COMMENT("/\\*","\\*/",{contains:["self"]
+}),e.inherit(e.QUOTE_STRING_MODE,{begin:/b?"/,illegal:null}),{
+className:"string",variants:[{begin:/b?r(#*)"(.|\n)*?"\1(?!#)/},{
+begin:/b?'\\?(x\w{2}|u\w{4}|U\w{8}|.)'/}]},{className:"symbol",
+begin:/'[a-zA-Z_][a-zA-Z0-9_]*/},{className:"number",variants:[{
+begin:"\\b0b([01_]+)"+a},{begin:"\\b0o([0-7_]+)"+a},{
+begin:"\\b0x([A-Fa-f0-9_]+)"+a},{
+begin:"\\b(\\d[\\d_]*(\\.[0-9_]+)?([eE][+-]?[0-9_]+)?)"+a}],relevance:0},{
+begin:[/fn/,/\s+/,e.UNDERSCORE_IDENT_RE],className:{1:"keyword",
+3:"title.function"}},{className:"meta",begin:"#!?\\[",end:"\\]",contains:[{
+className:"string",begin:/"/,end:/"/}]},{
+begin:[/let/,/\s+/,/(?:mut\s+)?/,e.UNDERSCORE_IDENT_RE],className:{1:"keyword",
+3:"keyword",4:"variable"}},{
+begin:[/for/,/\s+/,e.UNDERSCORE_IDENT_RE,/\s+/,/in/],className:{1:"keyword",
+3:"variable",5:"keyword"}},{begin:[/type/,/\s+/,e.UNDERSCORE_IDENT_RE],
+className:{1:"keyword",3:"title.class"}},{
+begin:[/(?:trait|enum|struct|union|impl|for)/,/\s+/,e.UNDERSCORE_IDENT_RE],
+className:{1:"keyword",3:"title.class"}},{begin:e.IDENT_RE+"::",keywords:{
+keyword:"Self",built_in:i}},{className:"punctuation",begin:"->"},n]}}})()
+;hljs.registerLanguage("rust",e)})();/*! `ebnf` grammar compiled for Highlight.js 11.5.0 */
+(()=>{var e=(()=>{"use strict";return e=>{const a=e.COMMENT(/\(\*/,/\*\)/)
+;return{name:"Extended Backus-Naur Form",illegal:/\S/,contains:[a,{
+className:"attribute",begin:/^[ ]*[a-zA-Z]+([\s_-]+[a-zA-Z]+)*/},{begin:/=/,
+end:/[.;]/,contains:[a,{className:"meta",begin:/\?.*\?/},{className:"string",
+variants:[e.APOS_STRING_MODE,e.QUOTE_STRING_MODE,{begin:"`",end:"`"}]}]}]}}})()
+;hljs.registerLanguage("ebnf",e)})();
