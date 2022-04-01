@@ -12,7 +12,7 @@ conformant DATALOG-TEXT processor MUST signal an error when detecting a
 feature identifier which they do not recognize, even if it may be valid in
 some other version of this specification.
 
-As feature pragmas are boolean parameters, the following two pragmas are equivalent:
+As feature pragmas are boolean parameters, the following two pragmas are equivalent
 
 ```datalog
 .pragma negation.
