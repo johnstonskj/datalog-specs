@@ -5,10 +5,10 @@ Email: johnstonskj@gmail.com
 Media type name: application
 Media subtype name: vnd.datalog
 
-Required parameters: none.
+Required parameters: None.
 
 Optional parameters:
-The "features" parameter allows the transport to identify language features
+The optional "features" parameter allows the transport to identify language features
 used within the representation. The value of this parameter is a
 comma-separated list of feature identifiers supported by the specification.
 Feature identifiers conform to the following EBNF production.
@@ -20,7 +20,7 @@ document if the features identified in the parameter are unsupported by them.
 If this parameter is specified more than once its values MUST be aggregated
 into a set, removing duplicates.
 
-The "dialect" parameter identifies the tool which generated the document,
+The optional "dialect" parameter identifies the tool which generated the document,
 there are some existing tools with extensive usage that deviate from this core
 specification. Dialect identifiers conform to the same `id` production
 described for feature identifiers.
@@ -56,27 +56,28 @@ and support for the "dialect" parameter will help clients understand the
 potential parsing issues of a specific document.
 
 Published specification:
-https://datalog-specs.info/vnd_datalog_text/abstract.html
+https://datalog-specs.info/vnd_datalog_text/abstract.html; Version: 1.0, 2
+April 2022.
 
 Applications which use this media:
 Applications that need to upload, download, or transfer Datalog programs.
 
 Fragment identifier considerations:
-not supported.
+Not supported.
 
 Restrictions on usage:
-none.
+None.
 
 Provisional registration? (standards tree only):
 none.
 
 Additional information:
 
-1. Deprecated alias names for this type: none.
-2. Magic number(s): none.
+1. Deprecated alias names for this type: None.
+2. Magic number(s): None.
 3. File extension(s): dl
 4. Macintosh file type code: TEXT
-5. Object Identifiers: none.
+5. Object Identifiers: None.
 
 General Comments:
 
