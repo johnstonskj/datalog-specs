@@ -14,7 +14,7 @@ This section has been submitted to the Internet Engineering Steering Group (IESG
     <dt>Optional parameters:</dt>
     <dd>
 
-`features`
+**features**
 
 The optional "features" parameter allows the transport to identify language features
 used within the representation. The value of this parameter is a
@@ -28,7 +28,7 @@ document if the features identified in the parameter are unsupported by them.
 If this parameter is specified more than once its values MUST be aggregated
 into a set, removing duplicates.
 
-`dialect`
+**dialect**
 
 The "dialect" parameter identifies the tool which generated the document,
 there are some existing tools with extensive usage that deviate from this core

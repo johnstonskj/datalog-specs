@@ -151,7 +151,7 @@ the goal and all matching facts as rows.
 ```
 
 Note that in naming a column it is appropriate to use either the name of the
-variable (as shown above) or the name of the attribute if known (below).
+variable (as shown above) or the label of the attribute if known (below).
 
 ```text
 +---------------+
