@@ -236,13 +236,14 @@ Accept: text/csv;header=present
 </code></pre>
 <h2 id="dataset-media-types"><a class="header" href="#dataset-media-types">Dataset Media Types</a></h2>
 <p>The following media types are documented here, however only <code>text/csv</code> and <code>text/tab-separated-values</code> MUST be supported by a conforming DATALOG-TEXT processor.</p>
-<table><thead><tr><th>Media Type</th><th>Short</th><th>Parameters</th><th>Conform</th><th>Expectations</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Media Type</th><th>Short</th><th>Parameters</th><th>Conform</th><th>Expectations</th></tr></thead><tbody>
 <tr><td>text/csv</td><td>csv</td><td>header</td><td>MUST</td><td>See <span class="bibref inline"><a href="x_references.html#RFC4180">RFC4180</a></span></td></tr>
 <tr><td>text/tab-separated-values</td><td>tsv</td><td>N/A</td><td>MUST</td><td>See <span class="bibref inline"><a href="x_references.html#IANA-TSV">IANA-TSV</a></span></td></tr>
 <tr><td>application/json</td><td>json</td><td>N/A</td><td>N/A</td><td>See <span class="bibref inline"><a href="x_references.html#RFC4627">RFC4627</a></span></td></tr>
 <tr><td>application/vnd.sqlite3</td><td>sqlite3</td><td>N/A</td><td>N/A</td><td>See <span class="bibref inline"><a href="x_references.html#IANA-SQLITE3">IANA-SQLITE3</a></span></td></tr>
 <tr><td>application/vnd.datalog</td><td>datalog</td><td>N/A</td><td>N/A</td><td>Used on output only to write DATALOG-TEXT from an in-memory representation</td></tr>
 </tbody></table>
+</div>
 <h3 id="common-parameters"><a class="header" href="#common-parameters">Common Parameters</a></h3>
 <ul>
 <li><code>uri</code> – this MUST BE interpreted as a URI <span class="bibref inline"><a href="x_references.html#RFC3986">RFC3986</a></span> and handled as per <a href="#uri-references">§ URI References</a> above.</li>

@@ -205,7 +205,7 @@ identifier-string
 </code></pre>
 <h2 id="unicode-operators"><a class="header" href="#unicode-operators">Unicode Operators</a></h2>
 <p>The following operators, or syntax symbols, are defined in this specification. Where Unicode symbols are defined for the symbol these are described by codepoint value and assigned name.</p>
-<table><thead><tr><th>Symbol</th><th>Primary</th><th>Alternate</th><th>Unicode</th><th>Codepoint</th><th>Name</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Symbol</th><th>Primary</th><th>Alternate</th><th>Unicode</th><th>Codepoint</th><th>Name</th></tr></thead><tbody>
 <tr><td>Material implication</td><td><code>:-</code></td><td><code>&lt;-</code></td><td><code>←</code></td><td>U+E28690</td><td>LEFTWARDS ARROW</td></tr>
 <tr><td>Conjunction</td><td><code>,</code></td><td><code>&amp;</code>, <code>AND</code></td><td><code>∧</code></td><td>U+E288A7</td><td>LOGICAL AND</td></tr>
 <tr><td>True (boolean)</td><td><code>true</code></td><td></td><td><code>⊤</code></td><td>U+E28AA4</td><td>DOWN TACK</td></tr>
@@ -223,8 +223,9 @@ identifier-string
 <tr><td>String match</td><td><code>*=</code></td><td><code>MATCH</code></td><td><code>≛</code></td><td>U+E2899B</td><td>STAR EQUALS</td></tr>
 <tr><td>Functional dependency</td><td><code>--&gt;</code></td><td></td><td><code>⟶</code></td><td>U+E29FB6</td><td>LONG RIGHTWARDS ARROW</td></tr>
 </tbody></table>
+</div>
 <p>The following table describes the symbols introduced by different Datalog languages. Note that only the symbols material implication, conjunction, true, and false, are required by the core language $\small\text{Datalog}$.</p>
-<table><thead><tr><th>Language</th><th>Introduces</th><th>Symbols</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Language</th><th>Introduces</th><th>Symbols</th></tr></thead><tbody>
 <tr><td>$\small\text{Datalog}^{\lnot}$</td><td>negation of literals in rule bodies</td><td><code>!</code>, <code>NOT</code>, <code>￢</code></td></tr>
 <tr><td>$\small\text{Datalog}^{\lor}$</td><td>disjunction in rule heads</td><td><code>;</code>, <code>|</code>, <code>OR</code>, <code>∨</code></td></tr>
 <tr><td>$\small\text{Datalog}^{\Leftarrow}$</td><td>rules as constraints, i.e. no body</td><td><code>⊤</code></td></tr>
@@ -232,7 +233,7 @@ identifier-string
 <tr><td>$\small\text{Datalog}^{\theta}$</td><td>arithmetic literals in rule bodies</td><td><code>=</code>, <code>!=</code>, <code>≠</code>, &lt;<code>, </code>&lt;=<code>, </code>≤<code>, </code>&gt;<code>, </code>&gt;=<code>, </code>≥<code>, </code>*=<code>, </code>≛`</td></tr>
 <tr><td>$\small\text{Datalog}^{\rightarrow}$</td><td>functional dependency processing instruction</td><td><code>--&gt;</code>, <code>⟶</code></td></tr>
 </tbody></table>
-
+</div>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

@@ -213,7 +213,7 @@ the language extended with negation of literals, $\small\text{Datalog}^{\Gamma}$
 extended with type checking on attributes, and $\small\text{Datalog}^{\lnot,\theta}$ is the language
 extended with negation of literals <em>and</em> arithmetic literals. The order of superscript symbols is
 irrelevant.</p>
-<table><thead><tr><th>Language</th><th>Introduces</th><th>Symbols</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Language</th><th>Introduces</th><th>Symbols</th></tr></thead><tbody>
 <tr><td>$\small\text{Datalog}^{\lnot}$</td><td>negation of literals in rule bodies</td><td><code>!</code>, <code>NOT</code>, <code>￢</code></td></tr>
 <tr><td>$\small\text{Datalog}^{\lor}$</td><td>disjunction in rule heads</td><td><code>;</code>, <code>OR</code>, <code>∨</code></td></tr>
 <tr><td>$\small\text{Datalog}^{\Leftarrow}$</td><td>rules as constraints, i.e. no body</td><td>N/A</td></tr>
@@ -221,6 +221,7 @@ irrelevant.</p>
 <tr><td>$\small\text{Datalog}^{\theta}$</td><td>arithmetic literals in rule bodies</td><td><code>=</code>, <code>!=</code>, <code>≠</code>, &lt;<code>, </code>&lt;=<code>, </code>≤<code>, </code>&gt;<code>, </code>&gt;=<code>, </code>≥<code>, </code>*=<code>, </code>≛`</td></tr>
 <tr><td>$\small\text{Datalog}^{\rightarrow}$</td><td>functional dependency processing instruction</td><td><code>--&gt;</code>, <code>⟶</code></td></tr>
 </tbody></table>
+</div>
 <p>When referring to the specifics of the language we will use the common format $\small\text{Datalog}$ with superscripts as necessary to identify specific language extensions being used. Note that the default language described by DATALOG-TEXT with no enabled language features is in fact $\small\text{Datalog}^{\Gamma}$ and not $\small\text{Datalog}$.</p>
 <p>&nbsp;</p>
 <hr />

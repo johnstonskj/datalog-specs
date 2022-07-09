@@ -233,13 +233,14 @@ common arithmetic and string operators.</p>
 <em>compatible</em> introduce above is defined as:</p>
 <p>$$\tag{xvi}\small compatible(\tau_{lhs}, \tau_{rhs}, \theta) \leftarrow \tau_{lhs} = \tau_{rhs}$$</p>
 <p>Additionally, some operators are not present for all types, as shown in the table below.</p>
-<table><thead><tr><th>Type</th><th><code>=</code>, <code>≠</code></th><th><code>&lt;</code>, <code>≤</code>, <code>&gt;</code>, <code>≥</code></th><th><code>≛</code></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th><code>=</code>, <code>≠</code></th><th><code>&lt;</code>, <code>≤</code>, <code>&gt;</code>, <code>≥</code></th><th><code>≛</code></th></tr></thead><tbody>
 <tr><td>String</td><td>Yes</td><td>Yes - lexical</td><td>Yes</td></tr>
 <tr><td>Integer</td><td>Yes</td><td>Yes</td><td>No</td></tr>
 <tr><td>Decimal</td><td>Yes</td><td>Yes</td><td>No</td></tr>
 <tr><td>Float</td><td>Yes</td><td>Yes</td><td>No</td></tr>
 <tr><td>Boolean</td><td>Yes</td><td>No</td><td>No</td></tr>
 </tbody></table>
+</div>
 <h3 id="errors-1"><a class="header" href="#errors-1">Errors</a></h3>
 <ul>
 <li><a href="errors.html#ERR_INCOMPATIBLE_TYPES_FOR_OPERATOR"><code>ERR_INCOMPATIBLE_TYPES_FOR_OPERATOR</code></a> – the two operands have different types; for example <code>1 &lt; true</code>.</li>

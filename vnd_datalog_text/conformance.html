@@ -202,13 +202,14 @@ different dialects.</p>
 </ul>
 <h2 id="language-features"><a class="header" href="#language-features">Language Features</a></h2>
 <p>As mentioned in the <a href="introduction.html">introduction</a> the language described by DATALOG-TEXT with no additional language features enabled is $\small\text{Datalog}^{\Gamma}$, the language $\small\text{Datalog}$ with typed relation attributes. All the language features defined in this specification MUST BE supported by a conforming DATALOG-TEXT processor. These features are: <code>arithmetic_literals</code>, <code>constraints</code>, <code>disjunction</code>, <code>extended_numerics</code>, <code>functional_dependencies</code>, and <code>negation</code>.</p>
-<table><thead><tr><th>Identifier</th><th>Source</th><th>Date</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Identifier</th><th>Source</th><th>Date</th></tr></thead><tbody>
 <tr><td><code>arithmetic_literals</code></td><td>This specification</td><td>XX March 2022</td></tr>
 <tr><td><code>constraints</code></td><td>This specification</td><td>XX March 2022</td></tr>
 <tr><td><code>disjunction</code></td><td>This specification</td><td>XX March 2022</td></tr>
 <tr><td><code>extended_numerics</code></td><td>This specification</td><td>XX March 2022</td></tr>
 <tr><td><code>negation</code></td><td>This specification</td><td>XX March 2022</td></tr>
 </tbody></table>
+</div>
 <p>This specification DOES NOT cover the behavior of a DATALOG-TEXT evaluator and
 so support of these language features only ensures that a DATALOG-TEXT
 resource can be parsed and validated, not that it can be evaluated. In the
@@ -220,10 +221,11 @@ representations that are produced by applications that are not DATALOG-TEXT
 conformant. These applications may use an alternate syntax for grammar
 specified by DATALOG-TEXT, or they may extend the language with non-standard 
 features. </p>
-<table><thead><tr><th>Identifier</th><th>Source</th><th>Date</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Identifier</th><th>Source</th><th>Date</th></tr></thead><tbody>
 <tr><td><code>core</code> (default)</td><td>This specification</td><td>XX March 2022</td></tr>
 <tr><td><code>mitre</code></td><td>MITRE Datalog <a href="http://datalog.sourceforge.net/">implementation</a></td><td>01 June 2016 (v2.6)</td></tr>
 </tbody></table>
+</div>
 <h3 id="mitre-datalog"><a class="header" href="#mitre-datalog">MITRE Datalog</a></h3>
 <p>This dialect only allows ASCII, Prolog style, operators; <code>:-</code> for material
 implication, <code>,</code> for conjunction, and <code>!</code> for negation. The dialect does not
