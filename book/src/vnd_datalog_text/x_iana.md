@@ -7,10 +7,13 @@ This section has been submitted to the Internet Engineering Steering Group (IESG
 <dl>
     <dt>Type name:</dt>
     <dd><code>application</code></dd>
+    
     <dt>Subtype name:</dt>
     <dd><code>vnd.datalog</code></dd>
+    
     <dt>Required parameters:</dt>
-    <dd>None.</dd>
+    <dd>N/A</dd>
+    
     <dt>Optional parameters:</dt>
     <dd>
 
@@ -30,7 +33,7 @@ into a set, removing duplicates.
 
 **dialect**
 
-The "dialect" parameter identifies the tool which generated the document,
+The optional "dialect" parameter identifies the tool which generated the document,
 there are some existing tools with extensive usage that deviate from this core
 specification. Dialect identifiers conform to the same `id` production
 described for feature identifiers.
@@ -38,8 +41,10 @@ described for feature identifiers.
 If this parameter is specified more than once, the first value MUST be used
 and any subsequent value MUST be discarded.
     </dd>
+    
     <dt>Encoding considerations:</dt>
     <dd>The content encoding of a Datalog text document is always UTF-8.</dd>
+    
     <dt>Security considerations:</dt>
     <dd>
 This media type does include program code for a Datalog interpreter to
@@ -57,8 +62,9 @@ supported representations such as CSV. The ability to write to a local
 system may be intercepted by a parser to redirect to safe locations,
 and as such the allowed reference is always relative.
 
-This media type requires no privacy or integrity services.
+Privacy and integrity services are not required, or provided, by this specification.
     </dd>
+    
     <dt>Interoperability considerations:</dt>
     <dd>
 A number of vendors have extended Datalog with additional syntax, this has been
@@ -66,34 +72,49 @@ a general problem for some years. The introduction of a common standard, and
 support for the "dialect" parameter will help clients understand the potential
 parsing issues of a specific document.
     </dd>
-    <dt>Intended usage:</dt>
-    <dd>Common -- For the interchange of Datalog programs.</dd>
-    <dt>Applications which use this media:</dt>
-    <dd>Applications that need to upload, download, or transfer Datalog programs.</dd>
-    <dt>Fragment identifier considerations:</dt>
-    <dd>None.</dd>
-    <dt>Restrictions on usage:</dt>
-    <dd>None.</dd>
+    
     <dt>Published specification:</dt>
     <dd>
-    [https://datalog-specs.info/vnd_datalog_text/abstract.html](https://datalog-specs.info/vnd_datalog_text/abstract.html).
+    [https://datalog-specs.info/vnd_datalog_text/abstract.html](https://datalog-specs.info/vnd_datalog_text/abstract.html); Version: 1.0, 2 April 2022.
     </dd>
+    
+    <dt>Applications which use this media:</dt>
+    <dd>Applications that need to upload, download, or transfer Datalog
+    programs.</dd>
+    
+    <dt>Fragment identifier considerations:</dt>
+    <dd>None identified by this specification.</dd>
+
     <dt>Additional information:</dt>
     <dd>
         <dl>
+            <dt>Deprecated alias names for this type:</dt>
+            <dd>N/A</dd>
             <dt>Magic number(s):</dt>
-            <dd>None.</dd>
+            <dd>N/A</dd>
             <dt>File extension(s):</dt>
             <dd>dl</dd>
             <dt>Macintosh file type code:</dt>
             <dd>TEXT</dd>
         </dl>
     </dd>
-    <dt>General Comments:</dt>
-    <dd>None.</dd>
-    <dt>Provisional registration? (standards tree only):</dt>
+    
+    <dt>Person & email address to contact for further information:</dt>
+    <dd>Simon Johnston, < href="mailto:johnstonskj@gmail.com">johnstonskj@gmail.com</a></dd>
+    
+    <dt>Intended usage:</dt>
+    <dd>COMMON</dd>
+    
+    <dt>Restrictions on usage:</dt>
+    <dd>None identified by this specification.</dd>
+    
+    <dt>Author:</dt>
+    <dd>Simon Johnston, < href="mailto:johnstonskj@gmail.com">johnstonskj@gmail.com</a></dd>
+    
+    <dt>Change controller:</dt>
     <dd>N/A</dd>
-    <dt>Author/Change controller:</dt>
+
+    <dt>Provisional registration? (standards tree only):</dt>
     <dd>N/A</dd>
 </dl>
 
