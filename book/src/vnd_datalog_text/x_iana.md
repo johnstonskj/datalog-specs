@@ -1,14 +1,17 @@
 # Appendix: IANA Considerations
 
-This section has been submitted to the Internet Engineering Steering Group (IESG)[^1] for review, approval, and registration with IANA[^2].
+This section is a copy of the [media type
+registration](https://www.iana.org/assignments/media-types/application/vnd.datalog),
+submitted to the Internet Engineering Steering Group (IESG)[^1] and approved
+by IANA[^2] on July 20, 2022..
 
 ## application/vnd.datalog
 
 <dl>
-    <dt>Type name:</dt>
+    <dt>Media type name:</dt>
     <dd><code>application</code></dd>
     
-    <dt>Subtype name:</dt>
+    <dt>Media subtype name:</dt>
     <dd><code>vnd.datalog</code></dd>
     
     <dt>Required parameters:</dt>
@@ -16,8 +19,6 @@ This section has been submitted to the Internet Engineering Steering Group (IESG
     
     <dt>Optional parameters:</dt>
     <dd>
-
-**features**
 
 The optional "features" parameter allows the transport to identify language features
 used within the representation. The value of this parameter is a
@@ -30,8 +31,6 @@ The purpose of this parameter is to save a client from having to parse a
 document if the features identified in the parameter are unsupported by them.
 If this parameter is specified more than once its values MUST be aggregated
 into a set, removing duplicates.
-
-**dialect**
 
 The optional "dialect" parameter identifies the tool which generated the document,
 there are some existing tools with extensive usage that deviate from this core
@@ -96,6 +95,8 @@ parsing issues of a specific document.
             <dd>dl</dd>
             <dt>Macintosh file type code:</dt>
             <dd>TEXT</dd>
+            <dt>Object Identifiers:</dt>
+            <dd>N/A</dd>
         </dl>
     </dd>
     
@@ -112,9 +113,6 @@ parsing issues of a specific document.
     <dd>Simon Johnston, < href="mailto:johnstonskj@gmail.com">johnstonskj@gmail.com</a></dd>
     
     <dt>Change controller:</dt>
-    <dd>N/A</dd>
-
-    <dt>Provisional registration? (standards tree only):</dt>
     <dd>N/A</dd>
 </dl>
 

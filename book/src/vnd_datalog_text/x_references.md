@@ -15,10 +15,13 @@ Interchange Syntax_ 2nd Edition. December 2017. URL: [https://www.ecma-internati
 
 4. <span class="bibkey" id="HTML">HTML</span>A. van Kesteren, D. Denicola, I. Hickson, P. Jägenstedt, S. Pieters. _HTML Standard_. WHATWG. Living Standard. URL: [https://html.spec.whatwg.org/multipage/](https://html.spec.whatwg.org/multipage/)
 
-5. <span class="bibkey" id="IANA-TSV">IANA-TSV</span>P. Lindner. _Media Type Registration: text/tab-separated-values_. U of MN Internet Gopher Team. URL: [https://www.iana.org/assignments/media-types/text/tab-separated-values](https://www.iana.org/assignments/media-types/text/tab-separated-values) 
+5. <span class="bibkey" id="IANA-DATALOG">IANA-DATALOG</span>S. Johnston.
+   _Media Type Registration: application/vnd.datalog_. URL: [https://www.iana.org/assignments/media-types/application/vnd.datalog](https://www.iana.org/assignments/media-types/application/vnd.datalog) 
 
 5. <span class="bibkey" id="IANA-SQLITE3">IANA-SQLITE3</span>C. Ladisch.
    _Media Type Registration: application/vnd.sqlite3_. URL: [https://www.iana.org/assignments/media-types/application/vnd.sqlite3](https://www.iana.org/assignments/media-types/application/vnd.sqlite3) 
+
+5. <span class="bibkey" id="IANA-TSV">IANA-TSV</span>P. Lindner. _Media Type Registration: text/tab-separated-values_. U of MN Internet Gopher Team. URL: [https://www.iana.org/assignments/media-types/text/tab-separated-values](https://www.iana.org/assignments/media-types/text/tab-separated-values) 
 
 6. <span class="bibkey" id="IEEE754">IEEE754</span>_IEEE Standard for Binary Floating-Point Arithmetic_. 1985. IEEE. URL: [https://standards.ieee.org/ieee/754/993/](https://standards.ieee.org/ieee/754/993/).
 
