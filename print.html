@@ -2274,12 +2274,15 @@ variable (as shown above) or the label of the attribute if known (below).</p>
       …
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-iana-considerations"><a class="header" href="#appendix-iana-considerations">Appendix: IANA Considerations</a></h1>
-<p>This section has been submitted to the Internet Engineering Steering Group (IESG)<sup class="footnote-reference"><a href="#1">1</a></sup> for review, approval, and registration with IANA<sup class="footnote-reference"><a href="#2">2</a></sup>.</p>
+<p>This section is a copy of the <a href="https://www.iana.org/assignments/media-types/application/vnd.datalog">media type
+registration</a>,
+submitted to the Internet Engineering Steering Group (IESG)<sup class="footnote-reference"><a href="#1">1</a></sup> and approved
+by IANA<sup class="footnote-reference"><a href="#2">2</a></sup> on July 20, 2022..</p>
 <h2 id="applicationvnddatalog"><a class="header" href="#applicationvnddatalog">application/vnd.datalog</a></h2>
 <dl>
-    <dt>Type name:</dt>
+    <dt>Media type name:</dt>
     <dd><code>application</code></dd>
-<pre><code>&lt;dt&gt;Subtype name:&lt;/dt&gt;
+<pre><code>&lt;dt&gt;Media subtype name:&lt;/dt&gt;
 &lt;dd&gt;&lt;code&gt;vnd.datalog&lt;/code&gt;&lt;/dd&gt;
 
 &lt;dt&gt;Required parameters:&lt;/dt&gt;
@@ -2288,7 +2291,6 @@ variable (as shown above) or the label of the attribute if known (below).</p>
 &lt;dt&gt;Optional parameters:&lt;/dt&gt;
 &lt;dd&gt;
 </code></pre>
-<p><strong>features</strong></p>
 <p>The optional “features” parameter allows the transport to identify language features
 used within the representation. The value of this parameter is a
 comma-separated list of feature identifiers supported by the specification.
@@ -2299,7 +2301,6 @@ Feature identifiers conform to the following EBNF production.</p>
 document if the features identified in the parameter are unsupported by them.
 If this parameter is specified more than once its values MUST be aggregated
 into a set, removing duplicates.</p>
-<p><strong>dialect</strong></p>
 <p>The optional “dialect” parameter identifies the tool which generated the document,
 there are some existing tools with extensive usage that deviate from this core
 specification. Dialect identifiers conform to the same <code>id</code> production
@@ -2359,6 +2360,8 @@ programs.&lt;/dd&gt;
         &lt;dd&gt;dl&lt;/dd&gt;
         &lt;dt&gt;Macintosh file type code:&lt;/dt&gt;
         &lt;dd&gt;TEXT&lt;/dd&gt;
+        &lt;dt&gt;Object Identifiers:&lt;/dt&gt;
+        &lt;dd&gt;N/A&lt;/dd&gt;
     &lt;/dl&gt;
 &lt;/dd&gt;
 
@@ -2375,9 +2378,6 @@ programs.&lt;/dd&gt;
 &lt;dd&gt;Simon Johnston, &lt; href=&quot;mailto:johnstonskj@gmail.com&quot;&gt;johnstonskj@gmail.com&lt;/a&gt;&lt;/dd&gt;
 
 &lt;dt&gt;Change controller:&lt;/dt&gt;
-&lt;dd&gt;N/A&lt;/dd&gt;
-
-&lt;dt&gt;Provisional registration? (standards tree only):&lt;/dt&gt;
 &lt;dd&gt;N/A&lt;/dd&gt;
 </code></pre>
 </dl>
@@ -2412,11 +2412,15 @@ Interchange Syntax</em> 2nd Edition. December 2017. URL: <a href="https://www.ec
 <p><span class="bibkey" id="HTML">HTML</span>A. van Kesteren, D. Denicola, I. Hickson, P. Jägenstedt, S. Pieters. <em>HTML Standard</em>. WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a></p>
 </li>
 <li>
-<p><span class="bibkey" id="IANA-TSV">IANA-TSV</span>P. Lindner. <em>Media Type Registration: text/tab-separated-values</em>. U of MN Internet Gopher Team. URL: <a href="https://www.iana.org/assignments/media-types/text/tab-separated-values">https://www.iana.org/assignments/media-types/text/tab-separated-values</a> </p>
+<p><span class="bibkey" id="IANA-DATALOG">IANA-DATALOG</span>S. Johnston.
+<em>Media Type Registration: application/vnd.datalog</em>. URL: <a href="https://www.iana.org/assignments/media-types/application/vnd.datalog">https://www.iana.org/assignments/media-types/application/vnd.datalog</a> </p>
 </li>
 <li>
 <p><span class="bibkey" id="IANA-SQLITE3">IANA-SQLITE3</span>C. Ladisch.
 <em>Media Type Registration: application/vnd.sqlite3</em>. URL: <a href="https://www.iana.org/assignments/media-types/application/vnd.sqlite3">https://www.iana.org/assignments/media-types/application/vnd.sqlite3</a> </p>
+</li>
+<li>
+<p><span class="bibkey" id="IANA-TSV">IANA-TSV</span>P. Lindner. <em>Media Type Registration: text/tab-separated-values</em>. U of MN Internet Gopher Team. URL: <a href="https://www.iana.org/assignments/media-types/text/tab-separated-values">https://www.iana.org/assignments/media-types/text/tab-separated-values</a> </p>
 </li>
 <li>
 <p><span class="bibkey" id="IEEE754">IEEE754</span><em>IEEE Standard for Binary Floating-Point Arithmetic</em>. 1985. IEEE. URL: <a href="https://standards.ieee.org/ieee/754/993/">https://standards.ieee.org/ieee/754/993/</a>.</p>
@@ -2473,7 +2477,9 @@ Interchange Syntax</em> 2nd Edition. December 2017. URL: <a href="https://www.ec
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="datalog-text-representation--errata"><a class="header" href="#datalog-text-representation--errata">Datalog Text Representation – Errata</a></h1>
 <h2 id="version-2-april-2022"><a class="header" href="#version-2-april-2022">Version: 2 April 2022.</a></h2>
-<p>None.</p>
+<ol>
+<li>July 21, 2022. Added the updated IANA registration information.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="datalog-text-representation--translations"><a class="header" href="#datalog-text-representation--translations">Datalog Text Representation – Translations</a></h1>
 <h2 id="version-2-april-2022-1"><a class="header" href="#version-2-april-2022-1">Version: 2 April 2022.</a></h2>
 <p>None.</p>

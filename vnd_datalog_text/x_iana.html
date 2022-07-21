@@ -165,12 +165,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div id="content" class="content">
                     <main>
                         <h1 id="appendix-iana-considerations"><a class="header" href="#appendix-iana-considerations">Appendix: IANA Considerations</a></h1>
-<p>This section has been submitted to the Internet Engineering Steering Group (IESG)<sup class="footnote-reference"><a href="#1">1</a></sup> for review, approval, and registration with IANA<sup class="footnote-reference"><a href="#2">2</a></sup>.</p>
+<p>This section is a copy of the <a href="https://www.iana.org/assignments/media-types/application/vnd.datalog">media type
+registration</a>,
+submitted to the Internet Engineering Steering Group (IESG)<sup class="footnote-reference"><a href="#1">1</a></sup> and approved
+by IANA<sup class="footnote-reference"><a href="#2">2</a></sup> on July 20, 2022..</p>
 <h2 id="applicationvnddatalog"><a class="header" href="#applicationvnddatalog">application/vnd.datalog</a></h2>
 <dl>
-    <dt>Type name:</dt>
+    <dt>Media type name:</dt>
     <dd><code>application</code></dd>
-<pre><code>&lt;dt&gt;Subtype name:&lt;/dt&gt;
+<pre><code>&lt;dt&gt;Media subtype name:&lt;/dt&gt;
 &lt;dd&gt;&lt;code&gt;vnd.datalog&lt;/code&gt;&lt;/dd&gt;
 
 &lt;dt&gt;Required parameters:&lt;/dt&gt;
@@ -179,7 +182,6 @@ document.addEventListener("DOMContentLoaded", function() {
 &lt;dt&gt;Optional parameters:&lt;/dt&gt;
 &lt;dd&gt;
 </code></pre>
-<p><strong>features</strong></p>
 <p>The optional “features” parameter allows the transport to identify language features
 used within the representation. The value of this parameter is a
 comma-separated list of feature identifiers supported by the specification.
@@ -190,7 +192,6 @@ Feature identifiers conform to the following EBNF production.</p>
 document if the features identified in the parameter are unsupported by them.
 If this parameter is specified more than once its values MUST be aggregated
 into a set, removing duplicates.</p>
-<p><strong>dialect</strong></p>
 <p>The optional “dialect” parameter identifies the tool which generated the document,
 there are some existing tools with extensive usage that deviate from this core
 specification. Dialect identifiers conform to the same <code>id</code> production
@@ -250,6 +251,8 @@ programs.&lt;/dd&gt;
         &lt;dd&gt;dl&lt;/dd&gt;
         &lt;dt&gt;Macintosh file type code:&lt;/dt&gt;
         &lt;dd&gt;TEXT&lt;/dd&gt;
+        &lt;dt&gt;Object Identifiers:&lt;/dt&gt;
+        &lt;dd&gt;N/A&lt;/dd&gt;
     &lt;/dl&gt;
 &lt;/dd&gt;
 
@@ -266,9 +269,6 @@ programs.&lt;/dd&gt;
 &lt;dd&gt;Simon Johnston, &lt; href=&quot;mailto:johnstonskj@gmail.com&quot;&gt;johnstonskj@gmail.com&lt;/a&gt;&lt;/dd&gt;
 
 &lt;dt&gt;Change controller:&lt;/dt&gt;
-&lt;dd&gt;N/A&lt;/dd&gt;
-
-&lt;dt&gt;Provisional registration? (standards tree only):&lt;/dt&gt;
 &lt;dd&gt;N/A&lt;/dd&gt;
 </code></pre>
 </dl>
