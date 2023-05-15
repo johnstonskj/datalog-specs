@@ -21,7 +21,7 @@ jobs:
 
       - name: Link Checker
         id: lychee
-        uses: lycheeverse/lychee-action@v1.3.2
+        uses: lycheeverse/lychee-action@v1.8.0
         with:
           args: --verbose --no-progress --exclude-link-local --exclude-loopback --exclude-mail ./README.md ./book/src
           fail: true
